@@ -247,20 +247,22 @@ async def get_therapists():
         {
             "id": "manvi",
             "name": "Manvi Giri",
-            "title": "Clinical Psychologist",
+            "title": "Counseling Psychologist | Mental Health Advocate",
             "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/k1imk6ox_IMG_3581.JPG.jpeg",
             "experience": "2+ years",
-            "specializations": ["Anxiety & Stress", "Depression", "Personal Growth"],
-            "bio": "Manvi brings warmth and understanding to every session. Her client-centered approach helps individuals discover their inner strength and navigate life's challenges with resilience."
+            "specializations": ["Emotional Regulation", "Self-Esteem", "Life Skills Training", "Personal Growth"],
+            "bio": "Manvi Giri is a dedicated and empathetic Counseling Psychologist with over two years of experience in supporting the emotional and psychological well-being of individuals. Her therapeutic approach is client-centered and strengths-based, focusing on creating a safe, supportive, and non-judgmental space for individuals to explore their thoughts and emotions.",
+            "full_bio": "Manvi Giri is a dedicated and empathetic Counseling Psychologist with over two years of experience in supporting the emotional and psychological well-being of individuals across diverse settings. With a Master's degree in Counseling Psychology and extensive experience in private practices, NGOs, and schools, she works closely with adults and adolescents navigating a range of emotional and developmental challenges.\n\nHer therapeutic approach is client-centered and strengths-based, focusing on creating a safe, supportive, and non-judgmental space for individuals to explore their thoughts and emotions. She integrates practical techniques and evidence-based strategies to foster self-awareness, emotional regulation, and resilience.\n\nHer work includes addressing concerns such as emotional regulation, self-esteem, peer relationships, and stress management. As a Life Skills Trainer, she designs and facilitates engaging sessions that focus on building self-belief, communication skills, problem-solving abilities, and emotional strength.\n\nShe is also experienced in psychoeducation and workshop facilitation, conducting interactive sessions for adults on themes such as self-confidence, emotional well-being, boundaries, and personal growth.\n\nAs the co-founder of Emavaran, Manvi is committed to making mental health support accessible, relatable, and impactful. Her work is guided by empathy, authenticity, and a deep commitment to fostering growth, resilience, and meaningful change."
         },
         {
             "id": "diksha",
             "name": "Diksha Mago",
-            "title": "Counseling Psychologist",
+            "title": "Counseling Psychologist | Expressive Art Therapist | Mental Health Advocate",
             "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg",
             "experience": "2+ years",
-            "specializations": ["Relationship Counseling", "Emotional Wellbeing", "Self-Esteem"],
-            "bio": "Diksha creates a safe, non-judgmental space where clients feel heard and valued. She specializes in helping people build meaningful relationships and emotional resilience."
+            "specializations": ["Expressive Art Therapy", "CBT", "Gestalt Therapy", "Emotion-Focused Therapy"],
+            "bio": "Diksha Mago is a compassionate Counseling Psychologist with a strong foundation in evidence-based therapeutic practices. Her therapeutic approach is integrative and client-centered, drawing from CBT, Gestalt Therapy, Emotion-Focused Therapy, and Expressive Art Therapy.",
+            "full_bio": "Diksha Mago is a compassionate and dedicated Counseling Psychologist with a strong foundation in evidence-based therapeutic practices, around 2 years of experience and a deep commitment to emotional well-being. With a Master's degree in Counselling Psychology and PG Diploma in Psychological Counseling along with extensive experience across clinical, rehabilitation, and community settings, she supports individuals navigating a wide range of emotional and psychological challenges.\n\nHer therapeutic approach is integrative and client-centered, drawing from Cognitive Behavioral Therapy (CBT), Gestalt Therapy, Emotion-Focused Therapy, and Expressive Art Therapy. She creates a safe, non-judgmental space where individuals can explore their thoughts and emotions, build self-awareness, and develop healthier coping mechanisms.\n\nDiksha has worked with diverse populations, including children with special needs, individuals in rehabilitation settings, and adolescents in shelter homes—providing individual, group, workshops and family counseling. She is also experienced in Expressive Art Therapy, using creative techniques like drawing, painting, music, movement, storytelling and reflective exercises to facilitate emotional expression and healing.\n\nAs a workshop facilitator, she conducts interactive and experiential sessions on emotional strength, self-expression, stress management, and mental health awareness.\n\nBeing a co-founder of Emavaran, she contributes to promoting accessible and impactful mental health support. Alongside her clinical practice, Diksha is also an experienced content writer, creating relatable mental health content to spread awareness and reduce stigma.\n\nHer work is rooted in empathy, creativity, and a genuine commitment to helping individuals move toward healing, growth, and self-discovery."
         }
     ]
 
@@ -271,29 +273,43 @@ async def get_services():
         {
             "id": "individual",
             "title": "Individual Counseling",
-            "description": "One-on-one sessions tailored to your unique needs. Explore personal challenges, develop coping strategies, and work towards your goals in a safe, confidential space.",
+            "description": "For when your thoughts feel overwhelming, your emotions feel intense, or you feel disconnected from yourself. A safe, confidential space where you can slow down, process your experiences, and feel truly heard—without judgment. Together, we explore your thoughts, emotions, and patterns, helping you build clarity, resilience, and healthier ways of coping.",
             "duration": "50-60 minutes",
             "icon": "user"
         },
         {
-            "id": "anxiety",
-            "title": "Anxiety & Stress Management",
-            "description": "Learn effective techniques to manage anxiety and stress. Our therapists will help you understand triggers, develop relaxation skills, and build resilience.",
+            "id": "online",
+            "title": "Online Counseling",
+            "description": "For when you seek emotional support with comfort, privacy, and flexibility. Access therapy from your own safe space, at your own pace. These sessions are designed to help you stay connected to your mental well-being while navigating life's challenges—no matter where you are.",
             "duration": "50-60 minutes",
-            "icon": "heart"
+            "icon": "monitor"
         },
         {
-            "id": "relationship",
-            "title": "Relationship Counseling",
-            "description": "Strengthen your connections with others. Whether it's family, romantic relationships, or friendships, we help you communicate better and resolve conflicts.",
-            "duration": "50-60 minutes",
+            "id": "workshops",
+            "title": "Workshops",
+            "description": "Spaces for self-awareness, emotional growth, and meaningful connection. Designed for adults and young girls, these workshops go beyond information—they offer experiential learning around themes like self-worth, emotional regulation, relationships, and boundaries. A space to reflect, share, and grow in ways that feel authentic and lasting.",
+            "duration": "Varies",
             "icon": "users"
         },
         {
-            "id": "emotional",
-            "title": "Emotional Wellbeing Support",
-            "description": "Focus on overall emotional health and personal growth. Build self-awareness, improve self-esteem, and develop a more positive outlook on life.",
+            "id": "art-therapy",
+            "title": "Expressive Art Therapy",
+            "description": "For when emotions feel difficult to put into words. Using creative processes like art, movement, and guided expression, this approach helps you explore and process emotions on a deeper level. It allows for emotional release, self-discovery, and healing in a way that feels intuitive, safe, and non-verbal.",
             "duration": "50-60 minutes",
+            "icon": "palette"
+        },
+        {
+            "id": "group",
+            "title": "Group Counseling",
+            "description": "For when you feel alone in your experiences. A supportive therapeutic space where individuals come together to share, listen, and connect. Group counseling fosters a sense of belonging, reduces isolation, and allows for shared healing through empathy, perspective, and mutual support.",
+            "duration": "60-90 minutes",
+            "icon": "heart"
+        },
+        {
+            "id": "psychoeducation",
+            "title": "Psychoeducation Sessions",
+            "description": "For when you want to better understand your mental and emotional world. These sessions focus on building awareness around thoughts, emotions, and behavioral patterns. Through simple, practical insights, you learn skills to manage stress, regulate emotions, improve relationships, and navigate everyday life with greater clarity.",
+            "duration": "45-60 minutes",
             "icon": "sparkles"
         }
     ]

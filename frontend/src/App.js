@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Menu, X, Phone, Mail, MapPin, Clock, ChevronRight, 
   User, Heart, Users, Sparkles, Star, ArrowRight, Calendar as CalendarIcon,
-  Facebook, Instagram, Linkedin
+  Facebook, Instagram, Linkedin, Monitor, Palette
 } from 'lucide-react';
 import { Button } from './components/ui/Button';
 import { Input } from './components/ui/Input';
@@ -214,7 +214,7 @@ function HomePage() {
   }, [testimonials.length]);
 
   const getServiceIcon = (icon) => {
-    const icons = { user: User, heart: Heart, users: Users, sparkles: Sparkles };
+    const icons = { user: User, heart: Heart, users: Users, sparkles: Sparkles, monitor: Monitor, palette: Palette };
     const Icon = icons[icon] || Heart;
     return <Icon className="h-6 w-6" />;
   };
@@ -347,8 +347,8 @@ function HomePage() {
             className="grid grid-cols-1 md:grid-cols-2 gap-12"
           >
             {[
-              { name: 'Manvi Giri', title: 'Clinical Psychologist', photo: MANVI_PHOTO, specializations: ['Anxiety & Stress', 'Depression', 'Personal Growth'], bio: 'Manvi brings warmth and understanding to every session. Her client-centered approach helps individuals discover their inner strength.' },
-              { name: 'Diksha Mago', title: 'Counseling Psychologist', photo: DIKSHA_PHOTO, specializations: ['Relationship Counseling', 'Emotional Wellbeing', 'Self-Esteem'], bio: 'Diksha creates a safe, non-judgmental space where clients feel heard and valued. She specializes in helping people build meaningful relationships.' }
+              { name: 'Manvi Giri', title: 'Counseling Psychologist | Mental Health Advocate', photo: MANVI_PHOTO, specializations: ['Emotional Regulation', 'Self-Esteem', 'Life Skills Training', 'Personal Growth'], bio: 'Manvi is a dedicated Counseling Psychologist with a client-centered approach, focusing on creating a safe space for individuals to explore their thoughts and build resilience.' },
+              { name: 'Diksha Mago', title: 'Counseling Psychologist | Expressive Art Therapist', photo: DIKSHA_PHOTO, specializations: ['Expressive Art Therapy', 'CBT', 'Gestalt Therapy', 'Emotion-Focused Therapy'], bio: 'Diksha is a compassionate therapist with an integrative approach, using creative techniques to facilitate emotional expression and healing.' }
             ].map((therapist, idx) => (
               <motion.div
                 key={therapist.name}
@@ -611,7 +611,7 @@ function AboutPage() {
             variants={fadeInUp}
             className="mb-16"
           >
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg grid grid-cols-1 md:grid-cols-3 gap-8 items-center" data-testid="founder-manvi">
+            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-testid="founder-manvi">
               <div className="md:col-span-1">
                 <img 
                   src={MANVI_PHOTO} 
@@ -621,15 +621,28 @@ function AboutPage() {
               </div>
               <div className="md:col-span-2">
                 <h3 className="text-3xl font-serif text-text-primary mb-2">Manvi Giri</h3>
-                <p className="text-brand-primary font-medium mb-4">Clinical Psychologist | Co-Founder</p>
-                <p className="text-text-secondary leading-relaxed mb-6">
-                  Manvi is a dedicated clinical psychologist with over 2 years of experience helping individuals navigate anxiety, depression, and personal growth challenges. Her warm, empathetic approach creates a safe space where clients feel truly heard and understood.
-                </p>
-                <p className="text-text-secondary leading-relaxed mb-6">
-                  She believes in the power of self-discovery and works collaboratively with clients to uncover their inner strength. Manvi's therapeutic style is integrative, drawing from various evidence-based approaches tailored to each individual's needs.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {['Anxiety & Stress', 'Depression', 'Personal Growth', 'Self-Discovery'].map(spec => (
+                <p className="text-brand-primary font-medium mb-6">Counseling Psychologist | Mental Health Advocate | Co-Founder</p>
+                
+                <div className="space-y-4 text-text-secondary leading-relaxed">
+                  <p>
+                    Manvi Giri is a dedicated and empathetic Counseling Psychologist with over two years of experience in supporting the emotional and psychological well-being of individuals across diverse settings. With a Master's degree in Counseling Psychology and extensive experience in private practices, NGOs, and schools, she works closely with adults and adolescents navigating a range of emotional and developmental challenges.
+                  </p>
+                  <p>
+                    Her therapeutic approach is client-centered and strengths-based, focusing on creating a safe, supportive, and non-judgmental space for individuals to explore their thoughts and emotions. She integrates practical techniques and evidence-based strategies to foster self-awareness, emotional regulation, and resilience.
+                  </p>
+                  <p>
+                    Her work includes addressing concerns such as emotional regulation, self-esteem, peer relationships, and stress management. As a Life Skills Trainer, she designs and facilitates engaging sessions that focus on building self-belief, communication skills, problem-solving abilities, and emotional strength.
+                  </p>
+                  <p>
+                    She is also experienced in psychoeducation and workshop facilitation, conducting interactive sessions for adults on themes such as self-confidence, emotional well-being, boundaries, and personal growth. Her approach emphasizes creating a safe and empowering space where individuals can express themselves freely.
+                  </p>
+                  <p className="italic text-text-primary">
+                    "As the co-founder of Emavaran, Manvi is committed to making mental health support accessible, relatable, and impactful. Her work is guided by empathy, authenticity, and a deep commitment to fostering growth, resilience, and meaningful change."
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {['Emotional Regulation', 'Self-Esteem', 'Life Skills Training', 'Personal Growth', 'Stress Management'].map(spec => (
                     <span key={spec} className="px-4 py-2 bg-background-secondary rounded-full text-sm text-text-secondary">
                       {spec}
                     </span>
@@ -646,7 +659,7 @@ function AboutPage() {
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg grid grid-cols-1 md:grid-cols-3 gap-8 items-center" data-testid="founder-diksha">
+            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-testid="founder-diksha">
               <div className="md:col-span-1 md:order-2">
                 <img 
                   src={DIKSHA_PHOTO} 
@@ -656,15 +669,28 @@ function AboutPage() {
               </div>
               <div className="md:col-span-2 md:order-1">
                 <h3 className="text-3xl font-serif text-text-primary mb-2">Diksha Mago</h3>
-                <p className="text-brand-primary font-medium mb-4">Counseling Psychologist | Co-Founder</p>
-                <p className="text-text-secondary leading-relaxed mb-6">
-                  Diksha is a compassionate counseling psychologist specializing in relationships, emotional wellbeing, and self-esteem. With over 2 years of experience, she helps clients build healthier connections with themselves and others.
-                </p>
-                <p className="text-text-secondary leading-relaxed mb-6">
-                  Her non-judgmental approach allows clients to explore their feelings openly. Diksha believes that understanding our emotions is the first step toward healing, and she gently guides clients through this process of self-discovery.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {['Relationship Counseling', 'Emotional Wellbeing', 'Self-Esteem', 'Communication'].map(spec => (
+                <p className="text-brand-primary font-medium mb-6">Counseling Psychologist | Expressive Art Therapist | Mental Health Advocate | Co-Founder</p>
+                
+                <div className="space-y-4 text-text-secondary leading-relaxed">
+                  <p>
+                    Diksha Mago is a compassionate and dedicated Counseling Psychologist with a strong foundation in evidence-based therapeutic practices, around 2 years of experience and a deep commitment to emotional well-being. With a Master's degree in Counselling Psychology and PG Diploma in Psychological Counseling along with extensive experience across clinical, rehabilitation, and community settings, she supports individuals navigating a wide range of emotional and psychological challenges.
+                  </p>
+                  <p>
+                    Her therapeutic approach is integrative and client-centered, drawing from Cognitive Behavioral Therapy (CBT), Gestalt Therapy, Emotion-Focused Therapy, and Expressive Art Therapy. She creates a safe, non-judgmental space where individuals can explore their thoughts and emotions, build self-awareness, and develop healthier coping mechanisms.
+                  </p>
+                  <p>
+                    Diksha has worked with diverse populations, including children with special needs, individuals in rehabilitation settings, and adolescents in shelter homes—providing individual, group, workshops and family counseling. She is also experienced in Expressive Art Therapy, using creative techniques like drawing, painting, music, movement, storytelling and reflective exercises to facilitate emotional expression and healing.
+                  </p>
+                  <p>
+                    As a workshop facilitator, she conducts interactive and experiential sessions on emotional strength, self-expression, stress management, and mental health awareness, helping participants engage with their inner experiences in meaningful and practical ways.
+                  </p>
+                  <p className="italic text-text-primary">
+                    "Being a co-founder of Emavaran, she contributes to promoting accessible and impactful mental health support. Her work is rooted in empathy, creativity, and a genuine commitment to helping individuals move toward healing, growth, and self-discovery."
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {['Expressive Art Therapy', 'CBT', 'Gestalt Therapy', 'Emotion-Focused Therapy', 'Workshop Facilitation'].map(spec => (
                     <span key={spec} className="px-4 py-2 bg-background-secondary rounded-full text-sm text-text-secondary">
                       {spec}
                     </span>
@@ -735,7 +761,7 @@ function ServicesPage() {
   }, []);
 
   const getServiceIcon = (icon) => {
-    const icons = { user: User, heart: Heart, users: Users, sparkles: Sparkles };
+    const icons = { user: User, heart: Heart, users: Users, sparkles: Sparkles, monitor: Monitor, palette: Palette };
     const Icon = icons[icon] || Heart;
     return <Icon className="h-8 w-8" />;
   };
@@ -768,16 +794,17 @@ function ServicesPage() {
       <section className="py-20 md:py-32 px-6 md:px-12" data-testid="services-list">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {services.map((service, idx) => (
               <motion.div
                 key={service.id}
-                variants={fadeInUp}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
                 className="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-border hover:shadow-xl transition-shadow"
                 data-testid={`service-detail-${service.id}`}
               >
