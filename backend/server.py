@@ -1,12 +1,16 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, EmailStr
 from typing import Optional, List
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
+from bson import ObjectId
 import os
-from dotenv import load_dotenv
+import bcrypt
+import jwt
+import secrets
 
+from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI(title="Emavaran API", version="1.0.0")
@@ -21,10 +25,99 @@ app.add_middleware(
 
 MONGO_URL = os.environ.get("MONGO_URL")
 DB_NAME = os.environ.get("DB_NAME")
+JWT_SECRET = os.environ.get("JWT_SECRET")
+JWT_ALGORITHM = "HS256"
+
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
 
+# Password hashing
+def hash_password(password: str) -> str:
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode("utf-8"), salt)
+    return hashed.decode("utf-8")
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return bcrypt.checkpw(plain_password.encode("utf-8"), hashed_password.encode("utf-8"))
+
+# JWT Token Management
+def create_access_token(user_id: str, email: str) -> str:
+    payload = {
+        "sub": user_id,
+        "email": email,
+        "exp": datetime.now(timezone.utc) + timedelta(hours=24),
+        "type": "access"
+    }
+    return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+def create_refresh_token(user_id: str) -> str:
+    payload = {
+        "sub": user_id,
+        "exp": datetime.now(timezone.utc) + timedelta(days=7),
+        "type": "refresh"
+    }
+    return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+# Auth dependency
+async def get_current_user(request: Request) -> dict:
+    token = request.cookies.get("access_token")
+    if not token:
+        auth_header = request.headers.get("Authorization", "")
+        if auth_header.startswith("Bearer "):
+            token = auth_header[7:]
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        if payload.get("type") != "access":
+            raise HTTPException(status_code=401, detail="Invalid token type")
+        user = await db.admins.find_one({"_id": ObjectId(payload["sub"])})
+        if not user:
+            raise HTTPException(status_code=401, detail="User not found")
+        user["id"] = str(user["_id"])
+        del user["_id"]
+        user.pop("password_hash", None)
+        return user
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+# Seed admin users on startup
+@app.on_event("startup")
+async def seed_admins():
+    admins = [
+        {"email": os.environ.get("ADMIN_EMAIL_1", "manvi@emavaran.com"), "password": os.environ.get("ADMIN_PASSWORD_1", "Manvi@123"), "name": "Manvi Giri", "role": "therapist"},
+        {"email": os.environ.get("ADMIN_EMAIL_2", "diksha@emavaran.com"), "password": os.environ.get("ADMIN_PASSWORD_2", "Diksha@123"), "name": "Diksha Mago", "role": "therapist"}
+    ]
+    
+    for admin in admins:
+        existing = await db.admins.find_one({"email": admin["email"]})
+        if existing is None:
+            hashed = hash_password(admin["password"])
+            await db.admins.insert_one({
+                "email": admin["email"],
+                "password_hash": hashed,
+                "name": admin["name"],
+                "role": admin["role"],
+                "created_at": datetime.now(timezone.utc).isoformat()
+            })
+        elif not verify_password(admin["password"], existing["password_hash"]):
+            await db.admins.update_one(
+                {"email": admin["email"]},
+                {"$set": {"password_hash": hash_password(admin["password"])}}
+            )
+    
+    # Create indexes
+    await db.admins.create_index("email", unique=True)
+    await db.bookings.create_index("date")
+    await db.bookings.create_index("therapist")
+
 # Pydantic Models
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
 class BookingRequest(BaseModel):
     therapist: str
     date: str
@@ -33,6 +126,7 @@ class BookingRequest(BaseModel):
     email: EmailStr
     phone: str
     message: Optional[str] = ""
+    service: Optional[str] = ""
 
 class BookingResponse(BaseModel):
     id: str
@@ -45,6 +139,11 @@ class BookingResponse(BaseModel):
     message: str
     status: str
     created_at: str
+
+class BookingUpdateRequest(BaseModel):
+    status: Optional[str] = None
+    notes: Optional[str] = None
+    payment_status: Optional[str] = None
 
 class ContactRequest(BaseModel):
     name: str
@@ -76,7 +175,147 @@ class BlogPost(BaseModel):
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
 
-# Booking Routes
+# Auth Routes
+@app.post("/api/auth/login")
+async def login(request: LoginRequest, response: Response):
+    email = request.email.lower()
+    user = await db.admins.find_one({"email": email})
+    
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    if not verify_password(request.password, user["password_hash"]):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    user_id = str(user["_id"])
+    access_token = create_access_token(user_id, email)
+    refresh_token = create_refresh_token(user_id)
+    
+    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=False, samesite="lax", max_age=86400, path="/")
+    response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=False, samesite="lax", max_age=604800, path="/")
+    
+    return {
+        "id": user_id,
+        "email": user["email"],
+        "name": user["name"],
+        "role": user["role"],
+        "token": access_token
+    }
+
+@app.post("/api/auth/logout")
+async def logout(response: Response):
+    response.delete_cookie("access_token")
+    response.delete_cookie("refresh_token")
+    return {"message": "Logged out successfully"}
+
+@app.get("/api/auth/me")
+async def get_me(current_user: dict = Depends(get_current_user)):
+    return current_user
+
+# Admin Routes - Bookings Management
+@app.get("/api/admin/bookings")
+async def get_all_bookings(
+    current_user: dict = Depends(get_current_user),
+    status: Optional[str] = None,
+    therapist: Optional[str] = None,
+    date: Optional[str] = None
+):
+    query = {}
+    if status:
+        query["status"] = status
+    if therapist:
+        query["therapist"] = therapist
+    if date:
+        query["date"] = date
+    
+    bookings = await db.bookings.find(query).sort("created_at", -1).to_list(500)
+    
+    result = []
+    for booking in bookings:
+        booking["id"] = str(booking["_id"])
+        del booking["_id"]
+        result.append(booking)
+    
+    return result
+
+@app.get("/api/admin/bookings/{booking_id}")
+async def get_booking(booking_id: str, current_user: dict = Depends(get_current_user)):
+    booking = await db.bookings.find_one({"_id": ObjectId(booking_id)})
+    if not booking:
+        raise HTTPException(status_code=404, detail="Booking not found")
+    booking["id"] = str(booking["_id"])
+    del booking["_id"]
+    return booking
+
+@app.patch("/api/admin/bookings/{booking_id}")
+async def update_booking(
+    booking_id: str,
+    update: BookingUpdateRequest,
+    current_user: dict = Depends(get_current_user)
+):
+    update_data = {k: v for k, v in update.model_dump().items() if v is not None}
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No update data provided")
+    
+    update_data["updated_at"] = datetime.now(timezone.utc).isoformat()
+    update_data["updated_by"] = current_user["name"]
+    
+    result = await db.bookings.update_one(
+        {"_id": ObjectId(booking_id)},
+        {"$set": update_data}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Booking not found")
+    
+    updated = await db.bookings.find_one({"_id": ObjectId(booking_id)})
+    updated["id"] = str(updated["_id"])
+    del updated["_id"]
+    return updated
+
+@app.delete("/api/admin/bookings/{booking_id}")
+async def delete_booking(booking_id: str, current_user: dict = Depends(get_current_user)):
+    result = await db.bookings.delete_one({"_id": ObjectId(booking_id)})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Booking not found")
+    return {"message": "Booking deleted successfully"}
+
+# Admin Stats
+@app.get("/api/admin/stats")
+async def get_stats(current_user: dict = Depends(get_current_user)):
+    total_bookings = await db.bookings.count_documents({})
+    pending_bookings = await db.bookings.count_documents({"status": "pending"})
+    confirmed_bookings = await db.bookings.count_documents({"status": "confirmed"})
+    completed_bookings = await db.bookings.count_documents({"status": "completed"})
+    cancelled_bookings = await db.bookings.count_documents({"status": "cancelled"})
+    total_contacts = await db.contacts.count_documents({})
+    
+    # Get today's bookings
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    today_bookings = await db.bookings.count_documents({"date": today})
+    
+    return {
+        "total_bookings": total_bookings,
+        "pending_bookings": pending_bookings,
+        "confirmed_bookings": confirmed_bookings,
+        "completed_bookings": completed_bookings,
+        "cancelled_bookings": cancelled_bookings,
+        "today_bookings": today_bookings,
+        "total_contacts": total_contacts
+    }
+
+# Admin Contact Management
+@app.get("/api/admin/contacts")
+async def get_all_contacts(current_user: dict = Depends(get_current_user)):
+    contacts = await db.contacts.find().sort("created_at", -1).to_list(500)
+    result = []
+    for contact in contacts:
+        contact["id"] = str(contact["_id"])
+        del contact["_id"]
+        result.append(contact)
+    return result
+
+# Booking Routes (Public)
 @app.post("/api/bookings", response_model=BookingResponse)
 async def create_booking(booking: BookingRequest):
     booking_dict = booking.model_dump()
@@ -248,7 +487,7 @@ async def get_therapists():
             "id": "manvi",
             "name": "Manvi Giri",
             "title": "Counseling Psychologist | Mental Health Advocate",
-            "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/k1imk6ox_IMG_3581.JPG.jpeg",
+            "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg",
             "experience": "2+ years",
             "specializations": ["Emotional Regulation", "Self-Esteem", "Life Skills Training", "Personal Growth"],
             "bio": "Manvi Giri is a dedicated and empathetic Counseling Psychologist with over two years of experience in supporting the emotional and psychological well-being of individuals. Her therapeutic approach is client-centered and strengths-based, focusing on creating a safe, supportive, and non-judgmental space for individuals to explore their thoughts and emotions.",
@@ -258,7 +497,7 @@ async def get_therapists():
             "id": "diksha",
             "name": "Diksha Mago",
             "title": "Counseling Psychologist | Expressive Art Therapist | Mental Health Advocate",
-            "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg",
+            "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/k1imk6ox_IMG_3581.JPG.jpeg",
             "experience": "2+ years",
             "specializations": ["Expressive Art Therapy", "CBT", "Gestalt Therapy", "Emotion-Focused Therapy"],
             "bio": "Diksha Mago is a compassionate Counseling Psychologist with a strong foundation in evidence-based therapeutic practices. Her therapeutic approach is integrative and client-centered, drawing from CBT, Gestalt Therapy, Emotion-Focused Therapy, and Expressive Art Therapy.",
@@ -271,46 +510,67 @@ async def get_therapists():
 async def get_services():
     return [
         {
+            "id": "student",
+            "title": "Student Therapy",
+            "description": "Specially designed for students navigating academic pressure, career confusion, peer relationships, and personal growth. A supportive space to address the unique challenges of student life while building emotional resilience and coping skills.",
+            "duration": "50-60 minutes",
+            "icon": "graduation",
+            "price": 799,
+            "price_display": "₹799"
+        },
+        {
             "id": "individual",
             "title": "Individual Counseling",
-            "description": "For when your thoughts feel overwhelming, your emotions feel intense, or you feel disconnected from yourself. A safe, confidential space where you can slow down, process your experiences, and feel truly heard—without judgment. Together, we explore your thoughts, emotions, and patterns, helping you build clarity, resilience, and healthier ways of coping.",
+            "description": "For when your thoughts feel overwhelming, your emotions feel intense, or you feel disconnected from yourself. A safe, confidential space where you can slow down, process your experiences, and feel truly heard—without judgment.",
             "duration": "50-60 minutes",
-            "icon": "user"
+            "icon": "user",
+            "price": 999,
+            "price_display": "₹999"
         },
         {
             "id": "online",
             "title": "Online Counseling",
-            "description": "For when you seek emotional support with comfort, privacy, and flexibility. Access therapy from your own safe space, at your own pace. These sessions are designed to help you stay connected to your mental well-being while navigating life's challenges—no matter where you are.",
+            "description": "For when you seek emotional support with comfort, privacy, and flexibility. Access therapy from your own safe space, at your own pace. These sessions are designed to help you stay connected to your mental well-being while navigating life's challenges.",
             "duration": "50-60 minutes",
-            "icon": "monitor"
+            "icon": "monitor",
+            "price": 999,
+            "price_display": "₹999"
         },
         {
             "id": "workshops",
             "title": "Workshops",
-            "description": "Spaces for self-awareness, emotional growth, and meaningful connection. Designed for adults and young girls, these workshops go beyond information—they offer experiential learning around themes like self-worth, emotional regulation, relationships, and boundaries. A space to reflect, share, and grow in ways that feel authentic and lasting.",
+            "description": "Spaces for self-awareness, emotional growth, and meaningful connection. Designed for adults and young girls, these workshops offer experiential learning around themes like self-worth, emotional regulation, relationships, and boundaries.",
             "duration": "Varies",
-            "icon": "users"
+            "icon": "users",
+            "price": 999,
+            "price_display": "₹999"
         },
         {
             "id": "art-therapy",
             "title": "Expressive Art Therapy",
-            "description": "For when emotions feel difficult to put into words. Using creative processes like art, movement, and guided expression, this approach helps you explore and process emotions on a deeper level. It allows for emotional release, self-discovery, and healing in a way that feels intuitive, safe, and non-verbal.",
+            "description": "For when emotions feel difficult to put into words. Using creative processes like art, movement, and guided expression, this approach helps you explore and process emotions on a deeper level.",
             "duration": "50-60 minutes",
-            "icon": "palette"
+            "icon": "palette",
+            "price": 999,
+            "price_display": "₹999"
         },
         {
             "id": "group",
             "title": "Group Counseling",
-            "description": "For when you feel alone in your experiences. A supportive therapeutic space where individuals come together to share, listen, and connect. Group counseling fosters a sense of belonging, reduces isolation, and allows for shared healing through empathy, perspective, and mutual support.",
+            "description": "For when you feel alone in your experiences. A supportive therapeutic space where individuals come together to share, listen, and connect. Group counseling fosters a sense of belonging and shared healing.",
             "duration": "60-90 minutes",
-            "icon": "heart"
+            "icon": "heart",
+            "price": 999,
+            "price_display": "₹999"
         },
         {
             "id": "psychoeducation",
             "title": "Psychoeducation Sessions",
-            "description": "For when you want to better understand your mental and emotional world. These sessions focus on building awareness around thoughts, emotions, and behavioral patterns. Through simple, practical insights, you learn skills to manage stress, regulate emotions, improve relationships, and navigate everyday life with greater clarity.",
+            "description": "For when you want to better understand your mental and emotional world. These sessions focus on building awareness around thoughts, emotions, and behavioral patterns with practical insights.",
             "duration": "45-60 minutes",
-            "icon": "sparkles"
+            "icon": "sparkles",
+            "price": 999,
+            "price_display": "₹999"
         }
     ]
 

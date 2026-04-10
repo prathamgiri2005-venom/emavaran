@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Menu, X, Phone, Mail, MapPin, Clock, ChevronRight, 
   User, Heart, Users, Sparkles, Star, ArrowRight, Calendar as CalendarIcon,
-  Facebook, Instagram, Linkedin, Monitor, Palette
+  Facebook, Instagram, Linkedin, Monitor, Palette, GraduationCap
 } from 'lucide-react';
 import { Button } from './components/ui/Button';
 import { Input } from './components/ui/Input';
@@ -13,13 +13,14 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './
 import { Calendar } from './components/ui/Calendar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/Select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './components/ui/Dialog';
+import { AuthProvider, AdminLogin, AdminDashboard } from './components/Admin';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Brand Assets
 const BRAND_LOGO = "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/5tpkky0k_WhatsApp%20Image%202026-04-10%20at%204.11.34%20PM.jpeg";
-const MANVI_PHOTO = "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/k1imk6ox_IMG_3581.JPG.jpeg";
-const DIKSHA_PHOTO = "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg";
+const MANVI_PHOTO = "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg";
+const DIKSHA_PHOTO = "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/k1imk6ox_IMG_3581.JPG.jpeg";
 const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/0ddf470c-530c-4b73-b546-d7dd762933cd/images/32fd8022c1f4f8be618a1e23248f122972f1cac8fa44eea1a0d649daa9c7bab1.png";
 const THERAPY_ROOM = "https://static.prod-images.emergentagent.com/jobs/0ddf470c-530c-4b73-b546-d7dd762933cd/images/85699758cf1d8d5aa539b0539957266055efeaaecf627194a02ca413f763edbc.png";
 
@@ -214,7 +215,7 @@ function HomePage() {
   }, [testimonials.length]);
 
   const getServiceIcon = (icon) => {
-    const icons = { user: User, heart: Heart, users: Users, sparkles: Sparkles, monitor: Monitor, palette: Palette };
+    const icons = { user: User, heart: Heart, users: Users, sparkles: Sparkles, monitor: Monitor, palette: Palette, graduation: GraduationCap };
     const Icon = icons[icon] || Heart;
     return <Icon className="h-6 w-6" />;
   };
@@ -761,7 +762,7 @@ function ServicesPage() {
   }, []);
 
   const getServiceIcon = (icon) => {
-    const icons = { user: User, heart: Heart, users: Users, sparkles: Sparkles, monitor: Monitor, palette: Palette };
+    const icons = { user: User, heart: Heart, users: Users, sparkles: Sparkles, monitor: Monitor, palette: Palette, graduation: GraduationCap };
     const Icon = icons[icon] || Heart;
     return <Icon className="h-8 w-8" />;
   };
@@ -818,7 +819,7 @@ function ServicesPage() {
                     <Clock className="h-4 w-4 mr-2" />
                     <span className="text-sm">{service.duration}</span>
                   </div>
-                  <span className="text-brand-primary font-medium">Contact for pricing</span>
+                  <span className="text-brand-primary font-semibold text-lg">{service.price_display || '₹999'}</span>
                 </div>
                 <Link to="/book" className="block mt-6">
                   <Button className="w-full" data-testid={`book-${service.id}`}>
@@ -1555,23 +1556,38 @@ function GalleryPage() {
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-background-primary">
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/book" element={<BookSessionPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:id" element={<BlogDetailPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <AuthProvider>
+        <Routes>
+          {/* Admin Routes - No Navbar/Footer */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          
+          {/* Public Routes - With Navbar/Footer */}
+          <Route path="/*" element={<PublicLayout />} />
+        </Routes>
+      </AuthProvider>
     </Router>
+  );
+}
+
+function PublicLayout() {
+  return (
+    <div className="min-h-screen bg-background-primary">
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/book" element={<BookSessionPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<BlogDetailPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
