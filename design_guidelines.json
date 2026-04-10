@@ -1,0 +1,144 @@
+{
+  "project_context": {
+    "brand_name": "Emavaran",
+    "domain": "Counseling and mental wellness",
+    "target_audience": "Individuals seeking counseling, stress management, and relationship support.",
+    "emotional_tone": "Warm, supportive, reassuring, calming, safe, professional.",
+    "theme": "Light",
+    "archetype": "Archetype 1 (Organic & Earthy) with Pastel/Soft adaptations."
+  },
+  "design_system": {
+    "colors": {
+      "background_primary": "#FDFBF7",
+      "background_secondary": "#F3F0E9",
+      "surface_card": "#FFFFFF",
+      "primary_brand": "#9DBAC2",
+      "primary_hover": "#82A4AD",
+      "secondary_accent": "#E5D8CF",
+      "tertiary_accent": "#D19B7F",
+      "text_primary": "#2D3748",
+      "text_secondary": "#4A5568",
+      "border": "#E2E8F0"
+    },
+    "typography": {
+      "heading_font": "Cormorant Garamond, serif",
+      "body_font": "Manrope, sans-serif",
+      "h1": "text-5xl md:text-6xl font-serif font-light tracking-tight text-[#2D3748]",
+      "h2": "text-3xl md:text-4xl font-serif tracking-tight text-[#2D3748]",
+      "h3": "text-xl md:text-2xl font-serif text-[#2D3748]",
+      "body": "text-base md:text-lg font-sans text-[#4A5568] leading-relaxed",
+      "overline": "text-xs uppercase tracking-[0.2em] font-sans font-semibold text-[#9DBAC2]"
+    },
+    "spacing_and_layout": {
+      "section_padding": "py-20 md:py-32 px-6 md:px-12",
+      "container": "max-w-7xl mx-auto",
+      "grid_bento": "grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12",
+      "card_padding": "p-8 md:p-12",
+      "border_radius": "rounded-2xl md:rounded-3xl"
+    },
+    "surfaces": {
+      "cards": "bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#F3F0E9] rounded-2xl",
+      "glass_header": "bg-[#FDFBF7]/80 backdrop-blur-xl border-b border-[#F3F0E9]",
+      "image_overlay": "bg-gradient-to-t from-[#2D3748]/60 via-[#2D3748]/20 to-transparent"
+    },
+    "motion": {
+      "hover_card": "transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg",
+      "hover_button": "transition-all duration-300 hover:opacity-90 active:scale-95",
+      "page_load": "framer-motion fade-in and slide-up (staggered for lists)"
+    }
+  },
+  "components_to_use": [
+    "lucide-react (icons)",
+    "framer-motion (animations)",
+    "Shadcn UI Form (Contact form)",
+    "Shadcn UI Input, Textarea, Select",
+    "Shadcn UI Calendar (Booking session)",
+    "Shadcn UI Dialog (Booking modal/confirmation)",
+    "Shadcn UI Accordion (FAQ section)",
+    "Shadcn UI Carousel (Testimonials)"
+  ],
+  "page_structures": {
+    "Home": [
+      {
+        "section": "Navbar",
+        "description": "Sticky glassmorphism header, Logo text 'Emavaran' (serif), Links (Home, About, Services, Blog), Primary CTA 'Book a Session'."
+      },
+      {
+        "section": "Hero",
+        "description": "Split layout or bento grid. Headline: 'Healing begins with understanding'. Soft abstract background or therapy room hero image. Trust-building subheadline, main CTA button 'Book a Session'."
+      },
+      {
+        "section": "Services Highlights",
+        "description": "Cards for Individual Counseling, Anxiety Management, Relationship Counseling. Minimalist, generous padding, soft hover effects."
+      },
+      {
+        "section": "Therapists Preview",
+        "description": "Side-by-side or stacked bento layout featuring Manvi Giri and Diksha Mago with their portraits and a short bio snippet."
+      },
+      {
+        "section": "Testimonials",
+        "description": "Carousel with calming beige background, featuring user quotes."
+      },
+      {
+        "section": "FAQ",
+        "description": "Accordion component answering common therapy questions."
+      },
+      {
+        "section": "Footer",
+        "description": "Darker contrast or solid beige background. Contact info, social links, location map link."
+      }
+    ],
+    "About Us": [
+      {
+        "section": "Our Story",
+        "description": "Text-heavy elegant section explaining the brand's safe and calming philosophy."
+      },
+      {
+        "section": "Founders",
+        "description": "Detailed profiles for Manvi Giri and Diksha Mago with full portraits."
+      }
+    ],
+    "Services": [
+      {
+        "section": "List",
+        "description": "Detailed grid of services with descriptions and direct 'Book' buttons."
+      }
+    ],
+    "Book a Session": [
+      {
+        "section": "Booking Flow",
+        "description": "Shadcn Calendar for date selection, Select component for therapist (Manvi or Diksha), form for user details."
+      }
+    ]
+  },
+  "media_urls": {
+    "hero_abstract_bg": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/0ddf470c-530c-4b73-b546-d7dd762933cd/images/32fd8022c1f4f8be618a1e23248f122972f1cac8fa44eea1a0d649daa9c7bab1.png",
+      "description": "Soft gradient abstract background, light blue and beige. Use for Hero section background or CTA section."
+    },
+    "therapy_room_hero": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/0ddf470c-530c-4b73-b546-d7dd762933cd/images/85699758cf1d8d5aa539b0539957266055efeaaecf627194a02ca413f763edbc.png",
+      "description": "Minimalist modern therapy room. Use in About Us or Services section to establish a safe environment."
+    },
+    "therapist_manvi": {
+      "url": "https://images.unsplash.com/photo-1758598304332-94b40ce7c7b4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzOTB8MHwxfHNlYXJjaHwxfHxmZW1hbGUlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGZyaWVuZGx5fGVufDB8fHx8MTc3NTgzNzg2MHww&ixlib=rb-4.1.0&q=85",
+      "description": "Portrait of Manvi Giri. Use in Therapist profiles section."
+    },
+    "therapist_diksha": {
+      "url": "https://images.unsplash.com/photo-1758518727592-706e80ebc354?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzOTB8MHwxfHNlYXJjaHwyfHxmZW1hbGUlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGZyaWVuZGx5fGVufDB8fHx8MTc3NTgzNzg2MHww&ixlib=rb-4.1.0&q=85",
+      "description": "Portrait of Diksha Mago. Use in Therapist profiles section."
+    },
+    "gallery_image_1": {
+      "url": "https://images.unsplash.com/photo-1714976693236-6d4783342e94?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzOTB8MHwxfHNlYXJjaHwzfHxmZW1hbGUlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGZyaWVuZGx5fGVufDB8fHx8MTc3NTgzNzg2MHww&ixlib=rb-4.1.0&q=85",
+      "description": "Gallery or Blog thumbnail representing professional session."
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install required fonts from Google Fonts: 'Cormorant Garamond' and 'Manrope'. Ensure they are configured in tailwind.config.js.",
+    "Use ONLY pure HTML/Tailwind for main layouts (divs, sections). Use Shadcn strictly for complex interactive components (Accordion, Form, Calendar, Dialog).",
+    "Include 'data-testid' attributes on all interactive elements (buttons, inputs, links).",
+    "DO NOT use placeholder text or dummy image services. Rely strictly on the media_urls provided.",
+    "Ensure contrast ratios are met. Text on primary color background must be dark (text-primary) or clearly visible.",
+    "Ensure generous spacing: Use p-8 to p-12 for cards, and py-24 for main sections."
+  ]
+}
