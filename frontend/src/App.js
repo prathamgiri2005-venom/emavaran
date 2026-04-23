@@ -24,6 +24,13 @@ const DIKSHA_PHOTO = "https://customer-assets.emergentagent.com/job_0ddf470c-530
 const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/0ddf470c-530c-4b73-b546-d7dd762933cd/images/32fd8022c1f4f8be618a1e23248f122972f1cac8fa44eea1a0d649daa9c7bab1.png";
 const THERAPY_ROOM = "https://static.prod-images.emergentagent.com/jobs/0ddf470c-530c-4b73-b546-d7dd762933cd/images/85699758cf1d8d5aa539b0539957266055efeaaecf627194a02ca413f763edbc.png";
 
+// New Service Images
+const MISSION_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/gv6swmoz_e.jpeg";
+const ART_THERAPY_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/eplihg33_art.jpeg";
+const INDIVIDUAL_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/2avi3dw1_indviduals.jpeg";
+const GROUP_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/72tutvyr_group.jpeg";
+const WORKSHOPS_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/qsy90nw2_workshops.jpeg";
+
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -221,53 +228,105 @@ function HomePage() {
   };
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20" data-testid="hero-section">
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${HERO_BG})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.4
-          }}
-        />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="max-w-3xl"
-          >
-            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary mb-6">
-              Counseling & Mental Wellness
-            </motion.p>
-            <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-serif font-light tracking-tight text-text-primary mb-6">
-              Healing begins with understanding.
-            </motion.h1>
-            <motion.p variants={fadeInUp} className="text-lg md:text-xl text-text-secondary leading-relaxed mb-10 max-w-2xl">
-              Welcome to Emavaran, a safe space where you can explore your thoughts, feelings, and challenges with compassionate guidance from experienced psychologists.
-            </motion.p>
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-              <Link to="/book">
-                <Button size="lg" data-testid="hero-book-session">
-                  Book a Session <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button size="lg" variant="outline" data-testid="hero-contact">
-                  Contact Us
-                </Button>
-              </Link>
+    <div className="overflow-hidden">
+      {/* Hero Section - Heavenly */}
+      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden" data-testid="hero-section">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-[#a8edea]/30 to-[#fed6e3]/30 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-[#ffecd2]/40 to-[#fcb69f]/30 rounded-full blur-3xl animate-float-slow animation-delay-300" />
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-[#9DBAC2]/20 to-[#E5D8CF]/30 rounded-full blur-3xl animate-float animation-delay-700" />
+        </div>
+        
+        {/* Floating decorative elements */}
+        <div className="absolute top-32 right-20 w-4 h-4 bg-brand-primary/40 rounded-full animate-sparkle" />
+        <div className="absolute top-48 right-40 w-2 h-2 bg-accent-tertiary/50 rounded-full animate-sparkle animation-delay-300" />
+        <div className="absolute bottom-40 left-20 w-3 h-3 bg-brand-primary/30 rounded-full animate-sparkle animation-delay-500" />
+        <div className="absolute top-60 left-1/4 w-2 h-2 bg-[#fed6e3] rounded-full animate-sparkle animation-delay-200" />
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+            >
+              <motion.div variants={fadeInUp} className="inline-block mb-6">
+                <span className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-accent-secondary/20 rounded-full text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary border border-brand-primary/20">
+                  Counseling & Mental Wellness
+                </span>
+              </motion.div>
+              <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-serif font-light tracking-tight text-text-primary mb-6 leading-tight">
+                Healing begins with{' '}
+                <span className="relative inline-block">
+                  understanding
+                  <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" fill="none">
+                    <path d="M2 10C50 2 150 2 298 10" stroke="#9DBAC2" strokeWidth="3" strokeLinecap="round"/>
+                  </svg>
+                </span>
+              </motion.h1>
+              <motion.p variants={fadeInUp} className="text-lg md:text-xl text-text-secondary leading-relaxed mb-10 max-w-xl">
+                Welcome to Emavaran, a safe space where you can explore your thoughts, feelings, and challenges with compassionate guidance from experienced psychologists.
+              </motion.p>
+              <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
+                <Link to="/book">
+                  <Button size="lg" className="animate-pulse-glow" data-testid="hero-book-session">
+                    Book a Session <ChevronRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link to="/contact">
+                  <Button size="lg" variant="outline" className="glass" data-testid="hero-contact">
+                    Contact Us
+                  </Button>
+                </Link>
+              </motion.div>
             </motion.div>
-          </motion.div>
+            
+            {/* Hero Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative hidden lg:block"
+            >
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/20 to-accent-tertiary/20 rounded-[3rem] transform rotate-3 animate-float-slow" />
+                <img 
+                  src={MISSION_IMG} 
+                  alt="Emavaran Mission" 
+                  className="relative rounded-[2.5rem] shadow-2xl w-full max-w-lg mx-auto image-shine"
+                />
+                {/* Floating badge */}
+                <motion.div 
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="absolute -bottom-6 -left-6 glass p-4 rounded-2xl shadow-lg"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-hover rounded-full flex items-center justify-center">
+                      <Heart className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-serif text-text-primary">2+</p>
+                      <p className="text-xs text-text-secondary">Years Experience</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Services Highlights */}
-      <section className="py-20 md:py-32 px-6 md:px-12 bg-background-secondary" data-testid="services-section">
-        <div className="max-w-7xl mx-auto">
+      {/* Services Highlights - Heavenly Design */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" data-testid="services-section">
+        {/* Background decorations */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+          <div className="absolute top-20 right-20 w-40 h-40 bg-gradient-to-br from-[#a8edea]/20 to-transparent rounded-full blur-2xl" />
+          <div className="absolute bottom-20 left-20 w-60 h-60 bg-gradient-to-br from-[#fed6e3]/20 to-transparent rounded-full blur-2xl" />
+        </div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -275,9 +334,11 @@ function HomePage() {
             variants={staggerContainer}
             className="text-center mb-16"
           >
-            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary mb-4">
-              Our Services
-            </motion.p>
+            <motion.div variants={fadeInUp} className="inline-block mb-4">
+              <span className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-accent-secondary/20 rounded-full text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary">
+                Our Services
+              </span>
+            </motion.div>
             <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-serif text-text-primary">
               How We Can Help
             </motion.h2>
@@ -290,20 +351,50 @@ function HomePage() {
             variants={staggerContainer}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
-            {services.slice(0, 4).map((service, idx) => (
-              <motion.div
-                key={service.id}
-                variants={fadeInUp}
-                className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#F3F0E9] transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg"
-                data-testid={`service-card-${service.id}`}
-              >
-                <div className="w-12 h-12 bg-brand-primary/10 rounded-xl flex items-center justify-center text-brand-primary mb-6">
-                  {getServiceIcon(service.icon)}
-                </div>
-                <h3 className="text-xl font-serif text-text-primary mb-3">{service.title}</h3>
-                <p className="text-text-secondary text-sm leading-relaxed">{service.description.substring(0, 100)}...</p>
-              </motion.div>
-            ))}
+            {services.slice(0, 4).map((service, idx) => {
+              const serviceImages = {
+                'individual': INDIVIDUAL_IMG,
+                'student': INDIVIDUAL_IMG,
+                'art-therapy': ART_THERAPY_IMG,
+                'group': GROUP_IMG,
+                'workshops': WORKSHOPS_IMG,
+                'online': INDIVIDUAL_IMG,
+                'psychoeducation': WORKSHOPS_IMG
+              };
+              const img = serviceImages[service.id];
+              
+              return (
+                <motion.div
+                  key={service.id}
+                  variants={fadeInUp}
+                  className="heavenly-card rounded-3xl overflow-hidden group"
+                  data-testid={`service-card-${service.id}`}
+                >
+                  {img && (
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={img} 
+                        alt={service.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                      <div className="absolute bottom-4 left-4">
+                        <span className="px-3 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-primary">
+                          {service.price_display}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-brand-primary/20 to-brand-primary/5 rounded-xl flex items-center justify-center text-brand-primary mb-4 group-hover:scale-110 transition-transform">
+                      {getServiceIcon(service.icon)}
+                    </div>
+                    <h3 className="text-xl font-serif text-text-primary mb-3">{service.title}</h3>
+                    <p className="text-text-secondary text-sm leading-relaxed line-clamp-3">{service.description.substring(0, 100)}...</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
 
           <motion.div
@@ -314,7 +405,7 @@ function HomePage() {
             className="text-center mt-12"
           >
             <Link to="/services">
-              <Button variant="outline" data-testid="view-all-services">
+              <Button variant="outline" className="glass hover:bg-brand-primary hover:text-white" data-testid="view-all-services">
                 View All Services <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -523,19 +614,25 @@ function HomePage() {
 // About Page
 function AboutPage() {
   return (
-    <div className="pt-20">
-      {/* Hero */}
-      <section className="py-20 md:py-32 px-6 md:px-12 bg-background-secondary">
-        <div className="max-w-7xl mx-auto">
+    <div className="pt-20 overflow-hidden">
+      {/* Hero - Heavenly */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#a8edea]/20 via-transparent to-[#fed6e3]/20" />
+        <div className="absolute top-20 left-20 w-80 h-80 bg-gradient-to-br from-[#ffecd2]/40 to-transparent rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-10 right-20 w-96 h-96 bg-gradient-to-br from-[#a8edea]/30 to-transparent rounded-full blur-3xl animate-float-slow animation-delay-500" />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
             className="max-w-3xl"
           >
-            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary mb-4">
-              About Us
-            </motion.p>
+            <motion.div variants={fadeInUp} className="inline-block mb-4">
+              <span className="px-4 py-2 bg-white/80 backdrop-blur rounded-full text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary border border-brand-primary/20">
+                About Us
+              </span>
+            </motion.div>
             <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-light text-text-primary mb-6">
               Our Story
             </motion.h1>
@@ -546,7 +643,7 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* Mission */}
+      {/* Mission - with new image */}
       <section className="py-20 md:py-32 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -555,13 +652,31 @@ function AboutPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="relative"
             >
+              <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/20 to-accent-tertiary/20 rounded-[3rem] transform -rotate-3 animate-float-slow" />
               <img 
-                src={THERAPY_ROOM} 
-                alt="Therapy Room" 
-                className="w-full rounded-3xl shadow-lg"
-                data-testid="about-therapy-room-image"
+                src={MISSION_IMG} 
+                alt="Emavaran Mission" 
+                className="relative w-full rounded-[2.5rem] shadow-2xl image-shine"
+                data-testid="about-mission-image"
               />
+              {/* Floating element */}
+              <motion.div 
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="absolute -bottom-6 -right-6 glass p-4 rounded-2xl shadow-lg"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent-tertiary to-brand-primary rounded-full flex items-center justify-center">
+                    <Sparkles className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-serif text-text-primary">Heal Within</p>
+                    <p className="text-xs text-text-secondary">Uncover Emotions</p>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 30 }}
@@ -569,10 +684,10 @@ function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary mb-4">
+              <span className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-accent-secondary/20 rounded-full text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary">
                 Our Mission
-              </p>
-              <h2 className="text-3xl md:text-4xl font-serif text-text-primary mb-6">
+              </span>
+              <h2 className="text-3xl md:text-4xl font-serif text-text-primary mb-6 mt-4">
                 Creating Safe Spaces for Healing
               </h2>
               <p className="text-text-secondary leading-relaxed mb-6">
@@ -596,9 +711,11 @@ function AboutPage() {
             variants={staggerContainer}
             className="text-center mb-16"
           >
-            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary mb-4">
-              Our Founders
-            </motion.p>
+            <motion.div variants={fadeInUp} className="inline-block mb-4">
+              <span className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-accent-secondary/20 rounded-full text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary">
+                Our Founders
+              </span>
+            </motion.div>
             <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-serif text-text-primary">
               Meet Manvi & Diksha
             </motion.h2>
@@ -612,12 +729,13 @@ function AboutPage() {
             variants={fadeInUp}
             className="mb-16"
           >
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-testid="founder-manvi">
-              <div className="md:col-span-1">
+            <div className="heavenly-card rounded-3xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-testid="founder-manvi">
+              <div className="md:col-span-1 relative">
+                <div className="absolute -inset-2 bg-gradient-to-br from-brand-primary/20 to-accent-tertiary/20 rounded-3xl transform rotate-2" />
                 <img 
                   src={MANVI_PHOTO} 
                   alt="Manvi Giri"
-                  className="w-full aspect-[3/4] object-cover rounded-2xl"
+                  className="relative w-full aspect-[3/4] object-cover rounded-2xl shadow-lg"
                 />
               </div>
               <div className="md:col-span-2">
@@ -644,7 +762,7 @@ function AboutPage() {
 
                 <div className="flex flex-wrap gap-2 mt-6">
                   {['Emotional Regulation', 'Self-Esteem', 'Life Skills Training', 'Personal Growth', 'Stress Management'].map(spec => (
-                    <span key={spec} className="px-4 py-2 bg-background-secondary rounded-full text-sm text-text-secondary">
+                    <span key={spec} className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-accent-secondary/10 rounded-full text-sm text-text-secondary border border-brand-primary/10">
                       {spec}
                     </span>
                   ))}
@@ -660,12 +778,13 @@ function AboutPage() {
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-testid="founder-diksha">
-              <div className="md:col-span-1 md:order-2">
+            <div className="heavenly-card rounded-3xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-testid="founder-diksha">
+              <div className="md:col-span-1 md:order-2 relative">
+                <div className="absolute -inset-2 bg-gradient-to-br from-accent-tertiary/20 to-brand-primary/20 rounded-3xl transform -rotate-2" />
                 <img 
                   src={DIKSHA_PHOTO} 
                   alt="Diksha Mago"
-                  className="w-full aspect-[3/4] object-cover rounded-2xl"
+                  className="relative w-full aspect-[3/4] object-cover rounded-2xl shadow-lg"
                 />
               </div>
               <div className="md:col-span-2 md:order-1">
@@ -692,7 +811,7 @@ function AboutPage() {
 
                 <div className="flex flex-wrap gap-2 mt-6">
                   {['Expressive Art Therapy', 'CBT', 'Gestalt Therapy', 'Emotion-Focused Therapy', 'Workshop Facilitation'].map(spec => (
-                    <span key={spec} className="px-4 py-2 bg-background-secondary rounded-full text-sm text-text-secondary">
+                    <span key={spec} className="px-4 py-2 bg-gradient-to-r from-accent-tertiary/10 to-brand-primary/10 rounded-full text-sm text-text-secondary border border-accent-tertiary/10">
                       {spec}
                     </span>
                   ))}
@@ -768,19 +887,26 @@ function ServicesPage() {
   };
 
   return (
-    <div className="pt-20">
-      {/* Hero */}
-      <section className="py-20 md:py-32 px-6 md:px-12 bg-background-secondary">
-        <div className="max-w-7xl mx-auto">
+    <div className="pt-20 overflow-hidden">
+      {/* Hero - Heavenly */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden">
+        {/* Background decorations */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#ffecd2]/30 via-[#fcb69f]/10 to-[#a8edea]/20" />
+        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-[#fed6e3]/40 to-transparent rounded-full blur-3xl animate-float-slow" />
+        <div className="absolute bottom-20 left-10 w-72 h-72 bg-gradient-to-br from-[#a8edea]/30 to-transparent rounded-full blur-3xl animate-float animation-delay-500" />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
             className="max-w-3xl"
           >
-            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary mb-4">
-              Our Services
-            </motion.p>
+            <motion.div variants={fadeInUp} className="inline-block mb-4">
+              <span className="px-4 py-2 bg-white/80 backdrop-blur rounded-full text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary border border-brand-primary/20">
+                Our Services
+              </span>
+            </motion.div>
             <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-light text-text-primary mb-6">
               How We Can Help You
             </motion.h1>
@@ -791,8 +917,8 @@ function ServicesPage() {
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-20 md:py-32 px-6 md:px-12" data-testid="services-list">
+      {/* Services Grid - Heavenly Cards */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative" data-testid="services-list">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -800,34 +926,65 @@ function ServicesPage() {
             transition={{ duration: 0.5 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {services.map((service, idx) => (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-border hover:shadow-xl transition-shadow"
-                data-testid={`service-detail-${service.id}`}
-              >
-                <div className="w-16 h-16 bg-brand-primary/10 rounded-2xl flex items-center justify-center text-brand-primary mb-6">
-                  {getServiceIcon(service.icon)}
-                </div>
-                <h3 className="text-2xl font-serif text-text-primary mb-4">{service.title}</h3>
-                <p className="text-text-secondary leading-relaxed mb-6">{service.description}</p>
-                <div className="flex items-center justify-between pt-6 border-t border-border">
-                  <div className="flex items-center text-text-secondary">
-                    <Clock className="h-4 w-4 mr-2" />
-                    <span className="text-sm">{service.duration}</span>
+            {services.map((service, idx) => {
+              const serviceImages = {
+                'individual': INDIVIDUAL_IMG,
+                'student': INDIVIDUAL_IMG,
+                'art-therapy': ART_THERAPY_IMG,
+                'group': GROUP_IMG,
+                'workshops': WORKSHOPS_IMG,
+                'online': INDIVIDUAL_IMG,
+                'psychoeducation': WORKSHOPS_IMG
+              };
+              const img = serviceImages[service.id];
+              
+              return (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="heavenly-card rounded-3xl overflow-hidden group"
+                  data-testid={`service-detail-${service.id}`}
+                >
+                  {/* Service Image */}
+                  {img && (
+                    <div className="relative h-56 overflow-hidden">
+                      <img 
+                        src={img} 
+                        alt={service.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                        <div className="glass px-4 py-2 rounded-full">
+                          <span className="text-white font-semibold">{service.price_display || '₹999'}</span>
+                        </div>
+                        <div className="glass px-3 py-1 rounded-full flex items-center">
+                          <Clock className="h-3 w-3 text-white mr-1" />
+                          <span className="text-white text-xs">{service.duration}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="p-8">
+                    <div className="w-14 h-14 bg-gradient-to-br from-brand-primary/20 to-accent-secondary/20 rounded-2xl flex items-center justify-center text-brand-primary mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                      {getServiceIcon(service.icon)}
+                    </div>
+                    <h3 className="text-2xl font-serif text-text-primary mb-4">{service.title}</h3>
+                    <p className="text-text-secondary leading-relaxed mb-6 line-clamp-4">{service.description}</p>
+                    
+                    <Link to="/book" className="block">
+                      <Button className="w-full group/btn" data-testid={`book-${service.id}`}>
+                        Book This Service 
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
                   </div>
-                  <span className="text-brand-primary font-semibold text-lg">{service.price_display || '₹999'}</span>
-                </div>
-                <Link to="/book" className="block mt-6">
-                  <Button className="w-full" data-testid={`book-${service.id}`}>
-                    Book This Service
-                  </Button>
-                </Link>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>

@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import json
 
 class EmavaranaAPITester:
-    def __init__(self, base_url="https://ebe5b743-f0c6-404e-9b2f-bc8dd3e5dcff.preview.emergentagent.com"):
+    def __init__(self, base_url="https://wellness-journey-225.preview.emergentagent.com"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
@@ -132,6 +132,40 @@ class EmavaranaAPITester:
         }
         return self.run_test("Submit Contact Form", "POST", "api/contact", 200, data=contact_data)
 
+    def test_admin_login(self):
+        """Test admin login functionality"""
+        login_data = {
+            "email": "manvi@emavaran.com",
+            "password": "Manvi@123"
+        }
+        success, response = self.run_test("Admin Login", "POST", "api/auth/login", 200, data=login_data)
+        if success and 'access_token' in response:
+            print(f"   ✅ Login successful, token received")
+            return True, response['access_token']
+        return False, None
+
+    def test_admin_protected_endpoints(self, token):
+        """Test admin protected endpoints"""
+        if not token:
+            print("❌ No token available for protected endpoint testing")
+            return False
+        
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        
+        # Test admin stats endpoint
+        url = f"{self.base_url}/api/admin/stats"
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            if response.status_code == 200:
+                print(f"✅ Admin Stats endpoint working - Status: {response.status_code}")
+                return True
+            else:
+                print(f"❌ Admin Stats failed - Status: {response.status_code}")
+                return False
+        except Exception as e:
+            print(f"❌ Admin Stats error: {str(e)}")
+            return False
+
 def main():
     print("🚀 Starting Emavaran API Testing...")
     print("=" * 50)
@@ -153,6 +187,11 @@ def main():
 
     print("\n📧 Testing Contact System...")
     tester.test_contact_submission()
+
+    print("\n🔐 Testing Admin Authentication...")
+    login_success, token = tester.test_admin_login()
+    if login_success:
+        tester.test_admin_protected_endpoints(token)
 
     # Print results
     print("\n" + "=" * 50)
