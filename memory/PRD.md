@@ -11,39 +11,34 @@ A modern, professional website for **Emavaran** - a counseling and mental wellne
 1. **Students** - Academic stress, career confusion, peer relationships (₹799/session)
 2. **Adults seeking therapy** - Anxiety, stress, relationship issues (₹999/session)
 3. **Young adults** - Emotional support and personal growth
-4. **Couples** - Relationship counseling
+4. **Groups** - Shared healing experience in group sessions
 
 ## What's Been Implemented
 
 ### April 10, 2026 - Initial Release
 - [x] Full website with 7 pages: Home, About, Services, Blog, Contact, Book a Session, Gallery
 - [x] Hero section with tagline "Healing begins with understanding"
-- [x] **7 Services** with pricing:
+- [x] Admin dashboard with JWT authentication
+
+### April 23, 2026 - Heavenly Design & Updates
+- [x] **Creative Heavenly Design** - Floating animations, soft gradients, glass morphism
+- [x] **6 Services** (removed Online Counseling):
   - Student Therapy - ₹799
   - Individual Counseling - ₹999
-  - Online Counseling - ₹999
-  - Workshops - ₹999
   - Expressive Art Therapy - ₹999
   - Group Counseling - ₹999
+  - Workshops - ₹999
   - Psychoeducation Sessions - ₹999
-- [x] Detailed founder profiles with full bios
-- [x] **Photo Assignment:**
-  - Manvi Giri (blue outfit) - shown FIRST (priority)
+- [x] **Custom Service Images** from user uploads:
+  - Mission image (e.jpeg)
+  - Art Therapy image (art.jpeg)
+  - Individual Counseling image (indviduals.jpeg)
+  - Group Counseling image (group.jpeg)
+  - Workshops image (workshops.jpeg)
+- [x] **Photo Assignment Corrected:**
+  - Manvi Giri (blue outfit) - shown FIRST
   - Diksha Mago (black blazer)
-- [x] Calendar-based booking system with therapist selection
-- [x] Contact form with email/phone display
-- [x] Blog with mental health articles
-- [x] FAQ, Testimonials, Gallery sections
-
-### April 10, 2026 - Admin Dashboard
-- [x] Admin authentication (JWT-based)
-- [x] Admin login page at `/admin/login`
-- [x] Dashboard with booking stats
-- [x] Booking management (confirm/cancel/complete)
-- [x] Contact messages viewer
-- [x] Two admin accounts:
-  - manvi@emavaran.com / Manvi@123
-  - diksha@emavaran.com / Diksha@123
+- [x] **Booking Email Notifications** - When someone books, notification is stored for emavarantherapy@gmail.com
 
 ## Tech Stack
 - **Frontend**: React, Tailwind CSS, Framer Motion, Radix UI
@@ -51,46 +46,32 @@ A modern, professional website for **Emavaran** - a counseling and mental wellne
 - **Database**: MongoDB
 - **Fonts**: Cormorant Garamond, Manrope
 
+## Admin Access
+- URL: `/admin/login`
+- Manvi: manvi@emavaran.com / Manvi@123
+- Diksha: diksha@emavaran.com / Diksha@123
+
 ## Prioritized Backlog
 
 ### P0 (Critical) - Deferred
-- [ ] Razorpay payment integration (ready when you have API keys)
-- [ ] Email notifications for bookings
+- [ ] Razorpay payment integration
+- [ ] Real email delivery (currently notifications stored in DB)
 
 ### P1 (High Priority)
-- [ ] Google Calendar integration for therapists
+- [ ] Google Calendar integration
 - [ ] SMS notifications via Twilio
 
 ### P2 (Medium Priority)
-- [ ] Newsletter subscription
-- [ ] Client testimonial submission form
-- [ ] WhatsApp chat integration
-
-### P3 (Low Priority)
-- [ ] Multi-language support (Hindi)
-- [ ] Video call integration
-- [ ] Mobile app
+- [ ] WhatsApp chat button
+- [ ] Client testimonial submission
 
 ## API Endpoints
 
 ### Public
-- `GET /api/health` - Health check
-- `GET /api/services` - List services with pricing
-- `GET /api/therapists` - List therapists
-- `GET /api/blogs` - List blogs
-- `GET /api/blogs/:id` - Blog detail
-- `GET /api/faqs` - FAQs
-- `GET /api/testimonials` - Testimonials
-- `POST /api/bookings` - Create booking
-- `GET /api/bookings/available-slots` - Check availability
-- `POST /api/contact` - Submit contact form
+- `GET /api/services` - 6 services with pricing
+- `GET /api/therapists` - Manvi first, Diksha second
+- `POST /api/bookings` - Creates booking + notification
 
-### Admin (Protected)
-- `POST /api/auth/login` - Admin login
-- `POST /api/auth/logout` - Admin logout
-- `GET /api/auth/me` - Current user
-- `GET /api/admin/stats` - Dashboard stats
-- `GET /api/admin/bookings` - All bookings
-- `PATCH /api/admin/bookings/:id` - Update booking
-- `DELETE /api/admin/bookings/:id` - Delete booking
-- `GET /api/admin/contacts` - All contact messages
+### Admin
+- `GET /api/admin/notifications` - View booking notifications
+- Full booking/contact management

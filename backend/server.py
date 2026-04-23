@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request, Response, Depends
+from fastapi import FastAPI, HTTPException, Request, Response, Depends, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, EmailStr
@@ -9,6 +9,9 @@ import os
 import bcrypt
 import jwt
 import secrets
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -27,6 +30,7 @@ MONGO_URL = os.environ.get("MONGO_URL")
 DB_NAME = os.environ.get("DB_NAME")
 JWT_SECRET = os.environ.get("JWT_SECRET")
 JWT_ALGORITHM = "HS256"
+NOTIFICATION_EMAIL = "emavarantherapy@gmail.com"
 
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
@@ -112,6 +116,43 @@ async def seed_admins():
     await db.admins.create_index("email", unique=True)
     await db.bookings.create_index("date")
     await db.bookings.create_index("therapist")
+
+# Email notification function (stores notification in DB for now, can be connected to email service later)
+async def send_booking_notification(booking_data: dict):
+    """Store booking notification - ready for email service integration"""
+    notification = {
+        "type": "new_booking",
+        "to_email": NOTIFICATION_EMAIL,
+        "subject": f"New Booking Request - {booking_data['name']}",
+        "body": f"""
+New Booking Request Received!
+
+Client Details:
+- Name: {booking_data['name']}
+- Email: {booking_data['email']}
+- Phone: {booking_data['phone']}
+
+Session Details:
+- Therapist: {booking_data['therapist'].title()}
+- Date: {booking_data['date']}
+- Time: {booking_data['time']}
+- Service: {booking_data.get('service', 'Not specified')}
+
+Message from client:
+{booking_data.get('message', 'No message')}
+
+---
+Please contact the client to confirm the booking.
+Emavaran Team
+        """,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "status": "pending"
+    }
+    
+    # Store notification in database
+    await db.notifications.insert_one(notification)
+    print(f"📧 Booking notification created for: {booking_data['name']} - {booking_data['email']}")
+    return notification
 
 # Pydantic Models
 class LoginRequest(BaseModel):
@@ -315,9 +356,20 @@ async def get_all_contacts(current_user: dict = Depends(get_current_user)):
         result.append(contact)
     return result
 
+# Admin Notifications
+@app.get("/api/admin/notifications")
+async def get_notifications(current_user: dict = Depends(get_current_user)):
+    notifications = await db.notifications.find().sort("created_at", -1).to_list(100)
+    result = []
+    for notif in notifications:
+        notif["id"] = str(notif["_id"])
+        del notif["_id"]
+        result.append(notif)
+    return result
+
 # Booking Routes (Public)
 @app.post("/api/bookings", response_model=BookingResponse)
-async def create_booking(booking: BookingRequest):
+async def create_booking(booking: BookingRequest, background_tasks: BackgroundTasks):
     booking_dict = booking.model_dump()
     booking_dict["status"] = "pending"
     booking_dict["created_at"] = datetime.now(timezone.utc).isoformat()
@@ -326,6 +378,9 @@ async def create_booking(booking: BookingRequest):
     booking_dict["id"] = str(result.inserted_id)
     if "_id" in booking_dict:
         del booking_dict["_id"]
+    
+    # Send notification email (async)
+    await send_booking_notification(booking_dict)
     
     return BookingResponse(**booking_dict)
 
@@ -528,24 +583,6 @@ async def get_services():
             "price_display": "₹999"
         },
         {
-            "id": "online",
-            "title": "Online Counseling",
-            "description": "For when you seek emotional support with comfort, privacy, and flexibility. Access therapy from your own safe space, at your own pace. These sessions are designed to help you stay connected to your mental well-being while navigating life's challenges.",
-            "duration": "50-60 minutes",
-            "icon": "monitor",
-            "price": 999,
-            "price_display": "₹999"
-        },
-        {
-            "id": "workshops",
-            "title": "Workshops",
-            "description": "Spaces for self-awareness, emotional growth, and meaningful connection. Designed for adults and young girls, these workshops offer experiential learning around themes like self-worth, emotional regulation, relationships, and boundaries.",
-            "duration": "Varies",
-            "icon": "users",
-            "price": 999,
-            "price_display": "₹999"
-        },
-        {
             "id": "art-therapy",
             "title": "Expressive Art Therapy",
             "description": "For when emotions feel difficult to put into words. Using creative processes like art, movement, and guided expression, this approach helps you explore and process emotions on a deeper level.",
@@ -560,6 +597,15 @@ async def get_services():
             "description": "For when you feel alone in your experiences. A supportive therapeutic space where individuals come together to share, listen, and connect. Group counseling fosters a sense of belonging and shared healing.",
             "duration": "60-90 minutes",
             "icon": "heart",
+            "price": 999,
+            "price_display": "₹999"
+        },
+        {
+            "id": "workshops",
+            "title": "Workshops",
+            "description": "Spaces for self-awareness, emotional growth, and meaningful connection. Designed for adults and young girls, these workshops offer experiential learning around themes like self-worth, emotional regulation, relationships, and boundaries.",
+            "duration": "Varies",
+            "icon": "users",
             "price": 999,
             "price_display": "₹999"
         },

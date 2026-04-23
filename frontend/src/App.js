@@ -27,8 +27,8 @@ const THERAPY_ROOM = "https://static.prod-images.emergentagent.com/jobs/0ddf470c
 // New Service Images
 const MISSION_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/gv6swmoz_e.jpeg";
 const ART_THERAPY_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/eplihg33_art.jpeg";
-const INDIVIDUAL_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/2avi3dw1_indviduals.jpeg";
-const GROUP_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/72tutvyr_group.jpeg";
+const INDIVIDUAL_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/2e2sc5qy_indviduals.jpeg";
+const GROUP_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/3lndq4a7_group.jpeg";
 const WORKSHOPS_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/qsy90nw2_workshops.jpeg";
 
 // Animation variants
