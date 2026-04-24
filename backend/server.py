@@ -1,10 +1,11 @@
-from fastapi import FastAPI, HTTPException, Request, Response, Depends, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Request, Response, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, List
 from datetime import datetime, timezone, timedelta
 from contextlib import asynccontextmanager
+from bson import ObjectId
 import os
 import bcrypt
 import jwt
@@ -20,8 +21,8 @@ JWT_SECRET = os.environ.get("JWT_SECRET", "default-secret-change-in-production")
 JWT_ALGORITHM = "HS256"
 NOTIFICATION_EMAIL = "emavarantherapy@gmail.com"
 
-# MongoDB client (initialized lazily)
-client = None
+# MongoDB client
+client: Optional[AsyncIOMotorClient] = None
 db = None
 
 def get_db():
@@ -30,6 +31,63 @@ def get_db():
         client = AsyncIOMotorClient(MONGO_URL)
         db = client[DB_NAME]
     return db
+
+# Pydantic Models - Define BEFORE lifespan
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+class BookingRequest(BaseModel):
+    therapist: str
+    date: str
+    time: str
+    name: str
+    email: EmailStr
+    phone: str
+    message: str = ""
+    service: str = ""
+
+class BookingResponse(BaseModel):
+    id: str
+    therapist: str
+    date: str
+    time: str
+    name: str
+    email: str
+    phone: str
+    message: str
+    status: str
+    created_at: str
+
+class BookingUpdateRequest(BaseModel):
+    status: Optional[str] = None
+    notes: Optional[str] = None
+    payment_status: Optional[str] = None
+
+class ContactRequest(BaseModel):
+    name: str
+    email: EmailStr
+    phone: str = ""
+    subject: str
+    message: str
+
+class ContactResponse(BaseModel):
+    id: str
+    name: str
+    email: str
+    subject: str
+    message: str
+    created_at: str
+
+class BlogPost(BaseModel):
+    id: str
+    title: str
+    excerpt: str
+    content: str
+    author: str
+    image_url: str
+    created_at: str
+    read_time: str
 
 # Password hashing
 def hash_password(password: str) -> str:
@@ -58,27 +116,6 @@ def create_refresh_token(user_id: str) -> str:
     }
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
-# Lifespan for startup/shutdown
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup
-    database = get_db()
-    await seed_admins(database)
-    yield
-    # Shutdown
-    if client:
-        client.close()
-
-app = FastAPI(title="Emavaran API", version="1.0.0", lifespan=lifespan)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 # Seed admin users
 async def seed_admins(database):
     admins = [
@@ -98,13 +135,31 @@ async def seed_admins(database):
                 "created_at": datetime.now(timezone.utc).isoformat()
             })
     
-    # Create indexes
     try:
         await database.admins.create_index("email", unique=True)
         await database.bookings.create_index("date")
         await database.bookings.create_index("therapist")
     except Exception:
-        pass  # Indexes might already exist
+        pass
+
+# Lifespan
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    database = get_db()
+    await seed_admins(database)
+    yield
+    if client:
+        client.close()
+
+app = FastAPI(title="Emavaran API", version="1.0.0", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Auth dependency
 async def get_current_user(request: Request) -> dict:
@@ -120,7 +175,6 @@ async def get_current_user(request: Request) -> dict:
         payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         if payload.get("type") != "access":
             raise HTTPException(status_code=401, detail="Invalid token type")
-        from bson import ObjectId
         user = await database.admins.find_one({"_id": ObjectId(payload["sub"])})
         if not user:
             raise HTTPException(status_code=401, detail="User not found")
@@ -133,115 +187,32 @@ async def get_current_user(request: Request) -> dict:
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-# Email notification function
+# Email notification
 async def send_booking_notification(booking_data: dict):
     database = get_db()
     notification = {
         "type": "new_booking",
         "to_email": NOTIFICATION_EMAIL,
         "subject": f"New Booking Request - {booking_data['name']}",
-        "body": f"""
-New Booking Request Received!
-
-Client Details:
-- Name: {booking_data['name']}
-- Email: {booking_data['email']}
-- Phone: {booking_data['phone']}
-
-Session Details:
-- Therapist: {booking_data['therapist'].title()}
-- Date: {booking_data['date']}
-- Time: {booking_data['time']}
-- Service: {booking_data.get('service', 'Not specified')}
-
-Message from client:
-{booking_data.get('message', 'No message')}
-
----
-Please contact the client to confirm the booking.
-Emavaran Team
-        """,
+        "body": f"New booking from {booking_data['name']} ({booking_data['email']}) for {booking_data['date']} at {booking_data['time']} with {booking_data['therapist']}",
         "created_at": datetime.now(timezone.utc).isoformat(),
         "status": "pending"
     }
-    
     await database.notifications.insert_one(notification)
-    print(f"Booking notification created for: {booking_data['name']}")
     return notification
-
-# Pydantic Models
-class LoginRequest(BaseModel):
-    email: EmailStr
-    password: str
-
-class BookingRequest(BaseModel):
-    therapist: str
-    date: str
-    time: str
-    name: str
-    email: EmailStr
-    phone: str
-    message: Optional[str] = ""
-    service: Optional[str] = ""
-
-class BookingResponse(BaseModel):
-    id: str
-    therapist: str
-    date: str
-    time: str
-    name: str
-    email: str
-    phone: str
-    message: str
-    status: str
-    created_at: str
-
-class BookingUpdateRequest(BaseModel):
-    status: Optional[str] = None
-    notes: Optional[str] = None
-    payment_status: Optional[str] = None
-
-class ContactRequest(BaseModel):
-    name: str
-    email: EmailStr
-    phone: Optional[str] = ""
-    subject: str
-    message: str
-
-class ContactResponse(BaseModel):
-    id: str
-    name: str
-    email: str
-    subject: str
-    message: str
-    created_at: str
-
-class BlogPost(BaseModel):
-    id: str
-    title: str
-    excerpt: str
-    content: str
-    author: str
-    image_url: str
-    created_at: str
-    read_time: str
 
 # Routes
 @app.get("/api/health")
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
 
-# Auth Routes
 @app.post("/api/auth/login")
 async def login(request: LoginRequest, response: Response):
     database = get_db()
     email = request.email.lower()
     user = await database.admins.find_one({"email": email})
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid email or password")
-    
-    if not verify_password(request.password, user["password_hash"]):
+    if not user or not verify_password(request.password, user["password_hash"]):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
     user_id = str(user["_id"])
@@ -251,13 +222,7 @@ async def login(request: LoginRequest, response: Response):
     response.set_cookie(key="access_token", value=access_token, httponly=True, secure=False, samesite="lax", max_age=86400, path="/")
     response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=False, samesite="lax", max_age=604800, path="/")
     
-    return {
-        "id": user_id,
-        "email": user["email"],
-        "name": user["name"],
-        "role": user["role"],
-        "token": access_token
-    }
+    return {"id": user_id, "email": user["email"], "name": user["name"], "role": user["role"], "token": access_token}
 
 @app.post("/api/auth/logout")
 async def logout(response: Response):
@@ -269,37 +234,25 @@ async def logout(response: Response):
 async def get_me(current_user: dict = Depends(get_current_user)):
     return current_user
 
-# Admin Routes - Bookings Management
 @app.get("/api/admin/bookings")
-async def get_all_bookings(
-    current_user: dict = Depends(get_current_user),
-    status: Optional[str] = None,
-    therapist: Optional[str] = None,
-    date: Optional[str] = None
-):
+async def get_all_bookings(current_user: dict = Depends(get_current_user), status: Optional[str] = None, therapist: Optional[str] = None, date: Optional[str] = None):
     database = get_db()
     query = {}
-    if status:
-        query["status"] = status
-    if therapist:
-        query["therapist"] = therapist
-    if date:
-        query["date"] = date
+    if status: query["status"] = status
+    if therapist: query["therapist"] = therapist
+    if date: query["date"] = date
     
     bookings = await database.bookings.find(query).sort("created_at", -1).to_list(500)
-    
     result = []
     for booking in bookings:
         booking["id"] = str(booking["_id"])
         del booking["_id"]
         result.append(booking)
-    
     return result
 
 @app.get("/api/admin/bookings/{booking_id}")
 async def get_booking(booking_id: str, current_user: dict = Depends(get_current_user)):
     database = get_db()
-    from bson import ObjectId
     booking = await database.bookings.find_one({"_id": ObjectId(booking_id)})
     if not booking:
         raise HTTPException(status_code=404, detail="Booking not found")
@@ -308,13 +261,8 @@ async def get_booking(booking_id: str, current_user: dict = Depends(get_current_
     return booking
 
 @app.patch("/api/admin/bookings/{booking_id}")
-async def update_booking(
-    booking_id: str,
-    update: BookingUpdateRequest,
-    current_user: dict = Depends(get_current_user)
-):
+async def update_booking(booking_id: str, update: BookingUpdateRequest, current_user: dict = Depends(get_current_user)):
     database = get_db()
-    from bson import ObjectId
     update_data = {k: v for k, v in update.model_dump().items() if v is not None}
     if not update_data:
         raise HTTPException(status_code=400, detail="No update data provided")
@@ -322,11 +270,7 @@ async def update_booking(
     update_data["updated_at"] = datetime.now(timezone.utc).isoformat()
     update_data["updated_by"] = current_user["name"]
     
-    result = await database.bookings.update_one(
-        {"_id": ObjectId(booking_id)},
-        {"$set": update_data}
-    )
-    
+    result = await database.bookings.update_one({"_id": ObjectId(booking_id)}, {"$set": update_data})
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Booking not found")
     
@@ -338,13 +282,11 @@ async def update_booking(
 @app.delete("/api/admin/bookings/{booking_id}")
 async def delete_booking(booking_id: str, current_user: dict = Depends(get_current_user)):
     database = get_db()
-    from bson import ObjectId
     result = await database.bookings.delete_one({"_id": ObjectId(booking_id)})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Booking not found")
     return {"message": "Booking deleted successfully"}
 
-# Admin Stats
 @app.get("/api/admin/stats")
 async def get_stats(current_user: dict = Depends(get_current_user)):
     database = get_db()
@@ -354,21 +296,16 @@ async def get_stats(current_user: dict = Depends(get_current_user)):
     completed_bookings = await database.bookings.count_documents({"status": "completed"})
     cancelled_bookings = await database.bookings.count_documents({"status": "cancelled"})
     total_contacts = await database.contacts.count_documents({})
-    
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     today_bookings = await database.bookings.count_documents({"date": today})
     
     return {
-        "total_bookings": total_bookings,
-        "pending_bookings": pending_bookings,
-        "confirmed_bookings": confirmed_bookings,
-        "completed_bookings": completed_bookings,
-        "cancelled_bookings": cancelled_bookings,
-        "today_bookings": today_bookings,
+        "total_bookings": total_bookings, "pending_bookings": pending_bookings,
+        "confirmed_bookings": confirmed_bookings, "completed_bookings": completed_bookings,
+        "cancelled_bookings": cancelled_bookings, "today_bookings": today_bookings,
         "total_contacts": total_contacts
     }
 
-# Admin Contact Management
 @app.get("/api/admin/contacts")
 async def get_all_contacts(current_user: dict = Depends(get_current_user)):
     database = get_db()
@@ -380,7 +317,6 @@ async def get_all_contacts(current_user: dict = Depends(get_current_user)):
         result.append(contact)
     return result
 
-# Admin Notifications
 @app.get("/api/admin/notifications")
 async def get_notifications(current_user: dict = Depends(get_current_user)):
     database = get_db()
@@ -392,7 +328,6 @@ async def get_notifications(current_user: dict = Depends(get_current_user)):
         result.append(notif)
     return result
 
-# Booking Routes (Public)
 @app.post("/api/bookings", response_model=BookingResponse)
 async def create_booking(booking: BookingRequest):
     database = get_db()
@@ -405,286 +340,82 @@ async def create_booking(booking: BookingRequest):
     if "_id" in booking_dict:
         del booking_dict["_id"]
     
-    # Send notification
     await send_booking_notification(booking_dict)
-    
     return BookingResponse(**booking_dict)
 
 @app.get("/api/bookings/available-slots")
 async def get_available_slots(date: str, therapist: str):
     database = get_db()
     all_slots = ["09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"]
-    
-    booked = await database.bookings.find(
-        {"date": date, "therapist": therapist, "status": {"$ne": "cancelled"}},
-        {"time": 1, "_id": 0}
-    ).to_list(100)
-    
+    booked = await database.bookings.find({"date": date, "therapist": therapist, "status": {"$ne": "cancelled"}}, {"time": 1, "_id": 0}).to_list(100)
     booked_times = [b["time"] for b in booked]
     available = [slot for slot in all_slots if slot not in booked_times]
-    
     return {"date": date, "therapist": therapist, "available_slots": available}
 
-# Contact Routes
 @app.post("/api/contact", response_model=ContactResponse)
 async def submit_contact(contact: ContactRequest):
     database = get_db()
     contact_dict = contact.model_dump()
     contact_dict["created_at"] = datetime.now(timezone.utc).isoformat()
-    
     result = await database.contacts.insert_one(contact_dict)
     contact_dict["id"] = str(result.inserted_id)
-    
     return ContactResponse(**contact_dict)
 
-# Blog Routes
 @app.get("/api/blogs", response_model=List[BlogPost])
 async def get_blogs():
     return [
-        {
-            "id": "1",
-            "title": "How to Manage Anxiety in Daily Life",
-            "excerpt": "Discover practical strategies to navigate anxiety and find peace in everyday moments.",
-            "content": "Anxiety can feel overwhelming, but with the right tools and mindset, you can learn to manage it effectively.",
-            "author": "Manvi Giri",
-            "image_url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800",
-            "created_at": "2026-01-05",
-            "read_time": "5 min read"
-        },
-        {
-            "id": "2",
-            "title": "The Importance of Mental Health",
-            "excerpt": "Understanding why mental health matters and how to prioritize your emotional well-being.",
-            "content": "Mental health is just as important as physical health. Taking care of your mind involves regular self-care practices.",
-            "author": "Diksha Mago",
-            "image_url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800",
-            "created_at": "2026-01-10",
-            "read_time": "4 min read"
-        },
-        {
-            "id": "3",
-            "title": "Building Healthy Relationships",
-            "excerpt": "Learn the foundations of nurturing meaningful connections with those around you.",
-            "content": "Healthy relationships are built on trust, communication, and mutual respect.",
-            "author": "Manvi Giri",
-            "image_url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800",
-            "created_at": "2026-01-15",
-            "read_time": "6 min read"
-        }
+        {"id": "1", "title": "How to Manage Anxiety in Daily Life", "excerpt": "Discover practical strategies to navigate anxiety.", "content": "Anxiety can feel overwhelming, but with the right tools, you can manage it.", "author": "Manvi Giri", "image_url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800", "created_at": "2026-01-05", "read_time": "5 min read"},
+        {"id": "2", "title": "The Importance of Mental Health", "excerpt": "Understanding why mental health matters.", "content": "Mental health is just as important as physical health.", "author": "Diksha Mago", "image_url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800", "created_at": "2026-01-10", "read_time": "4 min read"},
+        {"id": "3", "title": "Building Healthy Relationships", "excerpt": "Learn the foundations of nurturing connections.", "content": "Healthy relationships are built on trust and communication.", "author": "Manvi Giri", "image_url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800", "created_at": "2026-01-15", "read_time": "6 min read"}
     ]
 
 @app.get("/api/blogs/{blog_id}", response_model=BlogPost)
 async def get_blog(blog_id: str):
     blogs = {
-        "1": {
-            "id": "1",
-            "title": "How to Manage Anxiety in Daily Life",
-            "excerpt": "Discover practical strategies to navigate anxiety and find peace in everyday moments.",
-            "content": """Anxiety can feel overwhelming, but with the right tools and mindset, you can learn to manage it effectively.
-
-**Understanding Your Triggers**
-The first step is identifying what triggers your anxiety. Keep a journal to track when anxious feelings arise.
-
-**Breathing Techniques**
-Deep breathing activates your parasympathetic nervous system. Try the 4-7-8 technique.
-
-**Mindfulness Practice**
-Being present helps reduce worry about the future. Start with just 5 minutes of mindful breathing each day.
-
-**Seek Support**
-Remember, you don't have to face anxiety alone. Professional counseling can provide personalized strategies.""",
-            "author": "Manvi Giri",
-            "image_url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800",
-            "created_at": "2026-01-05",
-            "read_time": "5 min read"
-        },
-        "2": {
-            "id": "2",
-            "title": "The Importance of Mental Health",
-            "excerpt": "Understanding why mental health matters and how to prioritize your emotional well-being.",
-            "content": """Mental health is just as important as physical health.
-
-**Breaking the Stigma**
-Mental health challenges are common and nothing to be ashamed of.
-
-**Daily Self-Care**
-Simple practices like adequate sleep and healthy eating can significantly impact your well-being.
-
-**Professional Support**
-Therapists are trained to help you navigate life's challenges.""",
-            "author": "Diksha Mago",
-            "image_url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800",
-            "created_at": "2026-01-10",
-            "read_time": "4 min read"
-        },
-        "3": {
-            "id": "3",
-            "title": "Building Healthy Relationships",
-            "excerpt": "Learn the foundations of nurturing meaningful connections with those around you.",
-            "content": """Healthy relationships are built on trust, communication, and mutual respect.
-
-**Communication is Key**
-Express your feelings openly and listen actively.
-
-**Setting Boundaries**
-Healthy boundaries protect your well-being and the relationship.
-
-**When to Seek Help**
-If relationship challenges feel overwhelming, couples counseling can help.""",
-            "author": "Manvi Giri",
-            "image_url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800",
-            "created_at": "2026-01-15",
-            "read_time": "6 min read"
-        }
+        "1": {"id": "1", "title": "How to Manage Anxiety in Daily Life", "excerpt": "Discover practical strategies.", "content": "Anxiety can feel overwhelming. Understanding triggers, breathing techniques, and mindfulness can help.", "author": "Manvi Giri", "image_url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800", "created_at": "2026-01-05", "read_time": "5 min read"},
+        "2": {"id": "2", "title": "The Importance of Mental Health", "excerpt": "Why mental health matters.", "content": "Mental health is crucial. Break the stigma and practice daily self-care.", "author": "Diksha Mago", "image_url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800", "created_at": "2026-01-10", "read_time": "4 min read"},
+        "3": {"id": "3", "title": "Building Healthy Relationships", "excerpt": "Nurturing meaningful connections.", "content": "Communication is key. Set boundaries and seek help when needed.", "author": "Manvi Giri", "image_url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800", "created_at": "2026-01-15", "read_time": "6 min read"}
     }
-    
     if blog_id not in blogs:
         raise HTTPException(status_code=404, detail="Blog not found")
-    
     return blogs[blog_id]
 
-# Therapists data
 @app.get("/api/therapists")
 async def get_therapists():
     return [
-        {
-            "id": "manvi",
-            "name": "Manvi Giri",
-            "title": "Counseling Psychologist | Mental Health Advocate",
-            "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg",
-            "experience": "2+ years",
-            "specializations": ["Emotional Regulation", "Self-Esteem", "Life Skills Training", "Personal Growth"],
-            "bio": "Manvi Giri is a dedicated and empathetic Counseling Psychologist with over two years of experience."
-        },
-        {
-            "id": "diksha",
-            "name": "Diksha Mago",
-            "title": "Counseling Psychologist | Expressive Art Therapist | Mental Health Advocate",
-            "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/k1imk6ox_IMG_3581.JPG.jpeg",
-            "experience": "2+ years",
-            "specializations": ["Expressive Art Therapy", "CBT", "Gestalt Therapy", "Emotion-Focused Therapy"],
-            "bio": "Diksha Mago is a compassionate Counseling Psychologist with integrative therapeutic approach."
-        }
+        {"id": "manvi", "name": "Manvi Giri", "title": "Counseling Psychologist | Mental Health Advocate", "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg", "experience": "2+ years", "specializations": ["Emotional Regulation", "Self-Esteem", "Life Skills Training"], "bio": "Manvi is a dedicated Counseling Psychologist with a client-centered approach."},
+        {"id": "diksha", "name": "Diksha Mago", "title": "Counseling Psychologist | Expressive Art Therapist", "image_url": "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/k1imk6ox_IMG_3581.JPG.jpeg", "experience": "2+ years", "specializations": ["Expressive Art Therapy", "CBT", "Gestalt Therapy"], "bio": "Diksha is a compassionate therapist with an integrative approach."}
     ]
 
-# Services data
 @app.get("/api/services")
 async def get_services():
     return [
-        {
-            "id": "student",
-            "title": "Student Therapy",
-            "description": "Specially designed for students navigating academic pressure, career confusion, peer relationships, and personal growth.",
-            "duration": "50-60 minutes",
-            "icon": "graduation",
-            "price": 799,
-            "price_display": "₹799"
-        },
-        {
-            "id": "individual",
-            "title": "Individual Counseling",
-            "description": "For when your thoughts feel overwhelming. A safe, confidential space where you can slow down and process your experiences.",
-            "duration": "50-60 minutes",
-            "icon": "user",
-            "price": 999,
-            "price_display": "₹999"
-        },
-        {
-            "id": "art-therapy",
-            "title": "Expressive Art Therapy",
-            "description": "For when emotions feel difficult to put into words. Using creative processes like art and movement to explore emotions.",
-            "duration": "50-60 minutes",
-            "icon": "palette",
-            "price": 999,
-            "price_display": "₹999"
-        },
-        {
-            "id": "group",
-            "title": "Group Counseling",
-            "description": "A supportive therapeutic space where individuals come together to share, listen, and connect.",
-            "duration": "60-90 minutes",
-            "icon": "heart",
-            "price": 999,
-            "price_display": "₹999"
-        },
-        {
-            "id": "workshops",
-            "title": "Workshops",
-            "description": "Spaces for self-awareness, emotional growth, and meaningful connection with experiential learning.",
-            "duration": "Varies",
-            "icon": "users",
-            "price": 999,
-            "price_display": "₹999"
-        },
-        {
-            "id": "psychoeducation",
-            "title": "Psychoeducation Sessions",
-            "description": "Sessions focused on building awareness around thoughts, emotions, and behavioral patterns.",
-            "duration": "45-60 minutes",
-            "icon": "sparkles",
-            "price": 999,
-            "price_display": "₹999"
-        }
+        {"id": "student", "title": "Student Therapy", "description": "Specially designed for students navigating academic pressure and personal growth.", "duration": "50-60 minutes", "icon": "graduation", "price": 799, "price_display": "₹799"},
+        {"id": "individual", "title": "Individual Counseling", "description": "A safe, confidential space to process your experiences and build resilience.", "duration": "50-60 minutes", "icon": "user", "price": 999, "price_display": "₹999"},
+        {"id": "art-therapy", "title": "Expressive Art Therapy", "description": "Using creative processes to explore and process emotions on a deeper level.", "duration": "50-60 minutes", "icon": "palette", "price": 999, "price_display": "₹999"},
+        {"id": "group", "title": "Group Counseling", "description": "A supportive space where individuals come together to share and connect.", "duration": "60-90 minutes", "icon": "heart", "price": 999, "price_display": "₹999"},
+        {"id": "workshops", "title": "Workshops", "description": "Spaces for self-awareness, emotional growth, and meaningful connection.", "duration": "Varies", "icon": "users", "price": 999, "price_display": "₹999"},
+        {"id": "psychoeducation", "title": "Psychoeducation Sessions", "description": "Building awareness around thoughts, emotions, and behavioral patterns.", "duration": "45-60 minutes", "icon": "sparkles", "price": 999, "price_display": "₹999"}
     ]
 
-# FAQs
 @app.get("/api/faqs")
 async def get_faqs():
     return [
-        {
-            "question": "What can I expect in my first session?",
-            "answer": "Your first session is about getting to know each other. We'll discuss what brings you to therapy and your goals."
-        },
-        {
-            "question": "How long does each session last?",
-            "answer": "Each session typically lasts between 50-60 minutes."
-        },
-        {
-            "question": "Is everything I share confidential?",
-            "answer": "Yes, confidentiality is a cornerstone of our practice. Everything discussed remains private."
-        },
-        {
-            "question": "How many sessions will I need?",
-            "answer": "The number varies for each person. We'll work together to determine what's best for you."
-        },
-        {
-            "question": "Can I choose my therapist?",
-            "answer": "Yes! You can choose to work with either Manvi or Diksha based on their specializations."
-        },
-        {
-            "question": "Do you offer online sessions?",
-            "answer": "Yes, we offer both in-person and online sessions to accommodate your preferences."
-        }
+        {"question": "What can I expect in my first session?", "answer": "Your first session is about getting to know each other and discussing your goals."},
+        {"question": "How long does each session last?", "answer": "Each session typically lasts between 50-60 minutes."},
+        {"question": "Is everything I share confidential?", "answer": "Yes, confidentiality is a cornerstone of our practice."},
+        {"question": "How many sessions will I need?", "answer": "The number varies for each person. We'll work together to determine what's best."},
+        {"question": "Can I choose my therapist?", "answer": "Yes! You can choose to work with either Manvi or Diksha."},
+        {"question": "Do you offer online sessions?", "answer": "Yes, we offer both in-person and online sessions."}
     ]
 
-# Testimonials
 @app.get("/api/testimonials")
 async def get_testimonials():
     return [
-        {
-            "id": "1",
-            "name": "Anonymous",
-            "text": "Finding Emavaran was a turning point in my life. The compassionate approach helped me understand myself better.",
-            "rating": 5
-        },
-        {
-            "id": "2",
-            "name": "R.S.",
-            "text": "The warm and non-judgmental environment made all the difference. I've learned so much about managing my anxiety.",
-            "rating": 5
-        },
-        {
-            "id": "3",
-            "name": "Anonymous",
-            "text": "The relationship counseling sessions transformed how I communicate with my partner.",
-            "rating": 5
-        },
-        {
-            "id": "4",
-            "name": "P.K.",
-            "text": "Professional, empathetic, and truly caring. Highly recommend Emavaran to anyone seeking help.",
-            "rating": 5
-        }
+        {"id": "1", "name": "Anonymous", "text": "Finding Emavaran was a turning point in my life.", "rating": 5},
+        {"id": "2", "name": "R.S.", "text": "The warm environment made all the difference in managing my anxiety.", "rating": 5},
+        {"id": "3", "name": "Anonymous", "text": "The counseling sessions transformed how I communicate.", "rating": 5},
+        {"id": "4", "name": "P.K.", "text": "Professional, empathetic, and truly caring. Highly recommend!", "rating": 5}
     ]
 
 if __name__ == "__main__":
