@@ -730,13 +730,15 @@ function AboutPage() {
             className="mb-16"
           >
             <div className="heavenly-card rounded-3xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-testid="founder-manvi">
-              <div className="md:col-span-1 relative">
-                <div className="absolute -inset-2 bg-gradient-to-br from-brand-primary/20 to-accent-tertiary/20 rounded-3xl transform rotate-2" />
-                <img 
-                  src={MANVI_PHOTO} 
-                  alt="Manvi Giri"
-                  className="relative w-full aspect-[3/4] object-cover rounded-2xl shadow-lg"
-                />
+              <div className="md:col-span-1 relative flex justify-center">
+                <div className="relative w-full max-w-xs mx-auto">
+                  <div className="absolute -inset-2 bg-gradient-to-br from-brand-primary/20 to-accent-tertiary/20 rounded-3xl transform rotate-2" />
+                  <img 
+                    src={MANVI_PHOTO} 
+                    alt="Manvi Giri"
+                    className="relative w-full aspect-[3/4] object-cover object-top rounded-2xl shadow-lg"
+                  />
+                </div>
               </div>
               <div className="md:col-span-2">
                 <h3 className="text-3xl font-serif text-text-primary mb-2">Manvi Giri</h3>
@@ -779,13 +781,15 @@ function AboutPage() {
             variants={fadeInUp}
           >
             <div className="heavenly-card rounded-3xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-start" data-testid="founder-diksha">
-              <div className="md:col-span-1 md:order-2 relative">
-                <div className="absolute -inset-2 bg-gradient-to-br from-accent-tertiary/20 to-brand-primary/20 rounded-3xl transform -rotate-2" />
-                <img 
-                  src={DIKSHA_PHOTO} 
-                  alt="Diksha Mago"
-                  className="relative w-full aspect-[3/4] object-cover rounded-2xl shadow-lg"
-                />
+              <div className="md:col-span-1 md:order-2 relative flex justify-center">
+                <div className="relative w-full max-w-xs mx-auto">
+                  <div className="absolute -inset-2 bg-gradient-to-br from-accent-tertiary/20 to-brand-primary/20 rounded-3xl transform -rotate-2" />
+                  <img 
+                    src={DIKSHA_PHOTO} 
+                    alt="Diksha Mago"
+                    className="relative w-full aspect-[3/4] object-cover object-top rounded-2xl shadow-lg"
+                  />
+                </div>
               </div>
               <div className="md:col-span-2 md:order-1">
                 <h3 className="text-3xl font-serif text-text-primary mb-2">Diksha Mago</h3>
