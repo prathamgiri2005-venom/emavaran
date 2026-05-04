@@ -194,12 +194,33 @@ async def send_booking_notification(booking_data: dict):
         "type": "new_booking",
         "to_email": NOTIFICATION_EMAIL,
         "subject": f"New Booking Request - {booking_data['name']}",
-        "body": f"New booking from {booking_data['name']} ({booking_data['email']}) for {booking_data['date']} at {booking_data['time']} with {booking_data['therapist']}",
+        "body": f"New booking from {booking_data['name']} ({booking_data['email']})",
         "created_at": datetime.now(timezone.utc).isoformat(),
         "status": "pending"
     }
     await database.notifications.insert_one(notification)
-    return notification
+
+    try:
+        import resend
+        resend.api_key = os.environ.get("RESEND_API_KEY")
+        therapist_name = "Manvi Giri" if booking_data['therapist'] == 'manvi' else "Diksha Mago"
+        resend.Emails.send({
+            "from": "noreply@emavaran.in",
+            "to": ["emavarantherapy@gmail.com"],
+            "subject": f"🎉 New Booking - {booking_data['name']}",
+            "html": f"""
+            <h2>New Session Booking!</h2>
+            <p><b>Name:</b> {booking_data['name']}</p>
+            <p><b>Email:</b> {booking_data['email']}</p>
+            <p><b>Phone:</b> {booking_data['phone']}</p>
+            <p><b>Therapist:</b> {therapist_name}</p>
+            <p><b>Date:</b> {booking_data['date']}</p>
+            <p><b>Time:</b> {booking_data['time']}</p>
+            <p><b>Message:</b> {booking_data.get('message', 'None')}</p>
+            """
+        })
+    except Exception as e:
+        print(f"Email error: {e}")
 
 # Routes
 @app.get("/api/health")
