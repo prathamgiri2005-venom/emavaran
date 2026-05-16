@@ -1074,10 +1074,12 @@ function BookSessionPage() {
       const response = await fetch(`${API_URL}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          date: selectedDate.toISOString().split('T')[0],
-          time: selectedTime,
-          ...formData
+      body: JSON.stringify({
+  service: selectedService,
+  date: selectedDate.toISOString().split('T')[0],
+  time: selectedTime,
+  ...formData
+})
         })
       });
 
