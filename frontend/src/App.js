@@ -11,7 +11,7 @@ import { Input } from './components/ui/Input';
 import { Textarea } from './components/ui/Textarea';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/Accordion';
 import { Calendar } from './components/ui/Calendar';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/Select';
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './components/ui/Dialog';
 import { AuthProvider, AdminLogin, AdminDashboard } from './components/Admin';
 
