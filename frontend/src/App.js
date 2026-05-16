@@ -1071,17 +1071,27 @@ function BookSessionPage() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch(`${API_URL}/api/bookings`, {
+   const response = await fetch(`${API_URL}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-  service: selectedService,
-  date: selectedDate.toISOString().split('T')[0],
-  time: selectedTime,
-  ...formData
-})
+        body: JSON.stringify({
+          service: selectedService,
+          date: selectedDate.toISOString().split('T')[0],
+          time: selectedTime,
+          ...formData
         })
       });
+
+      if (response.ok) {
+        const data = await response.json();
+        setBookingDetails(data);
+        setShowConfirmation(true);
+      }
+    } catch (error) {
+      console.error('Booking error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
 
       if (response.ok) {
         const data = await response.json();
