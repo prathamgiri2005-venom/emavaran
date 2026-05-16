@@ -787,7 +787,7 @@ function AboutPage() {
                   <img 
                     src={DIKSHA_PHOTO} 
                     alt="Diksha Mago"
-                    className="relative w-full aspect-[3/4] object-cover object-top rounded-2xl shadow-lg"
+              className="relative w-full aspect-[3/4] object-cover object-[20%] rounded-2xl shadow-lg"
                   />
                 </div>
               </div>
