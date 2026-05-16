@@ -11,7 +11,7 @@ import { Input } from './components/ui/Input';
 import { Textarea } from './components/ui/Textarea';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/Accordion';
 import { Calendar } from './components/ui/Calendar';
-const [selectedService, setSelectedService] = useState('');
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/Select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './components/ui/Dialog';
 import { AuthProvider, AdminLogin, AdminDashboard } from './components/Admin';
 
@@ -1044,6 +1044,7 @@ function ServicesPage() {
 
 function BookSessionPage() {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedService, setSelectedService] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [availableSlots, setAvailableSlots] = useState([]);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
