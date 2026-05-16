@@ -1124,6 +1124,23 @@ function BookSessionPage() {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Left Column - Calendar & Time */}
             <div className="space-y-8">
+        {/* Service Selection */}
+<div>
+  <label className="block text-sm font-medium text-text-primary mb-3">Select Service</label>
+  <Select value={selectedService} onValueChange={setSelectedService}>
+    <SelectTrigger data-testid="service-select">
+      <SelectValue placeholder="Choose a service" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="Individual Counseling">Individual Counseling</SelectItem>
+      <SelectItem value="Student Therapy">Student Therapy</SelectItem>
+      <SelectItem value="Expressive Art Therapy">Expressive Art Therapy</SelectItem>
+      <SelectItem value="Group Counseling">Group Counseling</SelectItem>
+      <SelectItem value="Workshops">Workshops</SelectItem>
+      <SelectItem value="Psychoeducation Sessions">Psychoeducation Sessions</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
               {/* Calendar */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">Select Date</label>
