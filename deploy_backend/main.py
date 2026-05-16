@@ -208,16 +208,16 @@ async def send_booking_notification(booking_data: dict):
             "from": "noreply@emavaran.in",
             "to": ["emavarantherapy@gmail.com"],
             "subject": f"🎉 New Booking - {booking_data['name']}",
-            "html": f"""
-            <h2>New Session Booking!</h2>
-            <p><b>Name:</b> {booking_data['name']}</p>
-            <p><b>Email:</b> {booking_data['email']}</p>
-            <p><b>Phone:</b> {booking_data['phone']}</p>
-            <p><b>Therapist:</b> {therapist_name}</p>
-            <p><b>Date:</b> {booking_data['date']}</p>
-            <p><b>Time:</b> {booking_data['time']}</p>
-            <p><b>Message:</b> {booking_data.get('message', 'None')}</p>
-            """
+        "html": f"""
+<h2>New Session Booking!</h2>
+<p><b>Name:</b> {booking_data['name']}</p>
+<p><b>Email:</b> {booking_data['email']}</p>
+<p><b>Phone:</b> {booking_data['phone']}</p>
+<p><b>Service:</b> {booking_data.get('service', 'Not specified')}</p>
+<p><b>Date:</b> {booking_data['date']}</p>
+<p><b>Time:</b> {booking_data['time']}</p>
+<p><b>Message:</b> {booking_data.get('message', 'None')}</p>
+"""
         })
     except Exception as e:
         print(f"Email error: {e}")
