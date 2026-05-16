@@ -365,13 +365,14 @@ async def create_booking(booking: BookingRequest):
     return BookingResponse(**booking_dict)
 
 @app.get("/api/bookings/available-slots")
-async def get_available_slots(date: str, therapist: str):
+@app.get("/api/bookings/available-slots")
+async def get_available_slots(date: str):
     database = get_db()
     all_slots = ["09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"]
-    booked = await database.bookings.find({"date": date, "therapist": therapist, "status": {"$ne": "cancelled"}}, {"time": 1, "_id": 0}).to_list(100)
+    booked = await database.bookings.find({"date": date, "status": {"$ne": "cancelled"}}, {"time": 1, "_id": 0}).to_list(100)
     booked_times = [b["time"] for b in booked]
     available = [slot for slot in all_slots if slot not in booked_times]
-    return {"date": date, "therapist": therapist, "available_slots": available}
+    return {"date": date, "available_slots": available}
 
 @app.post("/api/contact", response_model=ContactResponse)
 @app.post("/api/contact", response_model=ContactResponse)
