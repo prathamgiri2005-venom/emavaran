@@ -38,7 +38,7 @@ class LoginRequest(BaseModel):
     password: str
 
 class BookingRequest(BaseModel):
-    therapist: str
+    therapist: str = ""
     date: str
     time: str
     name: str
@@ -46,7 +46,6 @@ class BookingRequest(BaseModel):
     phone: str
     message: str = ""
     service: str = ""
-
 class BookingResponse(BaseModel):
     id: str
     therapist: str
