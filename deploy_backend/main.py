@@ -374,14 +374,34 @@ async def get_available_slots(date: str, therapist: str):
     return {"date": date, "therapist": therapist, "available_slots": available}
 
 @app.post("/api/contact", response_model=ContactResponse)
+@app.post("/api/contact", response_model=ContactResponse)
 async def submit_contact(contact: ContactRequest):
     database = get_db()
     contact_dict = contact.model_dump()
     contact_dict["created_at"] = datetime.now(timezone.utc).isoformat()
     result = await database.contacts.insert_one(contact_dict)
     contact_dict["id"] = str(result.inserted_id)
-    return ContactResponse(**contact_dict)
 
+    try:
+        import resend
+        resend.api_key = os.environ.get("RESEND_API_KEY")
+        resend.Emails.send({
+            "from": "noreply@emavaran.in",
+            "to": ["emavarantherapy@gmail.com"],
+            "subject": f"📩 New Contact Message - {contact_dict['subject']}",
+            "html": f"""
+<h2>New Contact Form Submission!</h2>
+<p><b>Name:</b> {contact_dict['name']}</p>
+<p><b>Email:</b> {contact_dict['email']}</p>
+<p><b>Phone:</b> {contact_dict.get('phone', 'Not provided')}</p>
+<p><b>Subject:</b> {contact_dict['subject']}</p>
+<p><b>Message:</b> {contact_dict['message']}</p>
+"""
+        })
+    except Exception as e:
+        print(f"Contact email error: {e}")
+
+    return ContactResponse(**contact_dict)
 @app.get("/api/blogs", response_model=List[BlogPost])
 async def get_blogs():
     return [
