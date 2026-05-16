@@ -1042,10 +1042,8 @@ function ServicesPage() {
   );
 }
 
-// Book Session Page
 function BookSessionPage() {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTherapist, setSelectedTherapist] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [availableSlots, setAvailableSlots] = useState([]);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
@@ -1054,19 +1052,19 @@ function BookSessionPage() {
   const [bookingDetails, setBookingDetails] = useState(null);
 
   useEffect(() => {
-    if (selectedDate && selectedTherapist) {
+    if (selectedDate) {
       const dateStr = selectedDate.toISOString().split('T')[0];
-      fetch(`${API_URL}/api/bookings/available-slots?date=${dateStr}&therapist=${selectedTherapist}`)
+      fetch(`${API_URL}/api/bookings/available-slots?date=${dateStr}`)
         .then(r => r.json())
         .then(data => setAvailableSlots(data.available_slots))
         .catch(console.error);
     }
-  }, [selectedDate, selectedTherapist]);
+  }, [selectedDate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedDate || !selectedTherapist || !selectedTime) {
-      alert('Please select a date, therapist, and time slot.');
+    if (!selectedDate || !selectedTime) {
+      alert('Please select a date and time slot.');
       return;
     }
 
@@ -1076,7 +1074,6 @@ function BookSessionPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          therapist: selectedTherapist,
           date: selectedDate.toISOString().split('T')[0],
           time: selectedTime,
           ...formData
@@ -1115,7 +1112,7 @@ function BookSessionPage() {
               Start Your Journey
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg text-text-secondary leading-relaxed">
-              Take the first step towards healing. Choose your preferred therapist, date, and time.
+              Take the first step towards healing. Choose your preferred date and time.
             </motion.p>
           </motion.div>
         </div>
@@ -1127,20 +1124,6 @@ function BookSessionPage() {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Left Column - Calendar & Time */}
             <div className="space-y-8">
-              {/* Therapist Selection */}
-              <div>
-                <label className="block text-sm font-medium text-text-primary mb-3">Select Therapist</label>
-                <Select value={selectedTherapist} onValueChange={setSelectedTherapist}>
-                  <SelectTrigger data-testid="therapist-select">
-                    <SelectValue placeholder="Choose a therapist" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="manvi" data-testid="select-manvi">Manvi Giri</SelectItem>
-                    <SelectItem value="diksha" data-testid="select-diksha">Diksha Mago</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
               {/* Calendar */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">Select Date</label>
@@ -1156,7 +1139,7 @@ function BookSessionPage() {
               </div>
 
               {/* Time Slots */}
-              {selectedDate && selectedTherapist && (
+              {selectedDate && (
                 <div>
                   <label className="block text-sm font-medium text-text-primary mb-3">Select Time</label>
                   <div className="grid grid-cols-4 gap-3">
@@ -1235,7 +1218,6 @@ function BookSessionPage() {
                 </div>
               </div>
 
-              {/* Pricing Note */}
               <div className="mt-6 p-4 bg-background-secondary rounded-xl">
                 <p className="text-sm text-text-secondary">
                   <strong>Session Duration:</strong> 50-60 minutes<br />
@@ -1247,7 +1229,7 @@ function BookSessionPage() {
                 type="submit"
                 size="lg"
                 className="w-full mt-6"
-                disabled={isSubmitting || !selectedDate || !selectedTherapist || !selectedTime}
+                disabled={isSubmitting || !selectedDate || !selectedTime}
                 data-testid="submit-booking"
               >
                 {isSubmitting ? 'Booking...' : 'Confirm Booking'}
@@ -1269,12 +1251,11 @@ function BookSessionPage() {
           {bookingDetails && (
             <div className="space-y-4 py-4">
               <div className="bg-background-secondary p-4 rounded-xl space-y-2">
-                <p><strong>Therapist:</strong> {bookingDetails.therapist === 'manvi' ? 'Manvi Giri' : 'Diksha Mago'}</p>
                 <p><strong>Date:</strong> {bookingDetails.date}</p>
                 <p><strong>Time:</strong> {bookingDetails.time}</p>
               </div>
               <p className="text-sm text-text-secondary">
-                We'll send a confirmation email to <strong>{bookingDetails.email}</strong> with all the details. If you have any questions, please contact us.
+                We'll send a confirmation email to <strong>{bookingDetails.email}</strong> with all the details.
               </p>
             </div>
           )}
@@ -1286,7 +1267,6 @@ function BookSessionPage() {
     </div>
   );
 }
-
 // Blog Page
 function BlogPage() {
   const [blogs, setBlogs] = useState([]);
