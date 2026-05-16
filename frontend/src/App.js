@@ -1093,11 +1093,7 @@ function BookSessionPage() {
       setIsSubmitting(false);
     }
 
-      if (response.ok) {
-        const data = await response.json();
-        setBookingDetails(data);
-        setShowConfirmation(true);
-      }
+ 
     } catch (error) {
       console.error('Booking error:', error);
     } finally {
