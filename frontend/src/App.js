@@ -452,7 +452,7 @@ function HomePage() {
                   <img 
                     src={therapist.photo} 
                     alt={therapist.name}
-                    className="w-full h-full object-cover rounded-2xl"
+                  className="w-full h-full object-cover object-[20%] rounded-2xl"
                   />
                 </div>
                 <div className="flex-1">
