@@ -1092,13 +1092,6 @@ function BookSessionPage() {
     } finally {
       setIsSubmitting(false);
     }
-
- 
-    } catch (error) {
-      console.error('Booking error:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   const disabledDays = { before: new Date() };
