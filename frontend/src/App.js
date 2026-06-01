@@ -20,7 +20,7 @@ const API_URL = process.env.REACT_APP_BACKEND_URL;
 // Brand Assets
 const BRAND_LOGO = "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/5tpkky0k_WhatsApp%20Image%202026-04-10%20at%204.11.34%20PM.jpeg";
 const MANVI_PHOTO = "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg";
-const DIKSHA_PHOTO = <img src="https://i.ibb.co/6Q2cwn6/Chat-GPT-Image-Jun-1-2026-08-29-11-PM.png" alt="Chat GPT Image Jun 1 2026 08 29 11 PM" border="0">
+const DIKSHA_PHOTO = "https://i.ibb.co/6Q2cwn6/Chat-GPT-Image-Jun-1-2026-08-29-11-PM.png";
 const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/0ddf470c-530c-4b73-b546-d7dd762933cd/images/32fd8022c1f4f8be618a1e23248f122972f1cac8fa44eea1a0d649daa9c7bab1.png";
 const THERAPY_ROOM = "https://static.prod-images.emergentagent.com/jobs/0ddf470c-530c-4b73-b546-d7dd762933cd/images/85699758cf1d8d5aa539b0539957266055efeaaecf627194a02ca413f763edbc.png";
 
