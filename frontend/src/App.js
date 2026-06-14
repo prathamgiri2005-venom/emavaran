@@ -1653,6 +1653,17 @@ function GalleryPage() {
     { src: DIKSHA_PHOTO, alt: 'Diksha Mago', caption: 'Diksha Mago - Counseling Psychologist' },
     { src: THERAPY_ROOM, alt: 'Therapy Room', caption: 'Safe & Comfortable Space' },
     { src: HERO_BG, alt: 'Abstract Background', caption: 'Healing & Wellness' },
+    const images = [
+  { src: '/1.jpeg', caption: 'Emavaran Brand Launch' },
+  { src: '/2.jpeg', caption: 'Emavaran Brand Launch' },
+  { src: '/3.jpeg', caption: 'Emavaran Brand Launch' },
+  { src: '/4.jpeg', caption: 'Emavaran Brand Launch' },
+  { src: '/5.jpeg', caption: 'Emavaran Brand Launch' },
+  { src: '/6.jpeg', caption: 'Emavaran Brand Launch' },
+  { src: '/7.jpeg', caption: 'Emavaran Brand Launch' },
+  { src: '/8.jpeg', caption: 'Emavaran Brand Launch' },
+  { src: '/9.jpeg', caption: 'Emavaran Brand Launch' },
+];
   ];
 
   return (
