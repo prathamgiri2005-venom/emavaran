@@ -1745,6 +1745,7 @@ function PublicLayout() {
           <Route path="/blog/:id" element={<BlogDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
+  <Route path="/photos" element={<GalleryPage />} />
         </Routes>
       </main>
       <Footer />
