@@ -1646,6 +1646,68 @@ function ContactPage() {
 }
 
 // Gallery Page
+function PhotosPage() {
+  const images = [
+    { src: '/1.jpeg', caption: 'Emavaran Brand Launch' },
+    { src: '/2.jpeg', caption: 'Emavaran Brand Launch' },
+    { src: '/3.jpeg', caption: 'Emavaran Brand Launch' },
+    { src: '/4.jpeg', caption: 'Emavaran Brand Launch' },
+    { src: '/5.jpeg', caption: 'Emavaran Brand Launch' },
+    { src: '/6.jpeg', caption: 'Emavaran Brand Launch' },
+    { src: '/7.jpeg', caption: 'Emavaran Brand Launch' },
+    { src: '/8.jpeg', caption: 'Emavaran Brand Launch' },
+    { src: '/9.jpeg', caption: 'Emavaran Brand Launch' },
+  ];
+
+  return (
+    <div className="pt-20">
+      <section className="py-20 md:py-32 px-6 md:px-12 bg-background-secondary">
+        <div className="max-w-7xl mx-auto">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl">
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary mb-4">
+              Our Moments
+            </motion.p>
+            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-light text-text-primary mb-6">
+              Emavaran Brand Launch
+            </motion.h1>
+            <motion.p variants={fadeInUp} className="text-lg text-text-secondary leading-relaxed">
+              Memories from our brand launch — a beautiful evening of creativity, connection, and healing.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-20 md:py-32 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {images.map((image, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                className="group relative overflow-hidden rounded-2xl shadow-md"
+              >
+                <img
+                  src={image.src}
+                  alt={image.caption}
+                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2D3748]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <p className="text-white font-medium">{image.caption}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}
 function GalleryPage() {
   const images = [
     { src: BRAND_LOGO, alt: 'Emavaran Logo', caption: 'Our Brand' },
