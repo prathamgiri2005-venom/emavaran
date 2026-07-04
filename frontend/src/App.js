@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Menu, X, Phone, Mail, MapPin, Clock, ChevronRight, 
   User, Heart, Users, Sparkles, Star, ArrowRight, Calendar as CalendarIcon,
-  Facebook, Instagram, Linkedin, Monitor, Palette, GraduationCap
+  Facebook, Instagram, Linkedin, Monitor, Palette, GraduationCap,
+  Sprout, Leaf, BookOpen, Briefcase, UserCheck
 } from 'lucide-react';
 import { Button } from './components/ui/Button';
 import { Input } from './components/ui/Input';
@@ -989,6 +990,158 @@ function ServicesPage() {
                 </motion.div>
               );
             })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Our 5 Verticals - Emavaran Signature Programs */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" data-testid="verticals-section" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        {/* Decorative leaves background */}
+        <div className="absolute top-10 left-0 w-40 h-40 opacity-20">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="absolute bottom-10 right-0 w-40 h-40 opacity-20 rotate-180">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.3em] font-semibold mb-4" style={{color: '#8b7355'}}>
+              Our Signature Programs
+            </motion.p>
+            <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-serif mb-3" style={{color: '#1a3a5c'}}>
+              Our <span style={{color: '#1a3a5c'}}>5 Verticals</span>
+            </motion.h2>
+            <motion.div variants={fadeInUp} className="flex items-center justify-center gap-3 my-6">
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+              <Sparkles className="h-5 w-5" style={{color: '#c9a961'}} />
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+            </motion.div>
+            <motion.p variants={fadeInUp} className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{color: '#3a5a7c'}}>
+              Five focused verticals. Five unique spaces.<br />
+              One holistic approach to healing &amp; growth.
+            </motion.p>
+          </motion.div>
+
+          {/* Top row - 3 cards */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8"
+          >
+            {[
+              {
+                hindi: 'नव',
+                english: 'Rehabilitation',
+                description: 'Holistic rehabilitation programs for emotional, mental & behavioral well-being.',
+                icon: <Sprout className="w-12 h-12" strokeWidth={1.5} />
+              },
+              {
+                hindi: 'सुकून',
+                english: 'Retreats',
+                description: 'Restorative retreats to reconnect, recharge & rediscover inner balance in nurturing environments.',
+                icon: <Leaf className="w-12 h-12" strokeWidth={1.5} />
+              },
+              {
+                hindi: 'उड़ान',
+                english: 'School Programs',
+                description: 'Interactive programs for students, teachers & parents to build emotional resilience & awareness.',
+                icon: <BookOpen className="w-12 h-12" strokeWidth={1.5} />
+              }
+            ].map((vertical, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500"
+                style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
+                data-testid={`vertical-card-${idx}`}
+              >
+                <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
+                  {vertical.icon}
+                </div>
+                <h3 className="text-4xl md:text-5xl font-bold mb-2" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
+                  {vertical.hindi}
+                </h3>
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <span className="text-lg font-medium" style={{color: '#4a7c3f'}}>— {vertical.english}</span>
+                </div>
+                <div className="w-12 h-px mx-auto mb-4" style={{background: '#c9a961'}} />
+                <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
+                  {vertical.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom row - 2 cards centered */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto"
+          >
+            {[
+              {
+                hindi: 'साथ',
+                english: 'Corporate Wellness',
+                description: 'Workplace wellness programs that foster mental well-being, productivity & harmony.',
+                icon: <Briefcase className="w-12 h-12" strokeWidth={1.5} />
+              },
+              {
+                hindi: 'सक्षम',
+                english: 'Workshops & Sessions for MHPs',
+                description: 'Specialized workshops & professional support for mental health professionals to grow, learn & create lasting impact.',
+                icon: <UserCheck className="w-12 h-12" strokeWidth={1.5} />
+              }
+            ].map((vertical, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500"
+                style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
+                data-testid={`vertical-card-${idx + 3}`}
+              >
+                <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
+                  {vertical.icon}
+                </div>
+                <h3 className="text-4xl md:text-5xl font-bold mb-2" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
+                  {vertical.hindi}
+                </h3>
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <span className="text-lg font-medium" style={{color: '#4a7c3f'}}>— {vertical.english}</span>
+                </div>
+                <div className="w-12 h-px mx-auto mb-4" style={{background: '#c9a961'}} />
+                <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
+                  {vertical.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom tagline */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center mt-16"
+          >
+            <div className="inline-block px-8 py-4 rounded-full" style={{background: 'linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.2), transparent)'}}>
+              <p className="text-lg md:text-2xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>
+                Let's Heal. Let's Grow. Together.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
