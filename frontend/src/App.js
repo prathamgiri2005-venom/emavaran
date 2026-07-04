@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Menu, X, Phone, Mail, MapPin, Clock, ChevronRight, 
   User, Heart, Users, Sparkles, Star, ArrowRight, Calendar as CalendarIcon,
-  Facebook, Instagram, Linkedin, Monitor, Palette, GraduationCap
+  Facebook, Instagram, Linkedin, Monitor, Palette, GraduationCap,
+  Sprout, Leaf, BookOpen, Briefcase, UserCheck
 } from 'lucide-react';
 import { Button } from './components/ui/Button';
 import { Input } from './components/ui/Input';
@@ -319,30 +320,38 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Services Highlights - Heavenly Design */}
-      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" data-testid="services-section">
-        {/* Background decorations */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-          <div className="absolute top-20 right-20 w-40 h-40 bg-gradient-to-br from-[#a8edea]/20 to-transparent rounded-full blur-2xl" />
-          <div className="absolute bottom-20 left-20 w-60 h-60 bg-gradient-to-br from-[#fed6e3]/20 to-transparent rounded-full blur-2xl" />
+      {/* Our 5 Verticals - Home Preview */}
+      <section className="py-20 md:py-28 px-6 md:px-12 relative overflow-hidden" data-testid="verticals-preview-section" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="absolute top-10 left-0 w-32 h-32 opacity-20">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
         </div>
-        
+        <div className="absolute bottom-10 right-0 w-32 h-32 opacity-20 rotate-180">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={staggerContainer}
-            className="text-center mb-16"
+            className="text-center mb-14"
           >
-            <motion.div variants={fadeInUp} className="inline-block mb-4">
-              <span className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-accent-secondary/20 rounded-full text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary">
-                Our Services
-              </span>
-            </motion.div>
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-serif text-text-primary">
-              How We Can Help
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.3em] font-semibold mb-4" style={{color: '#8b7355'}}>
+              Our Signature Programs
+            </motion.p>
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-serif mb-3" style={{color: '#1a3a5c'}}>
+              Our 5 Verticals
             </motion.h2>
+            <motion.div variants={fadeInUp} className="flex items-center justify-center gap-3 my-5">
+              <div className="h-px w-12" style={{background: '#c9a961'}} />
+              <Sparkles className="h-4 w-4" style={{color: '#c9a961'}} />
+              <div className="h-px w-12" style={{background: '#c9a961'}} />
+            </motion.div>
+            <motion.p variants={fadeInUp} className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{color: '#3a5a7c'}}>
+              Five focused verticals. Five unique spaces.<br />
+              One holistic approach to healing &amp; growth.
+            </motion.p>
           </motion.div>
 
           <motion.div
@@ -350,66 +359,52 @@ function HomePage() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6"
           >
-            {services.slice(0, 4).map((service, idx) => {
-              const serviceImages = {
-                'individual': INDIVIDUAL_IMG,
-                'student': INDIVIDUAL_IMG,
-                'art-therapy': ART_THERAPY_IMG,
-                'group': GROUP_IMG,
-                'workshops': WORKSHOPS_IMG,
-                'online': INDIVIDUAL_IMG,
-                'psychoeducation': WORKSHOPS_IMG
-              };
-              const img = serviceImages[service.id];
-              
-              return (
-                <motion.div
-                  key={service.id}
-                  variants={fadeInUp}
-                  className="heavenly-card rounded-3xl overflow-hidden group"
-                  data-testid={`service-card-${service.id}`}
-                >
-                  {img && (
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src={img} 
-                        alt={service.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                      <div className="absolute bottom-4 left-4">
-                        <span className="px-3 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-primary">
-                          {service.price_display}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-brand-primary/20 to-brand-primary/5 rounded-xl flex items-center justify-center text-brand-primary mb-4 group-hover:scale-110 transition-transform">
-                      {getServiceIcon(service.icon)}
-                    </div>
-                    <h3 className="text-xl font-serif text-text-primary mb-3">{service.title}</h3>
-                    <p className="text-text-secondary text-sm leading-relaxed line-clamp-3">{service.description.substring(0, 100)}...</p>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {[
+              { hindi: 'नव', english: 'Rehabilitation', icon: <Sprout className="w-8 h-8" strokeWidth={1.5} /> },
+              { hindi: 'सुकून', english: 'Retreats', icon: <Leaf className="w-8 h-8" strokeWidth={1.5} /> },
+              { hindi: 'उड़ान', english: 'School Programs', icon: <BookOpen className="w-8 h-8" strokeWidth={1.5} /> },
+              { hindi: 'साथ', english: 'Corporate Wellness', icon: <Briefcase className="w-8 h-8" strokeWidth={1.5} /> },
+              { hindi: 'सक्षम', english: 'For MHPs', icon: <UserCheck className="w-8 h-8" strokeWidth={1.5} /> }
+            ].map((vertical, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                whileHover={{ y: -6, transition: { duration: 0.3 } }}
+                className="bg-white/70 backdrop-blur-sm rounded-2xl p-5 md:p-6 text-center border-2 shadow-md hover:shadow-xl transition-all duration-500"
+                style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
+                data-testid={`vertical-preview-${idx}`}
+              >
+                <div className="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
+                  {vertical.icon}
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-1" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
+                  {vertical.hindi}
+                </h3>
+                <div className="w-8 h-px mx-auto my-2" style={{background: '#c9a961'}} />
+                <p className="text-xs md:text-sm font-medium" style={{color: '#4a7c3f'}}>
+                  {vertical.english}
+                </p>
+              </motion.div>
+            ))}
           </motion.div>
 
           <motion.div
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            variants={fadeInUp}
+            transition={{ duration: 0.6, delay: 0.3 }}
             className="text-center mt-12"
           >
             <Link to="/services">
-              <Button variant="outline" className="glass hover:bg-brand-primary hover:text-white" data-testid="view-all-services">
-                View All Services <ArrowRight className="ml-2 h-4 w-4" />
+              <Button variant="outline" className="border-2 hover:text-white transition-all" style={{borderColor: '#c9a961', color: '#1a3a5c'}} data-testid="explore-verticals-btn">
+                Explore All Verticals <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
+            <p className="mt-8 text-lg md:text-xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>
+              Let's Heal. Let's Grow. Together.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -994,6 +989,158 @@ function ServicesPage() {
         </div>
       </section>
 
+      {/* Our 5 Verticals - Emavaran Signature Programs */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" data-testid="verticals-section" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        {/* Decorative leaves background */}
+        <div className="absolute top-10 left-0 w-40 h-40 opacity-20">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="absolute bottom-10 right-0 w-40 h-40 opacity-20 rotate-180">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.3em] font-semibold mb-4" style={{color: '#8b7355'}}>
+              Our Signature Programs
+            </motion.p>
+            <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-serif mb-3" style={{color: '#1a3a5c'}}>
+              Our <span style={{color: '#1a3a5c'}}>5 Verticals</span>
+            </motion.h2>
+            <motion.div variants={fadeInUp} className="flex items-center justify-center gap-3 my-6">
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+              <Sparkles className="h-5 w-5" style={{color: '#c9a961'}} />
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+            </motion.div>
+            <motion.p variants={fadeInUp} className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{color: '#3a5a7c'}}>
+              Five focused verticals. Five unique spaces.<br />
+              One holistic approach to healing &amp; growth.
+            </motion.p>
+          </motion.div>
+
+          {/* Top row - 3 cards */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8"
+          >
+            {[
+              {
+                hindi: 'नव',
+                english: 'Rehabilitation',
+                description: 'Holistic rehabilitation programs for emotional, mental & behavioral well-being.',
+                icon: <Sprout className="w-12 h-12" strokeWidth={1.5} />
+              },
+              {
+                hindi: 'सुकून',
+                english: 'Retreats',
+                description: 'Restorative retreats to reconnect, recharge & rediscover inner balance in nurturing environments.',
+                icon: <Leaf className="w-12 h-12" strokeWidth={1.5} />
+              },
+              {
+                hindi: 'उड़ान',
+                english: 'School Programs',
+                description: 'Interactive programs for students, teachers & parents to build emotional resilience & awareness.',
+                icon: <BookOpen className="w-12 h-12" strokeWidth={1.5} />
+              }
+            ].map((vertical, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500"
+                style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
+                data-testid={`vertical-card-${idx}`}
+              >
+                <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
+                  {vertical.icon}
+                </div>
+                <h3 className="text-4xl md:text-5xl font-bold mb-2" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
+                  {vertical.hindi}
+                </h3>
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <span className="text-lg font-medium" style={{color: '#4a7c3f'}}>— {vertical.english}</span>
+                </div>
+                <div className="w-12 h-px mx-auto mb-4" style={{background: '#c9a961'}} />
+                <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
+                  {vertical.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom row - 2 cards centered */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto"
+          >
+            {[
+              {
+                hindi: 'साथ',
+                english: 'Corporate Wellness',
+                description: 'Workplace wellness programs that foster mental well-being, productivity & harmony.',
+                icon: <Briefcase className="w-12 h-12" strokeWidth={1.5} />
+              },
+              {
+                hindi: 'सक्षम',
+                english: 'Workshops & Sessions for MHPs',
+                description: 'Specialized workshops & professional support for mental health professionals to grow, learn & create lasting impact.',
+                icon: <UserCheck className="w-12 h-12" strokeWidth={1.5} />
+              }
+            ].map((vertical, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500"
+                style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
+                data-testid={`vertical-card-${idx + 3}`}
+              >
+                <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
+                  {vertical.icon}
+                </div>
+                <h3 className="text-4xl md:text-5xl font-bold mb-2" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
+                  {vertical.hindi}
+                </h3>
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <span className="text-lg font-medium" style={{color: '#4a7c3f'}}>— {vertical.english}</span>
+                </div>
+                <div className="w-12 h-px mx-auto mb-4" style={{background: '#c9a961'}} />
+                <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
+                  {vertical.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom tagline */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center mt-16"
+          >
+            <div className="inline-block px-8 py-4 rounded-full" style={{background: 'linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.2), transparent)'}}>
+              <p className="text-lg md:text-2xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>
+                Let's Heal. Let's Grow. Together.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Process */}
       <section className="py-20 md:py-32 px-6 md:px-12 bg-background-secondary">
         <div className="max-w-7xl mx-auto">
@@ -1300,66 +1447,87 @@ function BlogPage() {
 
   return (
     <div className="pt-20">
-      {/* Hero */}
-      <section className="py-20 md:py-32 px-6 md:px-12 bg-background-secondary">
-        <div className="max-w-7xl mx-auto">
+      {/* Hero — Heavenly */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="absolute top-10 left-0 w-40 h-40 opacity-20">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="absolute bottom-10 right-0 w-40 h-40 opacity-20 rotate-180">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
             className="max-w-3xl"
           >
-            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary mb-4">
-              Our Blog
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.3em] font-semibold mb-4" style={{color: '#8b7355'}}>
+              Insights &amp; Reflections
             </motion.p>
-            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-light text-text-primary mb-6">
-              Insights & Resources
+            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-light mb-6" style={{color: '#1a3a5c'}}>
+              The Emavaran Journal
             </motion.h1>
-            <motion.p variants={fadeInUp} className="text-lg text-text-secondary leading-relaxed">
-              Explore our articles on mental health, well-being, and personal growth. Written by our therapists to support your journey.
+            <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-6">
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+              <Sparkles className="h-5 w-5" style={{color: '#c9a961'}} />
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+            </motion.div>
+            <motion.p variants={fadeInUp} className="text-lg leading-relaxed" style={{color: '#3a5a7c'}}>
+              Thoughtful writings on mental health, cultural understanding, spirituality &amp; the climate of our minds — crafted by the Emavaran team to walk with you on your journey.
             </motion.p>
           </motion.div>
         </div>
       </section>
 
       {/* Blog Grid */}
-      <section className="py-20 md:py-32 px-6 md:px-12" data-testid="blog-list">
+      <section className="py-20 md:py-28 px-6 md:px-12" data-testid="blog-list">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
           >
             {blogs.map((blog, idx) => (
               <motion.article
                 key={blog.id}
                 variants={fadeInUp}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-shadow"
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border-2"
+                style={{borderColor: 'rgba(201, 169, 97, 0.2)'}}
                 data-testid={`blog-card-${blog.id}`}
               >
-                <img 
-                  src={blog.image_url} 
-                  alt={blog.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <div className="flex items-center gap-4 text-sm text-text-secondary mb-4">
+                <div className="relative h-56 overflow-hidden">
+                  <img 
+                    src={blog.image_url} 
+                    alt={blog.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#1a3a5c'}}>
+                      {blog.read_time}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-7">
+                  <div className="flex items-center gap-2 text-xs mb-4" style={{color: '#8b7355'}}>
+                    <CalendarIcon className="h-3.5 w-3.5" />
                     <span>{blog.created_at}</span>
                     <span>•</span>
-                    <span>{blog.read_time}</span>
+                    <span className="font-medium">{blog.author}</span>
                   </div>
-                  <h3 className="text-xl font-serif text-text-primary mb-3">{blog.title}</h3>
-                  <p className="text-text-secondary text-sm mb-4">{blog.excerpt}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-brand-primary font-medium">{blog.author}</span>
-                    <Link to={`/blog/${blog.id}`}>
-                      <Button variant="ghost" size="sm" data-testid={`read-blog-${blog.id}`}>
-                        Read More <ChevronRight className="ml-1 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </div>
+                  <h3 className="text-xl md:text-2xl font-serif leading-snug mb-4 line-clamp-2 group-hover:text-brand-primary transition-colors" style={{color: '#1a3a5c'}}>
+                    {blog.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed mb-6 line-clamp-3" style={{color: '#3a5a7c'}}>
+                    {blog.excerpt}
+                  </p>
+                  <Link to={`/blog/${blog.id}`} className="inline-flex items-center gap-2 font-semibold text-sm group/link" style={{color: '#c9a961'}} data-testid={`read-blog-${blog.id}`}>
+                    Read Article
+                    <ArrowRight className="h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               </motion.article>
             ))}
@@ -1389,44 +1557,121 @@ function BlogDetailPage() {
   if (!blog) return <div className="pt-20 min-h-screen flex items-center justify-center">Loading...</div>;
 
   return (
-    <div className="pt-20">
-      <article className="py-16 md:py-24 px-6 md:px-12" data-testid="blog-detail">
-        <div className="max-w-3xl mx-auto">
-          <Link to="/blog" className="inline-flex items-center text-brand-primary hover:text-brand-hover mb-8" data-testid="back-to-blog">
-            <ChevronRight className="h-4 w-4 rotate-180 mr-1" /> Back to Blog
-          </Link>
-
-          <img 
-            src={blog.image_url} 
-            alt={blog.title}
-            className="w-full h-64 md:h-96 object-cover rounded-2xl mb-8"
-          />
-
-          <div className="flex items-center gap-4 text-sm text-text-secondary mb-6">
-            <span>{blog.created_at}</span>
-            <span>•</span>
-            <span>{blog.read_time}</span>
-            <span>•</span>
-            <span>By {blog.author}</span>
+    <div className="pt-20" style={{background: 'linear-gradient(180deg, #fefdf8 0%, #ffffff 100%)'}}>
+      {/* Hero image */}
+      <div className="relative w-full h-[45vh] md:h-[60vh] overflow-hidden">
+        <img 
+          src={blog.image_url} 
+          alt={blog.title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0" style={{background: 'linear-gradient(180deg, rgba(26,58,92,0.2) 0%, rgba(26,58,92,0.75) 100%)'}} />
+        <div className="absolute inset-0 flex items-end">
+          <div className="max-w-4xl mx-auto px-6 md:px-12 pb-12 md:pb-16 w-full">
+            <Link to="/blog" className="inline-flex items-center text-white/90 hover:text-white mb-6 text-sm" data-testid="back-to-blog">
+              <ChevronRight className="h-4 w-4 rotate-180 mr-1" /> Back to Journal
+            </Link>
+            <div className="flex flex-wrap items-center gap-3 text-white/90 text-xs md:text-sm mb-4">
+              <span className="px-3 py-1 rounded-full backdrop-blur-md" style={{background: 'rgba(253, 246, 227, 0.25)'}}>
+                {blog.read_time}
+              </span>
+              <span>•</span>
+              <span>{blog.created_at}</span>
+              <span>•</span>
+              <span>By {blog.author}</span>
+            </div>
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-light text-white leading-tight">
+              {blog.title}
+            </h1>
           </div>
+        </div>
+      </div>
 
-          <h1 className="text-3xl md:text-5xl font-serif text-text-primary mb-8">{blog.title}</h1>
+      {/* Article body */}
+      <article className="py-16 md:py-24 px-6 md:px-12 relative" data-testid="blog-detail">
+        {/* Decorative leaves */}
+        <div className="absolute top-20 left-0 w-32 h-32 opacity-10 pointer-events-none">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="absolute bottom-20 right-0 w-32 h-32 opacity-10 rotate-180 pointer-events-none">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
 
-          <div className="prose prose-lg max-w-none">
+        <div className="max-w-3xl mx-auto relative z-10">
+          {/* Excerpt / lede */}
+          <p className="text-xl md:text-2xl font-serif italic leading-relaxed mb-12 pb-8 border-b" style={{color: '#3a5a7c', borderColor: 'rgba(201, 169, 97, 0.3)'}}>
+            {blog.excerpt}
+          </p>
+
+          <div className="space-y-5">
             {blog.content.split('\n\n').map((paragraph, idx) => {
+              // Headings
               if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-                return <h2 key={idx} className="text-2xl font-serif text-text-primary mt-8 mb-4">{paragraph.replace(/\*\*/g, '')}</h2>;
+                return (
+                  <div key={idx} className="pt-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Sparkles className="h-4 w-4 flex-shrink-0" style={{color: '#c9a961'}} />
+                      <div className="h-px flex-1" style={{background: 'linear-gradient(90deg, #c9a961 0%, transparent 100%)'}} />
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-serif mb-2" style={{color: '#1a3a5c'}}>
+                      {paragraph.replace(/\*\*/g, '')}
+                    </h2>
+                  </div>
+                );
               }
-              return <p key={idx} className="text-text-secondary leading-relaxed mb-4">{paragraph}</p>;
+              // Bullet list block
+              if (paragraph.trim().startsWith('•')) {
+                const items = paragraph.split('\n').filter(l => l.trim().startsWith('•'));
+                return (
+                  <ul key={idx} className="space-y-3 pl-2">
+                    {items.map((item, i) => (
+                      <li key={i} className="flex gap-3 leading-relaxed" style={{color: '#3a5a7c'}}>
+                        <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full" style={{background: '#c9a961'}} />
+                        <span className="text-base md:text-lg">{item.replace(/^•\s*/, '')}</span>
+                      </li>
+                    ))}
+                  </ul>
+                );
+              }
+              // Regular paragraph
+              return (
+                <p key={idx} className="text-base md:text-lg leading-[1.9]" style={{color: '#3a5a7c'}}>
+                  {paragraph}
+                </p>
+              );
             })}
           </div>
 
-          <div className="mt-12 p-8 bg-background-secondary rounded-2xl">
-            <p className="text-text-primary font-serif text-xl mb-4">Ready to take the next step?</p>
-            <p className="text-text-secondary mb-6">If this article resonated with you and you'd like to explore these topics further, we're here to help.</p>
+          {/* CTA */}
+          <div className="mt-16 p-8 md:p-10 rounded-3xl relative overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 100%)', border: '2px solid rgba(201, 169, 97, 0.3)'}}>
+            <div className="absolute top-4 right-4 opacity-20">
+              <Heart className="h-16 w-16" style={{color: '#c9a961'}} />
+            </div>
+            <p className="text-xs uppercase tracking-[0.2em] font-semibold mb-3" style={{color: '#8b7355'}}>
+              Take the Next Step
+            </p>
+            <p className="text-2xl md:text-3xl font-serif mb-3" style={{color: '#1a3a5c'}}>
+              Ready to begin your healing journey?
+            </p>
+            <p className="mb-6 text-base leading-relaxed max-w-xl" style={{color: '#3a5a7c'}}>
+              If this article resonated with you and you'd like to explore these topics further with a compassionate professional, we're here to walk beside you.
+            </p>
             <Link to="/book">
-              <Button data-testid="blog-cta-book">Book a Session</Button>
+              <Button className="rounded-full px-8" data-testid="blog-cta-book">
+                Book a Session <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </Link>
+          </div>
+
+          {/* Author signature */}
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center gap-3">
+              <div className="h-px w-12" style={{background: '#c9a961'}} />
+              <p className="text-sm italic" style={{color: '#8b7355'}}>
+                Written with care by {blog.author}
+              </p>
+              <div className="h-px w-12" style={{background: '#c9a961'}} />
+            </div>
           </div>
         </div>
       </article>
