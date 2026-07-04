@@ -414,6 +414,95 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Our 5 Verticals - Home Preview */}
+      <section className="py-20 md:py-28 px-6 md:px-12 relative overflow-hidden" data-testid="verticals-preview-section" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="absolute top-10 left-0 w-32 h-32 opacity-20">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="absolute bottom-10 right-0 w-32 h-32 opacity-20 rotate-180">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center mb-14"
+          >
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.3em] font-semibold mb-4" style={{color: '#8b7355'}}>
+              Our Signature Programs
+            </motion.p>
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-serif mb-3" style={{color: '#1a3a5c'}}>
+              Our 5 Verticals
+            </motion.h2>
+            <motion.div variants={fadeInUp} className="flex items-center justify-center gap-3 my-5">
+              <div className="h-px w-12" style={{background: '#c9a961'}} />
+              <Sparkles className="h-4 w-4" style={{color: '#c9a961'}} />
+              <div className="h-px w-12" style={{background: '#c9a961'}} />
+            </motion.div>
+            <motion.p variants={fadeInUp} className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{color: '#3a5a7c'}}>
+              Five focused verticals. Five unique spaces.<br />
+              One holistic approach to healing &amp; growth.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6"
+          >
+            {[
+              { hindi: 'नव', english: 'Rehabilitation', icon: <Sprout className="w-8 h-8" strokeWidth={1.5} /> },
+              { hindi: 'सुकून', english: 'Retreats', icon: <Leaf className="w-8 h-8" strokeWidth={1.5} /> },
+              { hindi: 'उड़ान', english: 'School Programs', icon: <BookOpen className="w-8 h-8" strokeWidth={1.5} /> },
+              { hindi: 'साथ', english: 'Corporate Wellness', icon: <Briefcase className="w-8 h-8" strokeWidth={1.5} /> },
+              { hindi: 'सक्षम', english: 'For MHPs', icon: <UserCheck className="w-8 h-8" strokeWidth={1.5} /> }
+            ].map((vertical, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                whileHover={{ y: -6, transition: { duration: 0.3 } }}
+                className="bg-white/70 backdrop-blur-sm rounded-2xl p-5 md:p-6 text-center border-2 shadow-md hover:shadow-xl transition-all duration-500"
+                style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
+                data-testid={`vertical-preview-${idx}`}
+              >
+                <div className="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
+                  {vertical.icon}
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-1" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
+                  {vertical.hindi}
+                </h3>
+                <div className="w-8 h-px mx-auto my-2" style={{background: '#c9a961'}} />
+                <p className="text-xs md:text-sm font-medium" style={{color: '#4a7c3f'}}>
+                  {vertical.english}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center mt-12"
+          >
+            <Link to="/services">
+              <Button variant="outline" className="border-2 hover:text-white transition-all" style={{borderColor: '#c9a961', color: '#1a3a5c'}} data-testid="explore-verticals-btn">
+                Explore All Verticals <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+            <p className="mt-8 text-lg md:text-xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>
+              Let's Heal. Let's Grow. Together.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Therapists Preview */}
       <section className="py-20 md:py-32 px-6 md:px-12" data-testid="therapists-section">
         <div className="max-w-7xl mx-auto">
