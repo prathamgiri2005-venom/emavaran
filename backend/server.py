@@ -361,24 +361,104 @@ async def submit_contact(contact: ContactRequest):
     contact_dict["id"] = str(result.inserted_id)
     return ContactResponse(**contact_dict)
 
+# Blog articles (shared between list and detail endpoints)
+BLOG_ARTICLES = [
+    {
+        "id": "1",
+        "title": "Different Cultural Expressions of Overwhelming Emotions",
+        "excerpt": "Cultural norms shape how we express or repress intense emotions — from Western openness to Eastern restraint — and impact the stigma around mental health.",
+        "author": "Emavaran Team",
+        "image_url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&auto=format&fit=crop",
+        "created_at": "2026-01-20",
+        "read_time": "7 min read",
+        "content": (
+            "**Introduction: Emotions Are Universal, Expression Is Not**\n\n"
+            "People all throughout the world experience the same basic emotions — sadness, anger, fear, joy, and shame — but their expressions can range greatly. The society we are raised in has a significant influence on how we express or repress intense emotions. As per the society we are born and brought up in, the family we grow with, and the cultural activities we experience, we internalise and believe in what is acceptable and normal, and what is not.\n\n"
+            "**Cultural Valuations of Restraint and Openness**\n\n"
+            "Emotional restraint is valued in some cultures as a show of strength, maturity, or respect, while others promote overt displays of emotion. In many Western communities, such as those in the US or parts of Europe, emotional openness is considered essential and beneficial. As a component of emotional well-being, it is acceptable and even encouraged — which leads to more people opting for therapy for self-development and regulating overwhelming emotions.\n\n"
+            "In these communities, emotional expression promotes self-improvement, sincerity, and clarity. However, certain feelings are more acceptable than others. Joy or happiness is praised, but mostly acceptable in moments — not sustained displays.\n\n"
+            "**The Eastern Perspective: Harmony Over Expression**\n\n"
+            "Harmony is frequently valued more highly than individual expression in many Eastern cultures, including those of Japan, Korea, and India, as these communities are more collectivist in nature. Thus, it is usually discouraged to express strong emotions, particularly those that could upset social balance — such as intense sadness, social anger, or irritation. From an early age, individuals are trained to look out for the group or family. Emotional restraint here is a show of wisdom and concern for others, rather than repression.\n\n"
+            "**Ritualized and Public Emotional Expression**\n\n"
+            "There are also societies where rituals are deeply ingrained and emotional expression is an essential part of the culture. Public expressions of joy, grief, or rage are not only common but accepted in some countries of Latin America, Africa, and the Middle East. Celebration and mourning are both done as a group — crafting emotional expression as a shared experience and a means of maintaining relationships through life's highs and lows.\n\n"
+            "**Stigma Wears Different Faces Everywhere**\n\n"
+            "Though emotional expression varies by country, stigma can be found everywhere, in different forms. Vulnerability can be viewed as a sign of weakness in some cultures — someone who doesn't communicate enough may be characterized as cold and aloof in others. These cultural standards often form the foundation of stigma around mental health, particularly emotional suffering.\n\n"
+            "Asking for assistance can feel like a personal failure rather than a brave act if a culture teaches people that being strong means being silent. This is especially true for emotions that are messy or overwhelming — severe anxiety, sadness, or trauma-driven feelings — being suppressed behind closed doors, misrepresented as physical ailments, or disregarded until they blow up.\n\n"
+            "**Psychological Literacy and Cultural Relativity**\n\n"
+            "This is not just a contextual result but also a product of psychological literacy — how much a culture prioritises psychological well-being alongside physical health. Another crucial point: every emotional expression is unique, and neither better nor worse. Every culture creates its own emotional rules based on its history, values, and what has allowed its members to survive.\n\n"
+            "**A Global Shift Toward Acceptance**\n\n"
+            "As the world grows more interconnected, people are starting to challenge these norms and make room for alternative ways of being. This needs courage, love, support, and much more acceptance."
+        )
+    },
+    {
+        "id": "2",
+        "title": "Spirituality and Faith in Psychology: Bridging Inner Belief and Mental Well-Being",
+        "excerpt": "Modern psychology increasingly recognises spirituality and faith as complementary — not opposing — forces that support meaning, resilience, and emotional healing.",
+        "author": "Emavaran Team",
+        "image_url": "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=1200&auto=format&fit=crop",
+        "created_at": "2026-01-25",
+        "read_time": "8 min read",
+        "content": (
+            "**Introduction: A Shift in Perspective**\n\n"
+            "Religion, theology, or philosophy have traditionally been seen as the fields that deal with spirituality and faith. On the other hand, modern psychology is beginning to acknowledge that these factors are important for mental health, emotional stability, and personal development — slowly shifting focus back to traditional forms of healing and taking up teachings and practices which aid development. Many mental health professionals now see psychology and spirituality as potentially complementary aspects of the human experience rather than as opposing forces.\n\n"
+            "**Defining Spirituality in Psychology**\n\n"
+            "According to psychology, spirituality is not always limited to institutional belief systems or religious teaching. Rather, it is regarded as a very personal experience that has to do with feelings of transcendence, connection, meaning, and purpose. It includes our intrapersonal and interpersonal connection, a sense of meaning in life, values that align with us, and beliefs about the inevitable forms of life like suffering, death, and healing.\n\n"
+            "**Understanding Faith in a Psychological Context**\n\n"
+            "Faith, on the other hand, is defined as the internal confidence or hope that one has in life, in oneself, or in a larger system of meaning — not just a religious belief. As psychologists move towards combining traditional and contemporary forms of healing, faith in a higher power, meaning-making, and emotional regulation through chanting and meditative practices are considered important in times of crisis, grief, or existential reflection.\n\n"
+            "**The Psychological Benefits of Spirituality and Faith**\n\n"
+            "From a psychological standpoint, these factors support what Viktor Frankl called the \"will to meaning\" — a basic driving force that propels people to discover meaning even in the most trying situations. Frankl's logotherapy emphasises that healing is more than just feeling better; it involves finding a purpose or drive to live even in suffering.\n\n"
+            "This aligns with other schools of thought — existential therapy, humanistic psychology, and transpersonal psychology — which examine finding meaning, establishing healthy relationships with self and others, and gaining self-actualisation and transcendence in the therapeutic process.\n\n"
+            "Additional evidence for the psychological benefits of spiritual practices has come from positive psychology research. Practices like mindfulness, forgiveness, compassion, and gratitude — many rooted in spiritual or religious traditions — improve emotional well-being, lessen symptoms of anxiety and depression, and promote inner peace. Spiritual communities can also provide ritual, structure, belonging, and social support — all protective factors for mental health.\n\n"
+            "**Integrating Spirituality into Therapeutic Practice**\n\n"
+            "Integrating spirituality into treatment needs openness and awareness from both client and therapist. With ethical understanding, cultural sensitivity, and curiosity, the therapist must be careful not to push beyond boundaries of the professional relationship or hurt the sentiments of the client in any way.\n\n"
+            "This can entail examining the client's beliefs, spiritual challenges, or existential issues and letting them guide the therapeutic process. Therapists must exercise caution when interpreting spiritual experiences through a purely clinical lens — or imposing their own beliefs.\n\n"
+            "**Navigating the Nexus of Spirituality and Psychology**\n\n"
+            "Distinguishing between spiritual experiences and psychological symptoms is one of the difficulties at this intersection. Some people may view mystical experiences or altered states of consciousness as culturally or spiritually meaningful, but from a clinical standpoint, they may be symptoms of psychosis. Making the correct diagnosis and using the right tools as per the context and medical history of the client is of utmost importance.\n\n"
+            "**Conclusion: A Comprehensive Understanding of Well-Being**\n\n"
+            "Including spirituality and religion into psychological practice encourages a more comprehensive understanding of human well-being — taking into account not just the cognitive and emotional aspects of life but also its existential, moral, and spiritual dimensions. This is aiding modern psychology and clients in a number of profound ways."
+        )
+    },
+    {
+        "id": "3",
+        "title": "Effect of Heatwaves on Mental Health: Rising Fears Through Rising Temperatures",
+        "excerpt": "Extreme heat doesn't just drain the body — it heightens anxiety, aggression, and cognitive fatigue. A look at heatwaves' overlooked toll on mental wellbeing.",
+        "author": "Emavaran Team",
+        "image_url": "https://images.unsplash.com/photo-1561484930-998b6a7b22e8?w=1200&auto=format&fit=crop",
+        "created_at": "2026-02-01",
+        "read_time": "6 min read",
+        "content": (
+            "**Introduction: The Growing Threat of Heatwaves**\n\n"
+            "There has been a concerning rise in heatwaves in India, with record-breaking temperatures becoming common across the country. Extreme heat has been shown to cause physical risks like dehydration, heat stroke, and cardiovascular problems — but its effects on mental health are frequently disregarded. Prolonged exposure to high temperatures is a major public health problem since it can lead to increased anxiety, aggressiveness, and mental fatigue, according to research.\n\n"
+            "**The Psychological Toll of Extreme Heat**\n\n"
+            "Extreme heat has a substantial psychological toll. With the discomfort of high temperatures comes a surge in electricity demand — more usage of fans and air conditioners creates more pressure and leads to increased power cuts. This causes discomfort, disturbs sleep and appetite, and disrupts day-to-day functioning.\n\n"
+            "Researchers state that extreme heat is strongly associated with increased hostility, exacerbating symptoms for people who already suffer from mental health concerns. Higher temperatures have been associated with an increase in domestic disputes and interpersonal violence. Exposure to heat can also affect cognitive function — resulting in memory problems, difficulty making decisions, and decreased focus. These effects have a detrimental impact on academic achievement and work productivity.\n\n"
+            "**Impact on Daily Life and Vulnerable Populations**\n\n"
+            "Heatwaves make it harder to get comfortable sleep, affecting performance at the workplace and in school — impacting our health physically and psychologically. This increases the likelihood of experiencing depressive symptoms and causes mood swings and exhaustion.\n\n"
+            "Certain groups are more vulnerable. Children and the elderly struggle to regulate body temperature and stay hydrated. Extreme temperatures may worsen symptoms of pre-existing mental health disorders. Farmers, construction workers, street vendors, and other outdoor labourers are exposed to high temperatures for extended periods, raising their risk of physical and mental health issues. Low-income populations are especially susceptible — they may not have access to cooling equipment, face longer power cuts, and have fewer resources for comfort.\n\n"
+            "**Preventive Measures and Mitigation Strategies**\n\n"
+            "Since heatwaves are becoming more frequent and intense due to global warming, preventive steps must be taken to protect mental health:\n\n"
+            "• Drink enough water and stay hydrated throughout the day.\n"
+            "• Avoid direct sun — or at least cover your head and face with a scarf or hat.\n"
+            "• Use cooling techniques like fans and cold showers.\n"
+            "• Maintain a regular sleep pattern and create a cool resting environment.\n"
+            "• Use stress-reduction strategies — breathing exercises, mindfulness, meditation.\n\n"
+            "Governments and organisations should implement heat action plans that guarantee access to cooling shelters, mental health helplines, and public education campaigns to raise awareness of the psychological effects of high heat.\n\n"
+            "**Conclusion: A Holistic Approach to Managing Heatwaves**\n\n"
+            "Along with taking steps to control climatic conditions and global warming, heatwaves can be managed with a few changes and additions to our lifestyle. To lessen the impacts of excessive heat, it is essential to understand its psychological implications and take preventative action — implementing heat-resilient policies, increasing awareness, and enhancing access to mental health resources."
+        )
+    }
+]
+
 @app.get("/api/blogs", response_model=List[BlogPost])
 async def get_blogs():
-    return [
-        {"id": "1", "title": "How to Manage Anxiety in Daily Life", "excerpt": "Discover practical strategies to navigate anxiety.", "content": "Anxiety can feel overwhelming, but with the right tools, you can manage it.", "author": "Manvi Giri", "image_url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800", "created_at": "2026-01-05", "read_time": "5 min read"},
-        {"id": "2", "title": "The Importance of Mental Health", "excerpt": "Understanding why mental health matters.", "content": "Mental health is just as important as physical health.", "author": "Diksha Mago", "image_url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800", "created_at": "2026-01-10", "read_time": "4 min read"},
-        {"id": "3", "title": "Building Healthy Relationships", "excerpt": "Learn the foundations of nurturing connections.", "content": "Healthy relationships are built on trust and communication.", "author": "Manvi Giri", "image_url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800", "created_at": "2026-01-15", "read_time": "6 min read"}
-    ]
+    return BLOG_ARTICLES
 
 @app.get("/api/blogs/{blog_id}", response_model=BlogPost)
 async def get_blog(blog_id: str):
-    blogs = {
-        "1": {"id": "1", "title": "How to Manage Anxiety in Daily Life", "excerpt": "Discover practical strategies.", "content": "Anxiety can feel overwhelming. Understanding triggers, breathing techniques, and mindfulness can help.", "author": "Manvi Giri", "image_url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800", "created_at": "2026-01-05", "read_time": "5 min read"},
-        "2": {"id": "2", "title": "The Importance of Mental Health", "excerpt": "Why mental health matters.", "content": "Mental health is crucial. Break the stigma and practice daily self-care.", "author": "Diksha Mago", "image_url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800", "created_at": "2026-01-10", "read_time": "4 min read"},
-        "3": {"id": "3", "title": "Building Healthy Relationships", "excerpt": "Nurturing meaningful connections.", "content": "Communication is key. Set boundaries and seek help when needed.", "author": "Manvi Giri", "image_url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800", "created_at": "2026-01-15", "read_time": "6 min read"}
-    }
-    if blog_id not in blogs:
-        raise HTTPException(status_code=404, detail="Blog not found")
-    return blogs[blog_id]
+    for blog in BLOG_ARTICLES:
+        if blog["id"] == blog_id:
+            return blog
+    raise HTTPException(status_code=404, detail="Blog not found")
 
 @app.get("/api/therapists")
 async def get_therapists():
