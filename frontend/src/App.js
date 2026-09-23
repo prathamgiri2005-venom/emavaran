@@ -929,15 +929,15 @@ function ServicesPage() {
           >
             {services.map((service, idx) => {
               const serviceImages = {
-                'individual': INDIVIDUAL_IMG,
-                'student': INDIVIDUAL_IMG,
-                'art-therapy': ART_THERAPY_IMG,
-                'group': GROUP_IMG,
-                'workshops': WORKSHOPS_IMG,
-                'online': INDIVIDUAL_IMG,
-                'psychoeducation': WORKSHOPS_IMG
-              };
-              const img = serviceImages[service.id];
+  'student': STUDENT_IMG,
+  'individual': INDIVIDUAL_IMG,
+  'art-therapy': ART_THERAPY_IMG,
+  'group': GROUP_IMG,
+  'workshops': WORKSHOPS_IMG,
+  'online': INDIVIDUAL_IMG,
+  'psychoeducation': WORKSHOPS_IMG
+};
+const img = serviceImages[service.id];
               
               return (
                 <motion.div
