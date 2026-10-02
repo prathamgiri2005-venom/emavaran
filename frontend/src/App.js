@@ -1930,6 +1930,93 @@ function CoursesPage() {
         </div>
       </section>
 
+      {/* Featured Course — Expressive Art Therapy Certificate */}
+      <section className="py-16 md:py-24 px-6 md:px-12 relative overflow-hidden" style={{background: '#fffbea'}} data-testid="featured-course">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="inline-block px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-4" style={{background: 'rgba(201, 169, 97, 0.2)', color: '#8b7355'}}>
+              Featured Course · Enrolment Open
+            </span>
+            <p className="text-base md:text-lg font-serif" style={{color: '#2d5016'}}>Certificate Course in</p>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold mt-1 mb-4 leading-tight" style={{color: '#1a3f2a'}}>
+              Expressive Art Therapy
+            </h2>
+            <p className="text-sm md:text-base font-bold tracking-widest uppercase" style={{color: '#2d5016'}}>
+              Learn. Facilitate. Create Meaningful Therapeutic Spaces.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-3xl mx-auto">
+            {[
+              { icon: <Monitor className="w-6 h-6" strokeWidth={2} />, bg: '#2d5c54', label: '3 month online course' },
+              { icon: <CalendarIcon className="w-6 h-6" strokeWidth={2} />, bg: '#d97757', label: 'Starts 25 October' },
+              { icon: <Sparkles className="w-6 h-6" strokeWidth={2} />, bg: '#9b7ec5', label: 'Certification accredited by the International Association of Therapists' }
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-4 bg-white/70 rounded-2xl p-5 border-2" style={{borderColor: 'rgba(201, 169, 97, 0.2)'}}>
+                <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 text-white" style={{background: item.bg}}>
+                  {item.icon}
+                </div>
+                <p className="text-sm md:text-base font-semibold leading-snug pt-1" style={{color: '#1a3f2a'}}>
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link to="/contact">
+              <Button className="rounded-full px-10 py-6 text-base" data-testid="eat-enroll" style={{background: '#2d5016', color: 'white'}}>
+                Enrol Now <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Meet the Facilitator — Diksha Mago */}
+      <section className="py-16 md:py-24 px-6 md:px-12" style={{background: '#fef9d7'}} data-testid="meet-facilitator">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-2xl md:text-3xl font-serif mb-2" style={{color: '#2d5016'}}>
+            Meet the Facilitator
+          </p>
+          <h2 className="text-5xl md:text-7xl font-serif font-bold mb-4" style={{color: '#1a3f2a'}}>
+            Diksha Mago
+          </h2>
+          <div className="flex items-center gap-3 mb-10">
+            <div className="h-px w-20" style={{background: '#8b7355'}} />
+            <Sparkles className="h-4 w-4" style={{color: '#8b7355'}} />
+            <div className="h-px w-20" style={{background: '#8b7355'}} />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-[1fr,auto] gap-10 md:gap-14 items-center">
+            <div>
+              <p className="font-bold text-lg md:text-xl mb-1" style={{color: '#2d5016'}}>Counseling Psychologist</p>
+              <p className="font-bold text-lg md:text-xl mb-8" style={{color: '#2d5016'}}>UNESCO-CID Certified Expressive Arts Therapist</p>
+              <p className="text-base md:text-lg leading-[1.9] font-semibold" style={{color: '#1a3f2a'}}>
+                Diksha Mago brings together psychological insight, neuropsychological understanding, and creative expression in her work. She has facilitated multiple sessions and conducted certification courses, creating reflective and engaging learning spaces for people exploring expressive arts therapy. As co-founder of Emavaran, she contributes to meaningful spaces for psychological wellbeing, learning, and creative growth.
+              </p>
+            </div>
+            <div className="relative mx-auto md:mx-0">
+              <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white">
+                <img src={DIKSHA_PHOTO} alt="Diksha Mago" className="w-full h-full object-cover" />
+              </div>
+              <Leaf className="absolute -bottom-6 -right-6 w-28 h-28 opacity-70" style={{color: '#4a7c3f'}} strokeWidth={1} />
+            </div>
+          </div>
+
+          <div className="mt-14 max-w-md">
+            <div className="bg-white/80 rounded-xl p-5 shadow-sm border" style={{borderColor: 'rgba(139, 115, 85, 0.2)'}}>
+              <p className="font-serif italic text-base md:text-lg leading-relaxed" style={{color: '#2d5016', fontFamily: 'cursive'}}>
+                "Learn from a facilitator who honours both the person and the process."
+              </p>
+              <div className="mt-3 flex justify-center">
+                <Heart className="h-4 w-4" style={{color: '#4a7c3f'}} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Courses Grid */}
       <section className="py-20 md:py-28 px-6 md:px-12" data-testid="courses-list">
         <div className="max-w-7xl mx-auto">
