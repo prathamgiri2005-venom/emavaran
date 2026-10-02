@@ -34,6 +34,132 @@ const GROUP_IMG = "https://customer-assets.emergentagent.com/job_wellness-journe
 const WORKSHOPS_IMG = "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/b5858bci_WhatsApp%20Image%202026-09-15%20at%206.11.42%20PM.jpeg";
 const PSYCHOEDUCATION_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/qsy90nw2_workshops.jpeg";
 
+// Retreat (Sukoon) Photos
+const RETREAT_PHOTOS = [
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/f838ozew_HT_00044.webp", caption: "Mountain retreat — group gathering amidst pine forests" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/tid6miki_HT_00010.webp", caption: "Hands-on creativity sessions in nature" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/x7yw72nz_HT_00190.webp", caption: "Sound healing circle with singing bowls & chimes" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/8bq4tasw_HT_00204.webp", caption: "Group bonding during experiential activities" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/8k6r0egd_IMG_8041.webp", caption: "Manvi & Diksha at the Emavaran retreat venue" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/v1xev1rl_HT_04731.webp", caption: "The Emavaran tote — a keepsake of the journey" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/gs99dgfn_HT_04725.webp", caption: "Learning science & joy together — rocket activity" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/2mxxx9tz_HT_00235.webp", caption: "A participant with her Emavaran gift bag" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/ukbhntta_HT_00213.webp", caption: "Our mountain retreat campsite in misty mornings" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/fc7gf2px_HT_00151.webp", caption: "Celebrations & cultural moments at the retreat" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/4sqwchlk_HT_04863.webp", caption: "Group energy exercise — moving together, healing together" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/mwbxm1zs_HT_04860.webp", caption: "Guided expressive art session led by our therapist" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/e3dovp1p_HT_04859%20copy.webp", caption: "Manvi & Diksha hosting the retreat" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/8noh2mkc_HT_04845.webp", caption: "A warm smile at the art table" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/ok3axqtp_HT_04831.webp", caption: "The Emavaran banner — our 5 Verticals of healing" }
+];
+
+// Teacher Training (Udaan - School Programs) Photos
+const TEACHER_TRAINING_PHOTOS = [
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/v08bfirw_IMG_8041.webp", caption: "Teacher training at The Mother's International School, New Delhi" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/skjj7bi6_IMG_8047.webp", caption: "Between Bells & Breaks — emotional reset workshop for educators" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/79qi4sae_IMG_8020.webp", caption: "Back-to-school art therapy session for teachers" }
+];
+
+// Verticals data (shared across home preview, services section, and detail pages)
+const VERTICALS_DATA = [
+  {
+    slug: 'nav',
+    hindi: 'नव',
+    english: 'Rehabilitation',
+    tagline: 'Holistic healing for emotional, mental & behavioural well-being',
+    description: 'Holistic rehabilitation programs for emotional, mental & behavioural well-being.',
+    long: 'नव (New Beginnings) is Emavaran\'s rehabilitation vertical — a safe, structured, and compassionate path for individuals navigating addiction recovery, chronic stress, or behavioural reset. We combine evidence-based therapy with mindfulness, expressive arts, and family support to help clients rebuild their relationship with themselves and the world.',
+    offerings: [
+      'One-on-one rehabilitation counselling',
+      'Behavioural pattern reset programs',
+      'Family support & psychoeducation',
+      'Mindfulness and body-based practices',
+      'Follow-up care & relapse prevention'
+    ],
+    accent: '#4a7c3f',
+    photos: []
+  },
+  {
+    slug: 'sukoon',
+    hindi: 'सुकून',
+    english: 'Retreats',
+    tagline: 'Reconnect, recharge & rediscover inner balance',
+    description: 'Restorative retreats to reconnect, recharge & rediscover inner balance in nurturing environments.',
+    long: 'सुकून means peace. Our retreats are curated getaways in the lap of nature where you step away from the noise and step into yourself. Sound healing, expressive art, guided reflections, gentle movement, and warm community meals — every element is designed to help you return home softer, lighter, and more grounded.',
+    offerings: [
+      'Weekend & week-long mountain retreats',
+      'Sound healing with singing bowls & chimes',
+      'Expressive art & journaling circles',
+      'Guided mindful walks in nature',
+      'Group bonding & cultural evenings'
+    ],
+    accent: '#2d6b5c',
+    photos: RETREAT_PHOTOS
+  },
+  {
+    slug: 'udaan',
+    hindi: 'उड़ान',
+    english: 'School Programs',
+    tagline: 'Building emotional resilience in young minds',
+    description: 'Interactive programs for students, teachers & parents to build emotional resilience & awareness.',
+    long: 'उड़ान (Flight) brings mental health literacy into classrooms. We work with schools to run interactive sessions for students, teacher-training workshops, and parent orientation programs — building emotional resilience, empathy, and self-awareness from an early age.',
+    offerings: [
+      'Student life-skills & emotional resilience workshops',
+      'Teacher training in mental health first aid',
+      'Parent orientation & communication circles',
+      'Peer support & anti-bullying programs',
+      'Career counselling for senior classes'
+    ],
+    accent: '#c47c3a',
+    photos: TEACHER_TRAINING_PHOTOS
+  },
+  {
+    slug: 'saath',
+    hindi: 'साथ',
+    english: 'Corporate Wellness',
+    tagline: 'Workplace wellbeing, productivity & harmony',
+    description: 'Workplace wellness programs that foster mental well-being, productivity & harmony.',
+    long: 'साथ means together. Our corporate wellness programs partner with organisations to create psychologically safer workplaces — through leadership workshops, team wellbeing audits, 1:1 counselling access, and burnout-prevention curricula tailored to your culture and KPIs.',
+    offerings: [
+      'Employee wellbeing workshops',
+      'Leadership emotional-intelligence training',
+      '1:1 counselling via Employee Assistance Program',
+      'Burnout prevention & stress audits',
+      'Team-building retreats & circles'
+    ],
+    accent: '#3a7098',
+    photos: []
+  },
+  {
+    slug: 'saksham',
+    hindi: 'सक्षम',
+    english: 'Workshops & Sessions for MHPs',
+    tagline: 'Specialized growth for mental health professionals',
+    description: 'Specialized workshops & professional support for mental health professionals to grow, learn & create lasting impact.',
+    long: 'सक्षम (Capable) is our professional development vertical for therapists, counsellors, and allied mental health workers. We offer skill-sharpening workshops, case-consultation groups, peer supervision, and self-care retreats — because the people who hold others deserve to be held too.',
+    offerings: [
+      'Specialised technique workshops (CBT, Art Therapy, Gestalt)',
+      'Peer supervision & case consultation circles',
+      'Self-care & vicarious-trauma recovery retreats',
+      'Research & publication mentorship',
+      'Internships for early-career professionals'
+    ],
+    accent: '#6b4a98',
+    photos: []
+  }
+];
+
+const getVerticalIcon = (slug) => {
+  const map = {
+    nav: <Sprout className="w-full h-full" strokeWidth={1.5} />,
+    sukoon: <Leaf className="w-full h-full" strokeWidth={1.5} />,
+    udaan: <BookOpen className="w-full h-full" strokeWidth={1.5} />,
+    saath: <Briefcase className="w-full h-full" strokeWidth={1.5} />,
+    saksham: <UserCheck className="w-full h-full" strokeWidth={1.5} />
+  };
+  return map[slug] || <Heart className="w-full h-full" strokeWidth={1.5} />;
+};
+
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -63,6 +189,7 @@ function Navbar() {
     { path: '/services', label: 'Services' },
     { path: '/blog', label: 'Blog' },
     { path: '/courses', label: 'Courses' },
+    { path: '/events', label: 'Events' },
     { path: '/contact', label: 'Contact' },
   ];
 
@@ -168,6 +295,7 @@ function Footer() {
               <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Services</Link></li>
               <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
               <li><Link to="/courses" className="text-gray-400 hover:text-white transition-colors">Courses</Link></li>
+              <li><Link to="/events" className="text-gray-400 hover:text-white transition-colors">Events</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
@@ -365,20 +493,21 @@ function HomePage() {
             className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6"
           >
             {[
-              { hindi: 'नव', english: 'Rehabilitation', icon: <Sprout className="w-8 h-8" strokeWidth={1.5} /> },
-              { hindi: 'सुकून', english: 'Retreats', icon: <Leaf className="w-8 h-8" strokeWidth={1.5} /> },
-              { hindi: 'उड़ान', english: 'School Programs', icon: <BookOpen className="w-8 h-8" strokeWidth={1.5} /> },
-              { hindi: 'साथ', english: 'Corporate Wellness', icon: <Briefcase className="w-8 h-8" strokeWidth={1.5} /> },
-              { hindi: 'सक्षम', english: 'For MHPs', icon: <UserCheck className="w-8 h-8" strokeWidth={1.5} /> }
+              { slug: 'nav', hindi: 'नव', english: 'Rehabilitation', icon: <Sprout className="w-8 h-8" strokeWidth={1.5} /> },
+              { slug: 'sukoon', hindi: 'सुकून', english: 'Retreats', icon: <Leaf className="w-8 h-8" strokeWidth={1.5} /> },
+              { slug: 'udaan', hindi: 'उड़ान', english: 'School Programs', icon: <BookOpen className="w-8 h-8" strokeWidth={1.5} /> },
+              { slug: 'saath', hindi: 'साथ', english: 'Corporate Wellness', icon: <Briefcase className="w-8 h-8" strokeWidth={1.5} /> },
+              { slug: 'saksham', hindi: 'सक्षम', english: 'For MHPs', icon: <UserCheck className="w-8 h-8" strokeWidth={1.5} /> }
             ].map((vertical, idx) => (
               <motion.div
                 key={idx}
                 variants={fadeInUp}
                 whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                className="bg-white/70 backdrop-blur-sm rounded-2xl p-5 md:p-6 text-center border-2 shadow-md hover:shadow-xl transition-all duration-500"
+                className="bg-white/70 backdrop-blur-sm rounded-2xl p-5 md:p-6 text-center border-2 shadow-md hover:shadow-xl transition-all duration-500 cursor-pointer"
                 style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
                 data-testid={`vertical-preview-${idx}`}
               >
+                <Link to={`/verticals/${vertical.slug}`} className="block">
                 <div className="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
                   {vertical.icon}
                 </div>
@@ -389,6 +518,7 @@ function HomePage() {
                 <p className="text-xs md:text-sm font-medium" style={{color: '#4a7c3f'}}>
                   {vertical.english}
                 </p>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -1039,18 +1169,21 @@ function ServicesPage() {
           >
             {[
               {
+                slug: 'nav',
                 hindi: 'नव',
                 english: 'Rehabilitation',
                 description: 'Holistic rehabilitation programs for emotional, mental & behavioral well-being.',
                 icon: <Sprout className="w-12 h-12" strokeWidth={1.5} />
               },
               {
+                slug: 'sukoon',
                 hindi: 'सुकून',
                 english: 'Retreats',
                 description: 'Restorative retreats to reconnect, recharge & rediscover inner balance in nurturing environments.',
                 icon: <Leaf className="w-12 h-12" strokeWidth={1.5} />
               },
               {
+                slug: 'udaan',
                 hindi: 'उड़ान',
                 english: 'School Programs',
                 description: 'Interactive programs for students, teachers & parents to build emotional resilience & awareness.',
@@ -1061,10 +1194,11 @@ function ServicesPage() {
                 key={idx}
                 variants={fadeInUp}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500"
+                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
                 style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
                 data-testid={`vertical-card-${idx}`}
               >
+                <Link to={`/verticals/${vertical.slug}`} className="block">
                 <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
                   {vertical.icon}
                 </div>
@@ -1078,6 +1212,8 @@ function ServicesPage() {
                 <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
                   {vertical.description}
                 </p>
+                <p className="mt-4 text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-1" style={{color: '#c9a961'}}>Explore <ArrowRight className="h-3 w-3" /></p>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -1092,12 +1228,14 @@ function ServicesPage() {
           >
             {[
               {
+                slug: 'saath',
                 hindi: 'साथ',
                 english: 'Corporate Wellness',
                 description: 'Workplace wellness programs that foster mental well-being, productivity & harmony.',
                 icon: <Briefcase className="w-12 h-12" strokeWidth={1.5} />
               },
               {
+                slug: 'saksham',
                 hindi: 'सक्षम',
                 english: 'Workshops & Sessions for MHPs',
                 description: 'Specialized workshops & professional support for mental health professionals to grow, learn & create lasting impact.',
@@ -1108,10 +1246,11 @@ function ServicesPage() {
                 key={idx}
                 variants={fadeInUp}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500"
+                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
                 style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
                 data-testid={`vertical-card-${idx + 3}`}
               >
+                <Link to={`/verticals/${vertical.slug}`} className="block">
                 <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
                   {vertical.icon}
                 </div>
@@ -1125,6 +1264,8 @@ function ServicesPage() {
                 <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
                   {vertical.description}
                 </p>
+                <p className="mt-4 text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-1" style={{color: '#c9a961'}}>Explore <ArrowRight className="h-3 w-3" /></p>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -1898,6 +2039,162 @@ function CoursesPage() {
   );
 }
 
+// Vertical Detail Page
+function VerticalDetailPage() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const vertical = VERTICALS_DATA.find(v => v.slug === slug);
+
+  useEffect(() => {
+    if (!vertical) navigate('/services');
+    window.scrollTo(0, 0);
+  }, [vertical, navigate]);
+
+  if (!vertical) return null;
+  const heroImage = vertical.photos[0]?.src;
+
+  return (
+    <div className="pt-20">
+      {/* Hero */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="absolute top-10 left-0 w-40 h-40 opacity-20"><Leaf className="w-full h-full text-green-700" strokeWidth={1} /></div>
+        <div className="absolute bottom-10 right-0 w-40 h-40 opacity-20 rotate-180"><Leaf className="w-full h-full text-green-700" strokeWidth={1} /></div>
+        <div className="max-w-6xl mx-auto relative z-10">
+          <Link to="/services" className="inline-flex items-center text-sm mb-8 hover:opacity-70 transition" style={{color: '#8b7355'}}>
+            <ChevronRight className="h-4 w-4 rotate-180 mr-1" /> Back to all Verticals
+          </Link>
+          <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 md:gap-12 items-center">
+            <motion.div initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} transition={{duration:0.5}} className="w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center p-8 shadow-lg" style={{background: 'white', color: vertical.accent}}>
+              {getVerticalIcon(vertical.slug)}
+            </motion.div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] font-semibold mb-3" style={{color: '#8b7355'}}>Our Signature Program</p>
+              <h1 className="text-5xl md:text-7xl font-bold font-serif mb-2" style={{color: '#1a3a5c'}}>{vertical.hindi}</h1>
+              <h2 className="text-2xl md:text-3xl font-serif mb-4" style={{color: vertical.accent}}>— {vertical.english}</h2>
+              <div className="flex items-center gap-3 mb-4"><div className="h-px w-16" style={{background:'#c9a961'}} /><Sparkles className="h-4 w-4" style={{color:'#c9a961'}} /><div className="h-px w-16" style={{background:'#c9a961'}} /></div>
+              <p className="text-lg italic" style={{color: '#3a5a7c'}}>{vertical.tagline}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About + offerings */}
+      <section className="py-16 md:py-24 px-6 md:px-12">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <h3 className="text-3xl font-serif mb-6" style={{color: '#1a3a5c'}}>About this vertical</h3>
+            <p className="text-base md:text-lg leading-[1.9]" style={{color: '#3a5a7c'}}>{vertical.long}</p>
+          </div>
+          <div>
+            <h3 className="text-3xl font-serif mb-6" style={{color: '#1a3a5c'}}>What we offer</h3>
+            <ul className="space-y-4">
+              {vertical.offerings.map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-base md:text-lg" style={{color: '#3a5a7c'}}>
+                  <span className="mt-2 flex-shrink-0 w-2 h-2 rounded-full" style={{background: vertical.accent}} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Photos */}
+      {vertical.photos.length > 0 && (
+        <section className="py-16 md:py-24 px-6 md:px-12" style={{background: 'linear-gradient(180deg, #fefdf8 0%, #fdf6e3 100%)'}} data-testid={`vertical-photos-${vertical.slug}`}>
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-xs uppercase tracking-[0.3em] font-semibold mb-3" style={{color: '#8b7355'}}>Moments</p>
+              <h3 className="text-3xl md:text-5xl font-serif" style={{color: '#1a3a5c'}}>Glimpses from {vertical.english}</h3>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+              {vertical.photos.map((p, i) => (
+                <motion.div key={i} initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{duration:0.4, delay: i * 0.05}} className="group relative overflow-hidden rounded-2xl aspect-square shadow-md hover:shadow-xl transition-all" data-testid={`photo-${vertical.slug}-${i}`}>
+                  <img src={p.src} alt={p.caption} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <p className="text-white text-xs md:text-sm leading-snug">{p.caption}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA */}
+      <section className="py-20 md:py-24 px-6 md:px-12" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 100%)'}}>
+        <div className="max-w-3xl mx-auto text-center">
+          <Heart className="h-10 w-10 mx-auto mb-4" style={{color: vertical.accent}} />
+          <h2 className="text-3xl md:text-5xl font-serif mb-4" style={{color: '#1a3a5c'}}>Ready to be part of {vertical.hindi}?</h2>
+          <p className="text-base md:text-lg mb-8 leading-relaxed" style={{color: '#3a5a7c'}}>Reach out to Manvi or Diksha and we'll help you take the next step with warmth and care.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/book"><Button className="rounded-full px-8" data-testid={`vertical-cta-book-${vertical.slug}`}>Book a Session <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
+            <Link to="/contact"><Button variant="outline" className="rounded-full px-8 border-2" style={{borderColor: vertical.accent, color: vertical.accent}}>Get in Touch</Button></Link>
+          </div>
+          <p className="mt-10 text-lg md:text-xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>Let's Heal. Let's Grow. Together.</p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// Events Page
+function EventsPage() {
+  const events = [
+    { title: 'Sukoon Mountain Retreat', date: 'March 15–17, 2026', location: 'Shoghi, Himachal Pradesh', type: 'Retreat', spots: '12 seats', icon: <Leaf className="w-7 h-7" strokeWidth={1.5}/>, desc: 'Three days of sound healing, expressive art, mindful walks & community meals.' },
+    { title: 'Between Bells & Breaks', date: 'April 8, 2026', location: 'Delhi NCR schools', type: 'Teacher Training', spots: 'By invitation', icon: <BookOpen className="w-7 h-7" strokeWidth={1.5}/>, desc: 'Emotional reset workshop for educators returning after summer break.' },
+    { title: 'Expressive Art Therapy Circle', date: 'February 22, 2026', location: 'Online (Zoom)', type: 'Workshop', spots: '20 seats', icon: <Palette className="w-7 h-7" strokeWidth={1.5}/>, desc: 'A gentle 2-hour group session using art to process overwhelming feelings.' },
+    { title: 'Saksham Peer Supervision', date: 'Last Sunday every month', location: 'Online (Zoom)', type: 'For MHPs', spots: '15 seats', icon: <UserCheck className="w-7 h-7" strokeWidth={1.5}/>, desc: 'Case consultation & peer support circle for mental health professionals.' },
+    { title: 'Corporate Wellness Day', date: 'On request', location: 'At your workplace', type: 'Corporate', spots: 'Custom', icon: <Briefcase className="w-7 h-7" strokeWidth={1.5}/>, desc: 'A full day of workshops, 1:1 check-ins and leadership sessions for teams.' },
+    { title: 'Parenting with Awareness', date: 'May 11, 2026', location: 'Delhi NCR', type: 'Workshop', spots: '25 seats', icon: <Users className="w-7 h-7" strokeWidth={1.5}/>, desc: 'A conscious-parenting workshop for connected, calmer families.' }
+  ];
+  return (
+    <div className="pt-20">
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="absolute top-10 left-0 w-40 h-40 opacity-20"><Leaf className="w-full h-full text-green-700" strokeWidth={1} /></div>
+        <div className="absolute bottom-10 right-0 w-40 h-40 opacity-20 rotate-180"><Leaf className="w-full h-full text-green-700" strokeWidth={1} /></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl">
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.3em] font-semibold mb-4" style={{color: '#8b7355'}}>Join us</motion.p>
+            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-light mb-6" style={{color: '#1a3a5c'}}>Upcoming Events</motion.h1>
+            <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-6"><div className="h-px w-16" style={{background:'#c9a961'}} /><Sparkles className="h-5 w-5" style={{color:'#c9a961'}} /><div className="h-px w-16" style={{background:'#c9a961'}} /></motion.div>
+            <motion.p variants={fadeInUp} className="text-lg leading-relaxed" style={{color: '#3a5a7c'}}>Retreats, workshops, and professional circles curated by Manvi &amp; Diksha. Save a seat, bring a friend, or hold space for yourself — we'd love to have you.</motion.p>
+          </motion.div>
+        </div>
+      </section>
+      <section className="py-20 md:py-28 px-6 md:px-12" data-testid="events-list">
+        <div className="max-w-7xl mx-auto">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {events.map((ev, idx) => (
+              <motion.article key={idx} variants={fadeInUp} whileHover={{y:-8, transition:{duration:0.3}}} className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border-2" style={{borderColor:'rgba(201, 169, 97, 0.25)'}} data-testid={`event-card-${idx}`}>
+                <div className="relative h-32 flex items-center justify-center overflow-hidden" style={{background:'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 100%)'}}>
+                  <div className="absolute top-4 left-4"><span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md" style={{background:'rgba(201, 169, 97, 0.2)', color:'#8b7355'}}>{ev.type}</span></div>
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500" style={{background:'white', color:'#2d5016'}}>{ev.icon}</div>
+                </div>
+                <div className="p-7">
+                  <h3 className="text-xl font-serif mb-3 leading-snug" style={{color:'#1a3a5c'}}>{ev.title}</h3>
+                  <div className="space-y-2 mb-4 text-sm" style={{color:'#3a5a7c'}}>
+                    <div className="flex items-center gap-2"><CalendarIcon className="h-4 w-4 flex-shrink-0" style={{color:'#c9a961'}} /><span>{ev.date}</span></div>
+                    <div className="flex items-center gap-2"><MapPin className="h-4 w-4 flex-shrink-0" style={{color:'#c9a961'}} /><span>{ev.location}</span></div>
+                    <div className="flex items-center gap-2"><Users className="h-4 w-4 flex-shrink-0" style={{color:'#c9a961'}} /><span>{ev.spots}</span></div>
+                  </div>
+                  <p className="text-sm leading-relaxed mb-5" style={{color:'#3a5a7c'}}>{ev.desc}</p>
+                  <Link to="/contact"><Button variant="outline" className="w-full rounded-full border-2" style={{borderColor:'rgba(201, 169, 97, 0.4)', color:'#1a3a5c'}} data-testid={`event-register-${idx}`}>Register Interest <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      <section className="py-16 px-6 md:px-12" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 100%)'}}>
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-lg md:text-xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>Let's Heal. Let's Grow. Together.</p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 // Contact Page
 function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
@@ -2208,6 +2505,8 @@ function PublicLayout() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
           <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/verticals/:slug" element={<VerticalDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
         </Routes>
