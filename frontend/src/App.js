@@ -29,8 +29,9 @@ const THERAPY_ROOM = "https://static.prod-images.emergentagent.com/jobs/0ddf470c
 const MISSION_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/gv6swmoz_e.jpeg";
 const ART_THERAPY_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/eplihg33_art.jpeg";
 const INDIVIDUAL_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/2e2sc5qy_indviduals.jpeg";
+const STUDENT_IMG = "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/yr2xotzy_WhatsApp%20Image%202026-09-15%20at%206.12.06%20PM.jpeg";
 const GROUP_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/3lndq4a7_group.jpeg";
-const WORKSHOPS_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/qsy90nw2_workshops.jpeg";
+const WORKSHOPS_IMG = "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/b5858bci_WhatsApp%20Image%202026-09-15%20at%206.11.42%20PM.jpeg";
 
 // Animation variants
 const fadeInUp = {
@@ -928,7 +929,7 @@ function ServicesPage() {
             {services.map((service, idx) => {
               const serviceImages = {
                 'individual': INDIVIDUAL_IMG,
-                'student': INDIVIDUAL_IMG,
+                'student': STUDENT_IMG,
                 'art-therapy': ART_THERAPY_IMG,
                 'group': GROUP_IMG,
                 'workshops': WORKSHOPS_IMG,
