@@ -62,6 +62,7 @@ function Navbar() {
     { path: '/about', label: 'About' },
     { path: '/services', label: 'Services' },
     { path: '/blog', label: 'Blog' },
+    { path: '/courses', label: 'Courses' },
     { path: '/contact', label: 'Contact' },
   ];
 
@@ -166,6 +167,7 @@ function Footer() {
               <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
               <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Services</Link></li>
               <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
+              <li><Link to="/courses" className="text-gray-400 hover:text-white transition-colors">Courses</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
@@ -1683,6 +1685,219 @@ function BlogDetailPage() {
   );
 }
 
+// Courses Page
+function CoursesPage() {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const courses = [
+    {
+      title: 'Understanding Your Emotions',
+      subtitle: 'A beginner-friendly journey into emotional awareness',
+      duration: '4 weeks',
+      level: 'Beginner',
+      icon: <Heart className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Naming emotions', 'Body-feeling awareness', 'Simple regulation tools'],
+    },
+    {
+      title: 'Mindfulness for Everyday Life',
+      subtitle: 'Practical mindfulness without the jargon',
+      duration: '6 weeks',
+      level: 'All levels',
+      icon: <Sparkles className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Daily grounding practices', 'Breath & body scans', 'Mindful conversations'],
+    },
+    {
+      title: 'Healing Through Art',
+      subtitle: 'Expressive art therapy exercises you can do at home',
+      duration: '5 weeks',
+      level: 'All levels',
+      icon: <Palette className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Guided art prompts', 'Processing with colour', 'Journaling with sketches'],
+    },
+    {
+      title: 'Building Emotional Resilience',
+      subtitle: 'Tools to bounce back and grow through setbacks',
+      duration: '8 weeks',
+      level: 'Intermediate',
+      icon: <Sprout className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Reframing hard moments', 'Boundary setting', 'Growth mindset habits'],
+    },
+    {
+      title: 'Parenting with Awareness',
+      subtitle: 'Conscious parenting for connected, calmer families',
+      duration: '6 weeks',
+      level: 'Parents',
+      icon: <Users className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Child-centred listening', 'Managing meltdowns', 'Co-regulation skills'],
+    },
+    {
+      title: 'Self-Discovery Workshop',
+      subtitle: 'A gentle inward journey to meet your true self',
+      duration: '4 weeks',
+      level: 'All levels',
+      icon: <UserCheck className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Values clarification', 'Shadow work basics', 'Living with intention'],
+    },
+  ];
+
+  const handleNotify = (e) => {
+    e.preventDefault();
+    if (email.includes('@')) {
+      setSubscribed(true);
+      setEmail('');
+    }
+  };
+
+  return (
+    <div className="pt-20">
+      {/* Hero */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="absolute top-10 left-0 w-40 h-40 opacity-20">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="absolute bottom-10 right-0 w-40 h-40 opacity-20 rotate-180">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="max-w-3xl"
+          >
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.3em] font-semibold mb-4" style={{color: '#8b7355'}}>
+              Learn &amp; Grow
+            </motion.p>
+            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-light mb-6" style={{color: '#1a3a5c'}}>
+              Emavaran Courses
+            </motion.h1>
+            <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-6">
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+              <Sparkles className="h-5 w-5" style={{color: '#c9a961'}} />
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+            </motion.div>
+            <motion.p variants={fadeInUp} className="text-lg leading-relaxed mb-6" style={{color: '#3a5a7c'}}>
+              Thoughtfully designed self-paced courses to walk you deeper into emotional wellness, mindfulness, and self-discovery — crafted by Manvi &amp; Diksha. New cohorts launching soon.
+            </motion.p>
+            <motion.div variants={fadeInUp}>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider" style={{background: 'rgba(201, 169, 97, 0.15)', color: '#8b7355'}}>
+                <Sparkles className="h-3.5 w-3.5" /> Coming Soon
+              </span>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Courses Grid */}
+      <section className="py-20 md:py-28 px-6 md:px-12" data-testid="courses-list">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {courses.map((course, idx) => (
+              <motion.article
+                key={idx}
+                variants={fadeInUp}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border-2 relative"
+                style={{borderColor: 'rgba(201, 169, 97, 0.25)'}}
+                data-testid={`course-card-${idx}`}
+              >
+                {/* Course cover with icon */}
+                <div className="relative h-40 flex items-center justify-center overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 100%)'}}>
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md" style={{background: 'rgba(201, 169, 97, 0.2)', color: '#8b7355'}}>
+                      Coming Soon
+                    </span>
+                  </div>
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500" style={{background: 'white', color: '#2d5016'}}>
+                    {course.icon}
+                  </div>
+                </div>
+
+                <div className="p-7">
+                  <div className="flex items-center gap-3 text-xs mb-3" style={{color: '#8b7355'}}>
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" /> {course.duration}
+                    </span>
+                    <span>•</span>
+                    <span>{course.level}</span>
+                  </div>
+                  <h3 className="text-xl font-serif mb-2 leading-snug" style={{color: '#1a3a5c'}}>
+                    {course.title}
+                  </h3>
+                  <p className="text-sm italic mb-5" style={{color: '#4a7c3f'}}>
+                    {course.subtitle}
+                  </p>
+                  <ul className="space-y-2 mb-6">
+                    {course.topics.map((topic, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm" style={{color: '#3a5a7c'}}>
+                        <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full" style={{background: '#c9a961'}} />
+                        <span>{topic}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    disabled
+                    variant="outline"
+                    className="w-full rounded-full border-2 opacity-70 cursor-not-allowed"
+                    style={{borderColor: 'rgba(201, 169, 97, 0.4)', color: '#8b7355'}}
+                    data-testid={`course-notify-${idx}`}
+                  >
+                    Notify Me When Launched
+                  </Button>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Notify CTA Band */}
+      <section className="py-20 md:py-24 px-6 md:px-12" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="max-w-3xl mx-auto text-center">
+          <Heart className="h-10 w-10 mx-auto mb-4" style={{color: '#c9a961'}} />
+          <h2 className="text-3xl md:text-5xl font-serif mb-4" style={{color: '#1a3a5c'}}>
+            Be the first to know
+          </h2>
+          <p className="text-base md:text-lg mb-8 leading-relaxed" style={{color: '#3a5a7c'}}>
+            Join our mailing list and get early access when our first cohort opens — plus a free introductory guide to emotional wellness.
+          </p>
+          {subscribed ? (
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full" style={{background: 'rgba(74, 124, 63, 0.15)', color: '#2d5016'}}>
+              <Sparkles className="h-5 w-5" />
+              <span className="font-semibold">Thank you! We'll be in touch soon.</span>
+            </div>
+          ) : (
+            <form onSubmit={handleNotify} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" data-testid="course-notify-form">
+              <Input
+                type="email"
+                placeholder="your@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 rounded-full border-2 bg-white"
+                style={{borderColor: 'rgba(201, 169, 97, 0.4)'}}
+                data-testid="course-notify-email"
+              />
+              <Button type="submit" className="rounded-full px-8" data-testid="course-notify-submit">
+                Notify Me <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </form>
+          )}
+          <p className="mt-10 text-lg md:text-xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>
+            Let's Heal. Let's Grow. Together.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 // Contact Page
 function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
@@ -1992,6 +2207,7 @@ function PublicLayout() {
           <Route path="/book" element={<BookSessionPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
+          <Route path="/courses" element={<CoursesPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
         </Routes>
