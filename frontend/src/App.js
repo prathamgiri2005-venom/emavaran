@@ -28,10 +28,11 @@ const THERAPY_ROOM = "https://static.prod-images.emergentagent.com/jobs/0ddf470c
 // New Service Images
 const MISSION_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/gv6swmoz_e.jpeg";
 const ART_THERAPY_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/eplihg33_art.jpeg";
-const INDIVIDUAL_IMG = "/individual-counseling.jpg";
-const STUDENT_IMG = "/student-therapy.jpg";
+const INDIVIDUAL_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/2e2sc5qy_indviduals.jpeg";
+const STUDENT_IMG = "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/yr2xotzy_WhatsApp%20Image%202026-09-15%20at%206.12.06%20PM.jpeg";
 const GROUP_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/3lndq4a7_group.jpeg";
-const WORKSHOPS_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/qsy90nw2_workshops.jpeg";
+const WORKSHOPS_IMG = "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/b5858bci_WhatsApp%20Image%202026-09-15%20at%206.11.42%20PM.jpeg";
+const PSYCHOEDUCATION_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/qsy90nw2_workshops.jpeg";
 
 // Retreat (Sukoon) Photos
 const RETREAT_PHOTOS = [
@@ -1067,9 +1068,11 @@ function ServicesPage() {
                 'group': GROUP_IMG,
                 'workshops': WORKSHOPS_IMG,
                 'online': INDIVIDUAL_IMG,
-                'psychoeducation': WORKSHOPS_IMG
+                'psychoeducation': PSYCHOEDUCATION_IMG
               };
               const img = serviceImages[service.id];
+              // Portrait-style illustrations need object-contain to keep faces visible
+              const needsTopCrop = ['student', 'workshops'].includes(service.id);
               
               return (
                 <motion.div
@@ -1082,11 +1085,11 @@ function ServicesPage() {
                 >
                   {/* Service Image */}
                   {img && (
-                    <div className="relative h-56 overflow-hidden">
+                    <div className="relative h-56 overflow-hidden bg-[#fdf6e3]">
                       <img 
                         src={img} 
                         alt={service.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        className={`w-full h-full transition-transform duration-700 group-hover:scale-110 ${needsTopCrop ? 'object-contain object-center' : 'object-cover'}`}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
