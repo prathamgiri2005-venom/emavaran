@@ -33,6 +33,132 @@ const STUDENT_IMG = "/student-therapy.jpg";
 const GROUP_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/3lndq4a7_group.jpeg";
 const WORKSHOPS_IMG = "https://customer-assets.emergentagent.com/job_wellness-journey-225/artifacts/qsy90nw2_workshops.jpeg";
 
+// Retreat (Sukoon) Photos
+const RETREAT_PHOTOS = [
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/f838ozew_HT_00044.webp", caption: "Mountain retreat — group gathering amidst pine forests" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/tid6miki_HT_00010.webp", caption: "Hands-on creativity sessions in nature" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/x7yw72nz_HT_00190.webp", caption: "Sound healing circle with singing bowls & chimes" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/8bq4tasw_HT_00204.webp", caption: "Group bonding during experiential activities" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/8k6r0egd_IMG_8041.webp", caption: "Manvi & Diksha at the Emavaran retreat venue" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/v1xev1rl_HT_04731.webp", caption: "The Emavaran tote — a keepsake of the journey" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/gs99dgfn_HT_04725.webp", caption: "Learning science & joy together — rocket activity" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/2mxxx9tz_HT_00235.webp", caption: "A participant with her Emavaran gift bag" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/ukbhntta_HT_00213.webp", caption: "Our mountain retreat campsite in misty mornings" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/fc7gf2px_HT_00151.webp", caption: "Celebrations & cultural moments at the retreat" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/4sqwchlk_HT_04863.webp", caption: "Group energy exercise — moving together, healing together" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/mwbxm1zs_HT_04860.webp", caption: "Guided expressive art session led by our therapist" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/e3dovp1p_HT_04859%20copy.webp", caption: "Manvi & Diksha hosting the retreat" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/8noh2mkc_HT_04845.webp", caption: "A warm smile at the art table" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/ok3axqtp_HT_04831.webp", caption: "The Emavaran banner — our 5 Verticals of healing" }
+];
+
+// Teacher Training (Udaan - School Programs) Photos
+const TEACHER_TRAINING_PHOTOS = [
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/v08bfirw_IMG_8041.webp", caption: "Teacher training at The Mother's International School, New Delhi" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/skjj7bi6_IMG_8047.webp", caption: "Between Bells & Breaks — emotional reset workshop for educators" },
+  { src: "https://customer-assets-agu9un31.emergentagent.net/job_wellness-journey-225/artifacts/79qi4sae_IMG_8020.webp", caption: "Back-to-school art therapy session for teachers" }
+];
+
+// Verticals data (shared across home preview, services section, and detail pages)
+const VERTICALS_DATA = [
+  {
+    slug: 'nav',
+    hindi: 'नव',
+    english: 'Rehabilitation',
+    tagline: 'Holistic healing for emotional, mental & behavioural well-being',
+    description: 'Holistic rehabilitation programs for emotional, mental & behavioural well-being.',
+    long: 'नव (New Beginnings) is Emavaran\'s rehabilitation vertical — a safe, structured, and compassionate path for individuals navigating addiction recovery, chronic stress, or behavioural reset. We combine evidence-based therapy with mindfulness, expressive arts, and family support to help clients rebuild their relationship with themselves and the world.',
+    offerings: [
+      'One-on-one rehabilitation counselling',
+      'Behavioural pattern reset programs',
+      'Family support & psychoeducation',
+      'Mindfulness and body-based practices',
+      'Follow-up care & relapse prevention'
+    ],
+    accent: '#4a7c3f',
+    photos: []
+  },
+  {
+    slug: 'sukoon',
+    hindi: 'सुकून',
+    english: 'Retreats',
+    tagline: 'Reconnect, recharge & rediscover inner balance',
+    description: 'Restorative retreats to reconnect, recharge & rediscover inner balance in nurturing environments.',
+    long: 'सुकून means peace. Our retreats are curated getaways in the lap of nature where you step away from the noise and step into yourself. Sound healing, expressive art, guided reflections, gentle movement, and warm community meals — every element is designed to help you return home softer, lighter, and more grounded.',
+    offerings: [
+      'Weekend & week-long mountain retreats',
+      'Sound healing with singing bowls & chimes',
+      'Expressive art & journaling circles',
+      'Guided mindful walks in nature',
+      'Group bonding & cultural evenings'
+    ],
+    accent: '#2d6b5c',
+    photos: RETREAT_PHOTOS
+  },
+  {
+    slug: 'udaan',
+    hindi: 'उड़ान',
+    english: 'School Programs',
+    tagline: 'Building emotional resilience in young minds',
+    description: 'Interactive programs for students, teachers & parents to build emotional resilience & awareness.',
+    long: 'उड़ान (Flight) brings mental health literacy into classrooms. We work with schools to run interactive sessions for students, teacher-training workshops, and parent orientation programs — building emotional resilience, empathy, and self-awareness from an early age.',
+    offerings: [
+      'Student life-skills & emotional resilience workshops',
+      'Teacher training in mental health first aid',
+      'Parent orientation & communication circles',
+      'Peer support & anti-bullying programs',
+      'Career counselling for senior classes'
+    ],
+    accent: '#c47c3a',
+    photos: TEACHER_TRAINING_PHOTOS
+  },
+  {
+    slug: 'saath',
+    hindi: 'साथ',
+    english: 'Corporate Wellness',
+    tagline: 'Workplace wellbeing, productivity & harmony',
+    description: 'Workplace wellness programs that foster mental well-being, productivity & harmony.',
+    long: 'साथ means together. Our corporate wellness programs partner with organisations to create psychologically safer workplaces — through leadership workshops, team wellbeing audits, 1:1 counselling access, and burnout-prevention curricula tailored to your culture and KPIs.',
+    offerings: [
+      'Employee wellbeing workshops',
+      'Leadership emotional-intelligence training',
+      '1:1 counselling via Employee Assistance Program',
+      'Burnout prevention & stress audits',
+      'Team-building retreats & circles'
+    ],
+    accent: '#3a7098',
+    photos: []
+  },
+  {
+    slug: 'saksham',
+    hindi: 'सक्षम',
+    english: 'Workshops & Sessions for MHPs',
+    tagline: 'Specialized growth for mental health professionals',
+    description: 'Specialized workshops & professional support for mental health professionals to grow, learn & create lasting impact.',
+    long: 'सक्षम (Capable) is our professional development vertical for therapists, counsellors, and allied mental health workers. We offer skill-sharpening workshops, case-consultation groups, peer supervision, and self-care retreats — because the people who hold others deserve to be held too.',
+    offerings: [
+      'Specialised technique workshops (CBT, Art Therapy, Gestalt)',
+      'Peer supervision & case consultation circles',
+      'Self-care & vicarious-trauma recovery retreats',
+      'Research & publication mentorship',
+      'Internships for early-career professionals'
+    ],
+    accent: '#6b4a98',
+    photos: []
+  }
+];
+
+const getVerticalIcon = (slug) => {
+  const map = {
+    nav: <Sprout className="w-full h-full" strokeWidth={1.5} />,
+    sukoon: <Leaf className="w-full h-full" strokeWidth={1.5} />,
+    udaan: <BookOpen className="w-full h-full" strokeWidth={1.5} />,
+    saath: <Briefcase className="w-full h-full" strokeWidth={1.5} />,
+    saksham: <UserCheck className="w-full h-full" strokeWidth={1.5} />
+  };
+  return map[slug] || <Heart className="w-full h-full" strokeWidth={1.5} />;
+};
+
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -60,8 +186,10 @@ function Navbar() {
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
     { path: '/services', label: 'Services' },
-     { path: '/photos', label: 'Photos' },
+    { path: '/photos', label: 'Photos' },
     { path: '/blog', label: 'Blog' },
+    { path: '/courses', label: 'Courses' },
+    { path: '/events', label: 'Events' },
     { path: '/contact', label: 'Contact' },
   ];
 
@@ -166,6 +294,8 @@ function Footer() {
               <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
               <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Services</Link></li>
               <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
+              <li><Link to="/courses" className="text-gray-400 hover:text-white transition-colors">Courses</Link></li>
+              <li><Link to="/events" className="text-gray-400 hover:text-white transition-colors">Events</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
@@ -363,30 +493,32 @@ function HomePage() {
             className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6"
           >
             {[
-              { hindi: 'नव', english: 'Rehabilitation', icon: <Sprout className="w-8 h-8" strokeWidth={1.5} /> },
-              { hindi: 'सुकून', english: 'Retreats', icon: <Leaf className="w-8 h-8" strokeWidth={1.5} /> },
-              { hindi: 'उड़ान', english: 'School Programs', icon: <BookOpen className="w-8 h-8" strokeWidth={1.5} /> },
-              { hindi: 'साथ', english: 'Corporate Wellness', icon: <Briefcase className="w-8 h-8" strokeWidth={1.5} /> },
-              { hindi: 'सक्षम', english: 'For MHPs', icon: <UserCheck className="w-8 h-8" strokeWidth={1.5} /> }
+              { slug: 'nav', hindi: 'नव', english: 'Rehabilitation', icon: <Sprout className="w-8 h-8" strokeWidth={1.5} /> },
+              { slug: 'sukoon', hindi: 'सुकून', english: 'Retreats', icon: <Leaf className="w-8 h-8" strokeWidth={1.5} /> },
+              { slug: 'udaan', hindi: 'उड़ान', english: 'School Programs', icon: <BookOpen className="w-8 h-8" strokeWidth={1.5} /> },
+              { slug: 'saath', hindi: 'साथ', english: 'Corporate Wellness', icon: <Briefcase className="w-8 h-8" strokeWidth={1.5} /> },
+              { slug: 'saksham', hindi: 'सक्षम', english: 'For MHPs', icon: <UserCheck className="w-8 h-8" strokeWidth={1.5} /> }
             ].map((vertical, idx) => (
               <motion.div
                 key={idx}
                 variants={fadeInUp}
                 whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                className="bg-white/70 backdrop-blur-sm rounded-2xl p-5 md:p-6 text-center border-2 shadow-md hover:shadow-xl transition-all duration-500"
+                className="bg-white/70 backdrop-blur-sm rounded-2xl p-5 md:p-6 text-center border-2 shadow-md hover:shadow-xl transition-all duration-500 cursor-pointer"
                 style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
                 data-testid={`vertical-preview-${idx}`}
               >
-                <div className="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
-                  {vertical.icon}
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold mb-1" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
-                  {vertical.hindi}
-                </h3>
-                <div className="w-8 h-px mx-auto my-2" style={{background: '#c9a961'}} />
-                <p className="text-xs md:text-sm font-medium" style={{color: '#4a7c3f'}}>
-                  {vertical.english}
-                </p>
+                <Link to={`/verticals/${vertical.slug}`} className="block">
+                  <div className="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
+                    {vertical.icon}
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-1" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
+                    {vertical.hindi}
+                  </h3>
+                  <div className="w-8 h-px mx-auto my-2" style={{background: '#c9a961'}} />
+                  <p className="text-xs md:text-sm font-medium" style={{color: '#4a7c3f'}}>
+                    {vertical.english}
+                  </p>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -449,7 +581,7 @@ function HomePage() {
                   <img 
                     src={therapist.photo} 
                     alt={therapist.name}
-                className="w-full h-full object-cover object-[10%] rounded-2xl"
+                    className="w-full h-full object-cover object-[10%] rounded-2xl"
                   />
                 </div>
                 <div className="flex-1">
@@ -784,7 +916,7 @@ function AboutPage() {
                   <img 
                     src={DIKSHA_PHOTO} 
                     alt="Diksha Mago"
-              className="relative w-full aspect-[3/4] object-cover object-[20%] rounded-2xl shadow-lg"
+                    className="relative w-full aspect-[3/4] object-cover object-[20%] rounded-2xl shadow-lg"
                   />
                 </div>
               </div>
@@ -929,15 +1061,15 @@ function ServicesPage() {
           >
             {services.map((service, idx) => {
               const serviceImages = {
-  'student': STUDENT_IMG,
-  'individual': INDIVIDUAL_IMG,
-  'art-therapy': ART_THERAPY_IMG,
-  'group': GROUP_IMG,
-  'workshops': WORKSHOPS_IMG,
-  'online': INDIVIDUAL_IMG,
-  'psychoeducation': WORKSHOPS_IMG
-};
-const img = serviceImages[service.id];
+                'student': STUDENT_IMG,
+                'individual': INDIVIDUAL_IMG,
+                'art-therapy': ART_THERAPY_IMG,
+                'group': GROUP_IMG,
+                'workshops': WORKSHOPS_IMG,
+                'online': INDIVIDUAL_IMG,
+                'psychoeducation': WORKSHOPS_IMG
+              };
+              const img = serviceImages[service.id];
               
               return (
                 <motion.div
@@ -1035,18 +1167,21 @@ const img = serviceImages[service.id];
           >
             {[
               {
+                slug: 'nav',
                 hindi: 'नव',
                 english: 'Rehabilitation',
                 description: 'Holistic rehabilitation programs for emotional, mental & behavioral well-being.',
                 icon: <Sprout className="w-12 h-12" strokeWidth={1.5} />
               },
               {
+                slug: 'sukoon',
                 hindi: 'सुकून',
                 english: 'Retreats',
                 description: 'Restorative retreats to reconnect, recharge & rediscover inner balance in nurturing environments.',
                 icon: <Leaf className="w-12 h-12" strokeWidth={1.5} />
               },
               {
+                slug: 'udaan',
                 hindi: 'उड़ान',
                 english: 'School Programs',
                 description: 'Interactive programs for students, teachers & parents to build emotional resilience & awareness.',
@@ -1057,23 +1192,26 @@ const img = serviceImages[service.id];
                 key={idx}
                 variants={fadeInUp}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500"
+                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
                 style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
                 data-testid={`vertical-card-${idx}`}
               >
-                <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
-                  {vertical.icon}
-                </div>
-                <h3 className="text-4xl md:text-5xl font-bold mb-2" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
-                  {vertical.hindi}
-                </h3>
-                <div className="flex items-center justify-center gap-2 mb-4">
-                  <span className="text-lg font-medium" style={{color: '#4a7c3f'}}>— {vertical.english}</span>
-                </div>
-                <div className="w-12 h-px mx-auto mb-4" style={{background: '#c9a961'}} />
-                <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
-                  {vertical.description}
-                </p>
+                <Link to={`/verticals/${vertical.slug}`} className="block">
+                  <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
+                    {vertical.icon}
+                  </div>
+                  <h3 className="text-4xl md:text-5xl font-bold mb-2" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
+                    {vertical.hindi}
+                  </h3>
+                  <div className="flex items-center justify-center gap-2 mb-4">
+                    <span className="text-lg font-medium" style={{color: '#4a7c3f'}}>— {vertical.english}</span>
+                  </div>
+                  <div className="w-12 h-px mx-auto mb-4" style={{background: '#c9a961'}} />
+                  <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
+                    {vertical.description}
+                  </p>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-1" style={{color: '#c9a961'}}>Explore <ArrowRight className="h-3 w-3" /></p>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -1088,12 +1226,14 @@ const img = serviceImages[service.id];
           >
             {[
               {
+                slug: 'saath',
                 hindi: 'साथ',
                 english: 'Corporate Wellness',
                 description: 'Workplace wellness programs that foster mental well-being, productivity & harmony.',
                 icon: <Briefcase className="w-12 h-12" strokeWidth={1.5} />
               },
               {
+                slug: 'saksham',
                 hindi: 'सक्षम',
                 english: 'Workshops & Sessions for MHPs',
                 description: 'Specialized workshops & professional support for mental health professionals to grow, learn & create lasting impact.',
@@ -1104,23 +1244,26 @@ const img = serviceImages[service.id];
                 key={idx}
                 variants={fadeInUp}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500"
+                className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 text-center border-2 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
                 style={{borderColor: 'rgba(201, 169, 97, 0.3)'}}
                 data-testid={`vertical-card-${idx + 3}`}
               >
-                <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
-                  {vertical.icon}
-                </div>
-                <h3 className="text-4xl md:text-5xl font-bold mb-2" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
-                  {vertical.hindi}
-                </h3>
-                <div className="flex items-center justify-center gap-2 mb-4">
-                  <span className="text-lg font-medium" style={{color: '#4a7c3f'}}>— {vertical.english}</span>
-                </div>
-                <div className="w-12 h-px mx-auto mb-4" style={{background: '#c9a961'}} />
-                <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
-                  {vertical.description}
-                </p>
+                <Link to={`/verticals/${vertical.slug}`} className="block">
+                  <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{background: 'rgba(253, 246, 227, 0.9)', color: '#2d5016'}}>
+                    {vertical.icon}
+                  </div>
+                  <h3 className="text-4xl md:text-5xl font-bold mb-2" style={{color: '#1a3a5c', fontFamily: 'serif'}}>
+                    {vertical.hindi}
+                  </h3>
+                  <div className="flex items-center justify-center gap-2 mb-4">
+                    <span className="text-lg font-medium" style={{color: '#4a7c3f'}}>— {vertical.english}</span>
+                  </div>
+                  <div className="w-12 h-px mx-auto mb-4" style={{background: '#c9a961'}} />
+                  <p className="text-sm md:text-base leading-relaxed" style={{color: '#3a5a7c'}}>
+                    {vertical.description}
+                  </p>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-1" style={{color: '#c9a961'}}>Explore <ArrowRight className="h-3 w-3" /></p>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -1191,6 +1334,7 @@ const img = serviceImages[service.id];
   );
 }
 
+// Book Session Page
 function BookSessionPage() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedService, setSelectedService] = useState('');
@@ -1220,7 +1364,7 @@ function BookSessionPage() {
 
     setIsSubmitting(true);
     try {
-   const response = await fetch(`${API_URL}/api/bookings`, {
+      const response = await fetch(`${API_URL}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1275,23 +1419,24 @@ function BookSessionPage() {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Left Column - Calendar & Time */}
             <div className="space-y-8">
-        {/* Service Selection */}
-<div>
-  <label className="block text-sm font-medium text-text-primary mb-3">Select Service</label>
-  <Select value={selectedService} onValueChange={setSelectedService}>
-    <SelectTrigger data-testid="service-select">
-      <SelectValue placeholder="Choose a service" />
-    </SelectTrigger>
-    <SelectContent>
-      <SelectItem value="Individual Counseling">Individual Counseling</SelectItem>
-      <SelectItem value="Student Therapy">Student Therapy</SelectItem>
-      <SelectItem value="Expressive Art Therapy">Expressive Art Therapy</SelectItem>
-      <SelectItem value="Group Counseling">Group Counseling</SelectItem>
-      <SelectItem value="Workshops">Workshops</SelectItem>
-      <SelectItem value="Psychoeducation Sessions">Psychoeducation Sessions</SelectItem>
-    </SelectContent>
-  </Select>
-</div>
+              {/* Service Selection */}
+              <div>
+                <label className="block text-sm font-medium text-text-primary mb-3">Select Service</label>
+                <Select value={selectedService} onValueChange={setSelectedService}>
+                  <SelectTrigger data-testid="service-select">
+                    <SelectValue placeholder="Choose a service" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Individual Counseling">Individual Counseling</SelectItem>
+                    <SelectItem value="Student Therapy">Student Therapy</SelectItem>
+                    <SelectItem value="Expressive Art Therapy">Expressive Art Therapy</SelectItem>
+                    <SelectItem value="Group Counseling">Group Counseling</SelectItem>
+                    <SelectItem value="Workshops">Workshops</SelectItem>
+                    <SelectItem value="Psychoeducation Sessions">Psychoeducation Sessions</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               {/* Calendar */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">Select Date</label>
@@ -1435,6 +1580,7 @@ function BookSessionPage() {
     </div>
   );
 }
+
 // Blog Page
 function BlogPage() {
   const [blogs, setBlogs] = useState([]);
@@ -1680,6 +1826,461 @@ function BlogDetailPage() {
   );
 }
 
+// Courses Page
+function CoursesPage() {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const courses = [
+    {
+      title: 'Understanding Your Emotions',
+      subtitle: 'A beginner-friendly journey into emotional awareness',
+      duration: '4 weeks',
+      level: 'Beginner',
+      icon: <Heart className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Naming emotions', 'Body-feeling awareness', 'Simple regulation tools'],
+    },
+    {
+      title: 'Mindfulness for Everyday Life',
+      subtitle: 'Practical mindfulness without the jargon',
+      duration: '6 weeks',
+      level: 'All levels',
+      icon: <Sparkles className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Daily grounding practices', 'Breath & body scans', 'Mindful conversations'],
+    },
+    {
+      title: 'Healing Through Art',
+      subtitle: 'Expressive art therapy exercises you can do at home',
+      duration: '5 weeks',
+      level: 'All levels',
+      icon: <Palette className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Guided art prompts', 'Processing with colour', 'Journaling with sketches'],
+    },
+    {
+      title: 'Building Emotional Resilience',
+      subtitle: 'Tools to bounce back and grow through setbacks',
+      duration: '8 weeks',
+      level: 'Intermediate',
+      icon: <Sprout className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Reframing hard moments', 'Boundary setting', 'Growth mindset habits'],
+    },
+    {
+      title: 'Parenting with Awareness',
+      subtitle: 'Conscious parenting for connected, calmer families',
+      duration: '6 weeks',
+      level: 'Parents',
+      icon: <Users className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Child-centred listening', 'Managing meltdowns', 'Co-regulation skills'],
+    },
+    {
+      title: 'Self-Discovery Workshop',
+      subtitle: 'A gentle inward journey to meet your true self',
+      duration: '4 weeks',
+      level: 'All levels',
+      icon: <UserCheck className="w-7 h-7" strokeWidth={1.5} />,
+      topics: ['Values clarification', 'Shadow work basics', 'Living with intention'],
+    },
+  ];
+
+  const handleNotify = (e) => {
+    e.preventDefault();
+    if (email.includes('@')) {
+      setSubscribed(true);
+      setEmail('');
+    }
+  };
+
+  return (
+    <div className="pt-20">
+      {/* Hero */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="absolute top-10 left-0 w-40 h-40 opacity-20">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="absolute bottom-10 right-0 w-40 h-40 opacity-20 rotate-180">
+          <Leaf className="w-full h-full text-green-700" strokeWidth={1} />
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="max-w-3xl"
+          >
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.3em] font-semibold mb-4" style={{color: '#8b7355'}}>
+              Learn &amp; Grow
+            </motion.p>
+            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-light mb-6" style={{color: '#1a3a5c'}}>
+              Emavaran Courses
+            </motion.h1>
+            <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-6">
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+              <Sparkles className="h-5 w-5" style={{color: '#c9a961'}} />
+              <div className="h-px w-16" style={{background: '#c9a961'}} />
+            </motion.div>
+            <motion.p variants={fadeInUp} className="text-lg leading-relaxed mb-6" style={{color: '#3a5a7c'}}>
+              Thoughtfully designed self-paced courses to walk you deeper into emotional wellness, mindfulness, and self-discovery — crafted by Manvi &amp; Diksha. New cohorts launching soon.
+            </motion.p>
+            <motion.div variants={fadeInUp}>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider" style={{background: 'rgba(201, 169, 97, 0.15)', color: '#8b7355'}}>
+                <Sparkles className="h-3.5 w-3.5" /> Coming Soon
+              </span>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Course — Expressive Art Therapy Certificate */}
+      <section className="py-16 md:py-24 px-6 md:px-12 relative overflow-hidden" style={{background: '#fffbea'}} data-testid="featured-course">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="inline-block px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-4" style={{background: 'rgba(201, 169, 97, 0.2)', color: '#8b7355'}}>
+              Featured Course · Enrolment Open
+            </span>
+            <p className="text-base md:text-lg font-serif" style={{color: '#2d5016'}}>Certificate Course in</p>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold mt-1 mb-4 leading-tight" style={{color: '#1a3f2a'}}>
+              Expressive Art Therapy
+            </h2>
+            <p className="text-sm md:text-base font-bold tracking-widest uppercase" style={{color: '#2d5016'}}>
+              Learn. Facilitate. Create Meaningful Therapeutic Spaces.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-3xl mx-auto">
+            {[
+              { icon: <Monitor className="w-6 h-6" strokeWidth={2} />, bg: '#2d5c54', label: '3 month online course' },
+              { icon: <CalendarIcon className="w-6 h-6" strokeWidth={2} />, bg: '#d97757', label: 'Starts 25 October' },
+              { icon: <Sparkles className="w-6 h-6" strokeWidth={2} />, bg: '#9b7ec5', label: 'Certification accredited by the International Association of Therapists' }
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-4 bg-white/70 rounded-2xl p-5 border-2" style={{borderColor: 'rgba(201, 169, 97, 0.2)'}}>
+                <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 text-white" style={{background: item.bg}}>
+                  {item.icon}
+                </div>
+                <p className="text-sm md:text-base font-semibold leading-snug pt-1" style={{color: '#1a3f2a'}}>
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link to="/contact">
+              <Button className="rounded-full px-10 py-6 text-base" data-testid="eat-enroll" style={{background: '#2d5016', color: 'white'}}>
+                Enrol Now <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Meet the Facilitator — Diksha Mago */}
+      <section className="py-16 md:py-24 px-6 md:px-12" style={{background: '#fef9d7'}} data-testid="meet-facilitator">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-2xl md:text-3xl font-serif mb-2" style={{color: '#2d5016'}}>
+            Meet the Facilitator
+          </p>
+          <h2 className="text-5xl md:text-7xl font-serif font-bold mb-4" style={{color: '#1a3f2a'}}>
+            Diksha Mago
+          </h2>
+          <div className="flex items-center gap-3 mb-10">
+            <div className="h-px w-20" style={{background: '#8b7355'}} />
+            <Sparkles className="h-4 w-4" style={{color: '#8b7355'}} />
+            <div className="h-px w-20" style={{background: '#8b7355'}} />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-[1fr,auto] gap-10 md:gap-14 items-center">
+            <div>
+              <p className="font-bold text-lg md:text-xl mb-1" style={{color: '#2d5016'}}>Counseling Psychologist</p>
+              <p className="font-bold text-lg md:text-xl mb-8" style={{color: '#2d5016'}}>UNESCO-CID Certified Expressive Arts Therapist</p>
+              <p className="text-base md:text-lg leading-[1.9] font-semibold" style={{color: '#1a3f2a'}}>
+                Diksha Mago brings together psychological insight, neuropsychological understanding, and creative expression in her work. She has facilitated multiple sessions and conducted certification courses, creating reflective and engaging learning spaces for people exploring expressive arts therapy. As co-founder of Emavaran, she contributes to meaningful spaces for psychological wellbeing, learning, and creative growth.
+              </p>
+            </div>
+            <div className="relative mx-auto md:mx-0">
+              <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white">
+                <img src={DIKSHA_PHOTO} alt="Diksha Mago" className="w-full h-full object-cover object-[20%]" />
+              </div>
+              <Leaf className="absolute -bottom-6 -right-6 w-28 h-28 opacity-70" style={{color: '#4a7c3f'}} strokeWidth={1} />
+            </div>
+          </div>
+
+          <div className="mt-14 max-w-md">
+            <div className="bg-white/80 rounded-xl p-5 shadow-sm border" style={{borderColor: 'rgba(139, 115, 85, 0.2)'}}>
+              <p className="font-serif italic text-base md:text-lg leading-relaxed" style={{color: '#2d5016', fontFamily: 'cursive'}}>
+                "Learn from a facilitator who honours both the person and the process."
+              </p>
+              <div className="mt-3 flex justify-center">
+                <Heart className="h-4 w-4" style={{color: '#4a7c3f'}} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Courses Grid */}
+      <section className="py-20 md:py-28 px-6 md:px-12" data-testid="courses-list">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {courses.map((course, idx) => (
+              <motion.article
+                key={idx}
+                variants={fadeInUp}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border-2 relative"
+                style={{borderColor: 'rgba(201, 169, 97, 0.25)'}}
+                data-testid={`course-card-${idx}`}
+              >
+                {/* Course cover with icon */}
+                <div className="relative h-40 flex items-center justify-center overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 100%)'}}>
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md" style={{background: 'rgba(201, 169, 97, 0.2)', color: '#8b7355'}}>
+                      Coming Soon
+                    </span>
+                  </div>
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500" style={{background: 'white', color: '#2d5016'}}>
+                    {course.icon}
+                  </div>
+                </div>
+
+                <div className="p-7">
+                  <div className="flex items-center gap-3 text-xs mb-3" style={{color: '#8b7355'}}>
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" /> {course.duration}
+                    </span>
+                    <span>•</span>
+                    <span>{course.level}</span>
+                  </div>
+                  <h3 className="text-xl font-serif mb-2 leading-snug" style={{color: '#1a3a5c'}}>
+                    {course.title}
+                  </h3>
+                  <p className="text-sm italic mb-5" style={{color: '#4a7c3f'}}>
+                    {course.subtitle}
+                  </p>
+                  <ul className="space-y-2 mb-6">
+                    {course.topics.map((topic, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm" style={{color: '#3a5a7c'}}>
+                        <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full" style={{background: '#c9a961'}} />
+                        <span>{topic}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    disabled
+                    variant="outline"
+                    className="w-full rounded-full border-2 opacity-70 cursor-not-allowed"
+                    style={{borderColor: 'rgba(201, 169, 97, 0.4)', color: '#8b7355'}}
+                    data-testid={`course-notify-${idx}`}
+                  >
+                    Notify Me When Launched
+                  </Button>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Notify CTA Band */}
+      <section className="py-20 md:py-24 px-6 md:px-12" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="max-w-3xl mx-auto text-center">
+          <Heart className="h-10 w-10 mx-auto mb-4" style={{color: '#c9a961'}} />
+          <h2 className="text-3xl md:text-5xl font-serif mb-4" style={{color: '#1a3a5c'}}>
+            Be the first to know
+          </h2>
+          <p className="text-base md:text-lg mb-8 leading-relaxed" style={{color: '#3a5a7c'}}>
+            Join our mailing list and get early access when our first cohort opens — plus a free introductory guide to emotional wellness.
+          </p>
+          {subscribed ? (
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full" style={{background: 'rgba(74, 124, 63, 0.15)', color: '#2d5016'}}>
+              <Sparkles className="h-5 w-5" />
+              <span className="font-semibold">Thank you! We'll be in touch soon.</span>
+            </div>
+          ) : (
+            <form onSubmit={handleNotify} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" data-testid="course-notify-form">
+              <Input
+                type="email"
+                placeholder="your@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 rounded-full border-2 bg-white"
+                style={{borderColor: 'rgba(201, 169, 97, 0.4)'}}
+                data-testid="course-notify-email"
+              />
+              <Button type="submit" className="rounded-full px-8" data-testid="course-notify-submit">
+                Notify Me <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </form>
+          )}
+          <p className="mt-10 text-lg md:text-xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>
+            Let's Heal. Let's Grow. Together.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// Vertical Detail Page
+function VerticalDetailPage() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const vertical = VERTICALS_DATA.find(v => v.slug === slug);
+
+  useEffect(() => {
+    if (!vertical) navigate('/services');
+    window.scrollTo(0, 0);
+  }, [vertical, navigate]);
+
+  if (!vertical) return null;
+
+  return (
+    <div className="pt-20">
+      {/* Hero */}
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="absolute top-10 left-0 w-40 h-40 opacity-20"><Leaf className="w-full h-full text-green-700" strokeWidth={1} /></div>
+        <div className="absolute bottom-10 right-0 w-40 h-40 opacity-20 rotate-180"><Leaf className="w-full h-full text-green-700" strokeWidth={1} /></div>
+        <div className="max-w-6xl mx-auto relative z-10">
+          <Link to="/services" className="inline-flex items-center text-sm mb-8 hover:opacity-70 transition" style={{color: '#8b7355'}}>
+            <ChevronRight className="h-4 w-4 rotate-180 mr-1" /> Back to all Verticals
+          </Link>
+          <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 md:gap-12 items-center">
+            <motion.div initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} transition={{duration:0.5}} className="w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center p-8 shadow-lg" style={{background: 'white', color: vertical.accent}}>
+              {getVerticalIcon(vertical.slug)}
+            </motion.div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] font-semibold mb-3" style={{color: '#8b7355'}}>Our Signature Program</p>
+              <h1 className="text-5xl md:text-7xl font-bold font-serif mb-2" style={{color: '#1a3a5c'}}>{vertical.hindi}</h1>
+              <h2 className="text-2xl md:text-3xl font-serif mb-4" style={{color: vertical.accent}}>— {vertical.english}</h2>
+              <div className="flex items-center gap-3 mb-4"><div className="h-px w-16" style={{background:'#c9a961'}} /><Sparkles className="h-4 w-4" style={{color:'#c9a961'}} /><div className="h-px w-16" style={{background:'#c9a961'}} /></div>
+              <p className="text-lg italic" style={{color: '#3a5a7c'}}>{vertical.tagline}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About + offerings */}
+      <section className="py-16 md:py-24 px-6 md:px-12">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <h3 className="text-3xl font-serif mb-6" style={{color: '#1a3a5c'}}>About this vertical</h3>
+            <p className="text-base md:text-lg leading-[1.9]" style={{color: '#3a5a7c'}}>{vertical.long}</p>
+          </div>
+          <div>
+            <h3 className="text-3xl font-serif mb-6" style={{color: '#1a3a5c'}}>What we offer</h3>
+            <ul className="space-y-4">
+              {vertical.offerings.map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-base md:text-lg" style={{color: '#3a5a7c'}}>
+                  <span className="mt-2 flex-shrink-0 w-2 h-2 rounded-full" style={{background: vertical.accent}} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Photos */}
+      {vertical.photos.length > 0 && (
+        <section className="py-16 md:py-24 px-6 md:px-12" style={{background: 'linear-gradient(180deg, #fefdf8 0%, #fdf6e3 100%)'}} data-testid={`vertical-photos-${vertical.slug}`}>
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-xs uppercase tracking-[0.3em] font-semibold mb-3" style={{color: '#8b7355'}}>Moments</p>
+              <h3 className="text-3xl md:text-5xl font-serif" style={{color: '#1a3a5c'}}>Glimpses from {vertical.english}</h3>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+              {vertical.photos.map((p, i) => (
+                <motion.div key={i} initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{duration:0.4, delay: i * 0.05}} className="group relative overflow-hidden rounded-2xl aspect-square shadow-md hover:shadow-xl transition-all" data-testid={`photo-${vertical.slug}-${i}`}>
+                  <img src={p.src} alt={p.caption} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <p className="text-white text-xs md:text-sm leading-snug">{p.caption}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA */}
+      <section className="py-20 md:py-24 px-6 md:px-12" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 100%)'}}>
+        <div className="max-w-3xl mx-auto text-center">
+          <Heart className="h-10 w-10 mx-auto mb-4" style={{color: vertical.accent}} />
+          <h2 className="text-3xl md:text-5xl font-serif mb-4" style={{color: '#1a3a5c'}}>Ready to be part of {vertical.hindi}?</h2>
+          <p className="text-base md:text-lg mb-8 leading-relaxed" style={{color: '#3a5a7c'}}>Reach out to Manvi or Diksha and we'll help you take the next step with warmth and care.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/book"><Button className="rounded-full px-8" data-testid={`vertical-cta-book-${vertical.slug}`}>Book a Session <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
+            <Link to="/contact"><Button variant="outline" className="rounded-full px-8 border-2" style={{borderColor: vertical.accent, color: vertical.accent}}>Get in Touch</Button></Link>
+          </div>
+          <p className="mt-10 text-lg md:text-xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>Let's Heal. Let's Grow. Together.</p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// Events Page
+function EventsPage() {
+  const events = [
+    { title: 'Sukoon Mountain Retreat', date: 'March 15–17, 2027', location: 'Shoghi, Himachal Pradesh', type: 'Retreat', spots: '12 seats', icon: <Leaf className="w-7 h-7" strokeWidth={1.5}/>, desc: 'Three days of sound healing, expressive art, mindful walks & community meals.' },
+    { title: 'Between Bells & Breaks', date: 'April 8, 2027', location: 'Delhi NCR schools', type: 'Teacher Training', spots: 'By invitation', icon: <BookOpen className="w-7 h-7" strokeWidth={1.5}/>, desc: 'Emotional reset workshop for educators returning after summer break.' },
+    { title: 'Expressive Art Therapy Circle', date: 'February 22, 2027', location: 'Online (Zoom)', type: 'Workshop', spots: '20 seats', icon: <Palette className="w-7 h-7" strokeWidth={1.5}/>, desc: 'A gentle 2-hour group session using art to process overwhelming feelings.' },
+    { title: 'Saksham Peer Supervision', date: 'Last Sunday every month', location: 'Online (Zoom)', type: 'For MHPs', spots: '15 seats', icon: <UserCheck className="w-7 h-7" strokeWidth={1.5}/>, desc: 'Case consultation & peer support circle for mental health professionals.' },
+    { title: 'Corporate Wellness Day', date: 'On request', location: 'At your workplace', type: 'Corporate', spots: 'Custom', icon: <Briefcase className="w-7 h-7" strokeWidth={1.5}/>, desc: 'A full day of workshops, 1:1 check-ins and leadership sessions for teams.' },
+    { title: 'Parenting with Awareness', date: 'May 11, 2027', location: 'Delhi NCR', type: 'Workshop', spots: '25 seats', icon: <Users className="w-7 h-7" strokeWidth={1.5}/>, desc: 'A conscious-parenting workshop for connected, calmer families.' }
+  ];
+  return (
+    <div className="pt-20">
+      <section className="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 50%, #fdf2d0 100%)'}}>
+        <div className="absolute top-10 left-0 w-40 h-40 opacity-20"><Leaf className="w-full h-full text-green-700" strokeWidth={1} /></div>
+        <div className="absolute bottom-10 right-0 w-40 h-40 opacity-20 rotate-180"><Leaf className="w-full h-full text-green-700" strokeWidth={1} /></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl">
+            <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.3em] font-semibold mb-4" style={{color: '#8b7355'}}>Join us</motion.p>
+            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-light mb-6" style={{color: '#1a3a5c'}}>Upcoming Events</motion.h1>
+            <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-6"><div className="h-px w-16" style={{background:'#c9a961'}} /><Sparkles className="h-5 w-5" style={{color:'#c9a961'}} /><div className="h-px w-16" style={{background:'#c9a961'}} /></motion.div>
+            <motion.p variants={fadeInUp} className="text-lg leading-relaxed" style={{color: '#3a5a7c'}}>Retreats, workshops, and professional circles curated by Manvi &amp; Diksha. Save a seat, bring a friend, or hold space for yourself — we'd love to have you.</motion.p>
+          </motion.div>
+        </div>
+      </section>
+      <section className="py-20 md:py-28 px-6 md:px-12" data-testid="events-list">
+        <div className="max-w-7xl mx-auto">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {events.map((ev, idx) => (
+              <motion.article key={idx} variants={fadeInUp} whileHover={{y:-8, transition:{duration:0.3}}} className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border-2" style={{borderColor:'rgba(201, 169, 97, 0.25)'}} data-testid={`event-card-${idx}`}>
+                <div className="relative h-32 flex items-center justify-center overflow-hidden" style={{background:'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 100%)'}}>
+                  <div className="absolute top-4 left-4"><span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md" style={{background:'rgba(201, 169, 97, 0.2)', color:'#8b7355'}}>{ev.type}</span></div>
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500" style={{background:'white', color:'#2d5016'}}>{ev.icon}</div>
+                </div>
+                <div className="p-7">
+                  <h3 className="text-xl font-serif mb-3 leading-snug" style={{color:'#1a3a5c'}}>{ev.title}</h3>
+                  <div className="space-y-2 mb-4 text-sm" style={{color:'#3a5a7c'}}>
+                    <div className="flex items-center gap-2"><CalendarIcon className="h-4 w-4 flex-shrink-0" style={{color:'#c9a961'}} /><span>{ev.date}</span></div>
+                    <div className="flex items-center gap-2"><MapPin className="h-4 w-4 flex-shrink-0" style={{color:'#c9a961'}} /><span>{ev.location}</span></div>
+                    <div className="flex items-center gap-2"><Users className="h-4 w-4 flex-shrink-0" style={{color:'#c9a961'}} /><span>{ev.spots}</span></div>
+                  </div>
+                  <p className="text-sm leading-relaxed mb-5" style={{color:'#3a5a7c'}}>{ev.desc}</p>
+                  <Link to="/contact"><Button variant="outline" className="w-full rounded-full border-2" style={{borderColor:'rgba(201, 169, 97, 0.4)', color:'#1a3a5c'}} data-testid={`event-register-${idx}`}>Register Interest <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      <section className="py-16 px-6 md:px-12" style={{background: 'linear-gradient(135deg, #fdf6e3 0%, #fef9e7 100%)'}}>
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-lg md:text-xl font-serif tracking-wide uppercase" style={{color: '#1a3a5c', letterSpacing: '0.15em'}}>Let's Heal. Let's Grow. Together.</p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 // Contact Page
 function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
@@ -1891,7 +2492,7 @@ function ContactPage() {
   );
 }
 
-// Gallery Page
+// Photos Page (Brand Launch)
 function PhotosPage() {
   const images = [
     { src: '/1.jpeg', caption: 'Emavaran Brand Launch' },
@@ -1954,6 +2555,8 @@ function PhotosPage() {
     </div>
   );
 }
+
+// Gallery Page
 function GalleryPage() {
   const images = [
     { src: BRAND_LOGO, alt: 'Emavaran Logo', caption: 'Our Brand' },
@@ -2051,9 +2654,12 @@ function PublicLayout() {
           <Route path="/book" element={<BookSessionPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
+          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/verticals/:slug" element={<VerticalDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
-<Route path="/photos" element={<PhotosPage />} />
+          <Route path="/photos" element={<PhotosPage />} />
         </Routes>
       </main>
       <Footer />
