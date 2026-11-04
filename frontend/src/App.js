@@ -18,6 +18,10 @@ import { AuthProvider, AdminLogin, AdminDashboard } from './components/Admin';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
+// Enrolment link for the Expressive Art Therapy course.
+// Paste your Google Form / payment / WhatsApp link between the quotes. Leave empty to send people to the Contact page.
+const ENROL_LINK = "";
+
 // Brand Assets
 const BRAND_LOGO = "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/5tpkky0k_WhatsApp%20Image%202026-04-10%20at%204.11.34%20PM.jpeg";
 const MANVI_PHOTO = "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg";
@@ -277,13 +281,13 @@ function Footer() {
               Healing begins with understanding. We provide compassionate counseling and mental wellness support to help you navigate life's challenges.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-brand-primary transition-colors" data-testid="social-facebook">
+              <a href="https://www.facebook.com/profile.php?id=61590963129327" target="_blank" rel="noopener noreferrer" aria-label="Emavaran on Facebook" className="p-2 bg-white/10 rounded-full hover:bg-brand-primary transition-colors" data-testid="social-facebook">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-brand-primary transition-colors" data-testid="social-instagram">
+              <a href="https://www.instagram.com/emavarantherapy" target="_blank" rel="noopener noreferrer" aria-label="Emavaran on Instagram" className="p-2 bg-white/10 rounded-full hover:bg-brand-primary transition-colors" data-testid="social-instagram">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-brand-primary transition-colors" data-testid="social-linkedin">
+              <a href="https://www.linkedin.com/company/emavarantherapy" target="_blank" rel="noopener noreferrer" aria-label="Emavaran on LinkedIn" className="p-2 bg-white/10 rounded-full hover:bg-brand-primary transition-colors" data-testid="social-linkedin">
                 <Linkedin className="h-5 w-5" />
               </a>
             </div>
@@ -1967,11 +1971,19 @@ function CoursesPage() {
           </div>
 
           <div className="mt-10 text-center">
-            <Link to="/contact">
-              <Button className="rounded-full px-10 py-6 text-base" data-testid="eat-enroll" style={{background: '#2d5016', color: 'white'}}>
-                Enrol Now <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+            {ENROL_LINK ? (
+              <a href={ENROL_LINK} target="_blank" rel="noopener noreferrer">
+                <Button className="rounded-full px-10 py-6 text-base" data-testid="eat-enroll" style={{background: '#2d5016', color: 'white'}}>
+                  Enrol Now <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </a>
+            ) : (
+              <Link to="/contact">
+                <Button className="rounded-full px-10 py-6 text-base" data-testid="eat-enroll" style={{background: '#2d5016', color: 'white'}}>
+                  Enrol Now <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </section>
