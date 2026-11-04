@@ -7,6 +7,7 @@ from datetime import datetime, timezone, timedelta
 from contextlib import asynccontextmanager
 from bson import ObjectId
 import os
+import asyncio
 import bcrypt
 import jwt
 
@@ -25,11 +26,17 @@ NOTIFICATION_EMAIL = "emavarantherapy@gmail.com"
 client: Optional[AsyncIOMotorClient] = None
 db = None
 
+_client_loop = None
+
 def get_db():
-    global client, db
-    if client is None:
-        client = AsyncIOMotorClient(MONGO_URL)
+    # Reuse one connection per running instance. If the event loop changes
+    # (can happen on serverless platforms), create a fresh client for the new loop.
+    global client, db, _client_loop
+    loop = asyncio.get_running_loop()
+    if client is None or _client_loop is not loop:
+        client = AsyncIOMotorClient(MONGO_URL, maxPoolSize=5, serverSelectionTimeoutMS=8000)
         db = client[DB_NAME]
+        _client_loop = loop
     return db
 
 # Pydantic Models - Define BEFORE lifespan
@@ -141,16 +148,22 @@ async def seed_admins(database):
     except Exception:
         pass
 
-# Lifespan
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    database = get_db()
-    await seed_admins(database)
-    yield
-    if client:
-        client.close()
+app = FastAPI(title="Emavaran API", version="1.0.0")
 
-app = FastAPI(title="Emavaran API", version="1.0.0", lifespan=lifespan)
+# Seed admin users once per running instance, on the first request
+# (replaces the old startup "lifespan" hook, which is not reliable on serverless hosting).
+_seeded = False
+
+@app.middleware("http")
+async def ensure_admins_seeded(request: Request, call_next):
+    global _seeded
+    if not _seeded and request.method != "OPTIONS":
+        try:
+            await seed_admins(get_db())
+            _seeded = True
+        except Exception as e:
+            print(f"Seed error: {e}")
+    return await call_next(request)
 
 app.add_middleware(
     CORSMiddleware,
