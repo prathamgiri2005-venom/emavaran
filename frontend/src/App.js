@@ -15,6 +15,7 @@ import { Calendar } from './components/ui/Calendar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/Select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './components/ui/Dialog';
 import { AuthProvider, AdminLogin, AdminDashboard } from './components/Admin';
+import TeamSection from "./components/TeamSection";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -2675,6 +2676,7 @@ function PublicLayout() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/photos" element={<PhotosPage />} />
+          <Route path="/team" element={<TeamSection />} />
         </Routes>
       </main>
       <Footer />
