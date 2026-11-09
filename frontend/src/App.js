@@ -191,6 +191,7 @@ function Navbar() {
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
+        { path: '/team', label: 'Team' },
     { path: '/services', label: 'Services' },
     { path: '/photos', label: 'Photos' },
     { path: '/blog', label: 'Blog' },
@@ -298,6 +299,7 @@ function Footer() {
             <h4 className="font-serif text-lg mb-4">Quick Links</h4>
             <ul className="space-y-3">
               <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
+                  <li><Link to="/team" className="text-gray-400 hover:text-white transition-colors">Team</Link></li>
               <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Services</Link></li>
               <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
               <li><Link to="/courses" className="text-gray-400 hover:text-white transition-colors">Courses</Link></li>
@@ -2666,6 +2668,7 @@ function PublicLayout() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
+            <Route path="/team" element={<div className="pt-20"><TeamSection /></div>} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/book" element={<BookSessionPage />} />
           <Route path="/blog" element={<BlogPage />} />
