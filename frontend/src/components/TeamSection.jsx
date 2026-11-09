@@ -73,9 +73,9 @@ const TEAM = [
     ],
   },
   {
-    name: "Pratham",
+    name: "Pratham Goswami",
     role: "Developer & Technical Partner",
-    photo: "/team/pratham.jpg",
+     photo: "/team/pratham-goswami.jpg",
     highlights: [
       "B.Tech in Computer Science and Engineering",
       "Freelance full-stack developer",
