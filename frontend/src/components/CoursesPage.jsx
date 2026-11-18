@@ -32,12 +32,11 @@ const CAREER_EMAIL = "mailto:emavarantherapy@gmail.com";
 
 // Poster images live in frontend/public/courses/
 const CAREER_POSTERS = [
-  "/courses/career-counseling-1.jpg",
-  "/courses/career-counseling-2.jpg",
-  "/courses/career-counseling-3.jpg",
-  "/courses/career-counseling-4.jpg",
+  "/career-counseling-1.jpg",
+  "/career-counseling-2.jpg",
+  "/career-counseling-3.jpg",
+  "/career-counseling-4.jpg",
 ];
-
 const DIKSHA_PHOTO =
   "https://i.ibb.co/6Q2cwn6/Chat-GPT-Image-Jun-1-2026-08-29-11-PM.png";
 const MANVI_PHOTO =
