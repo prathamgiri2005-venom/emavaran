@@ -308,8 +308,7 @@ function Footer() {
               <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
-
-              <div>
+          <div>
             <h4 className="font-serif text-lg mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3 text-gray-400">
@@ -333,6 +332,7 @@ function Footer() {
               </li>
             </ul>
           </div>
+        </div>
 
         <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400 text-sm">
           <p>&copy; {new Date().getFullYear()} Emavaran. All rights reserved.</p>
