@@ -308,7 +308,7 @@ function Footer() {
             </ul>
           </div>
 
-          <div>
+              <div>
             <h4 className="font-serif text-lg mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3 text-gray-400">
@@ -319,9 +319,19 @@ function Footer() {
                 <Phone className="h-4 w-4" />
                 <span>+91 7827453162</span>
               </li>
+              <li className="flex items-start space-x-3 text-gray-400">
+                <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=C-24+C+Block+Phase+2+Industrial+Area+Sector+62+Noida+Uttar+Pradesh+201309"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  C-24, C Block, Phase 2, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309
+                </a>
+              </li>
             </ul>
           </div>
-        </div>
 
         <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400 text-sm">
           <p>&copy; {new Date().getFullYear()} Emavaran. All rights reserved.</p>
