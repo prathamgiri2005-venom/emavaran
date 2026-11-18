@@ -16,6 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './components/ui/Dialog';
 import { AuthProvider, AdminLogin, AdminDashboard } from './components/Admin';
 import TeamSection from "./components/TeamSection";
+import CoursesPage from "./components/CoursesPage";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -1847,7 +1848,7 @@ function BlogDetailPage() {
 }
 
 // Courses Page
-function CoursesPage() {
+function OldCoursesPage() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
