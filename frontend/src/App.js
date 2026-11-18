@@ -2657,26 +2657,32 @@ function GalleryPage() {
 function App() {
   // Scrolls to the top of the page every time you open a new page
 function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
+
+const { pathname } = useLocation();
+
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, [pathname]);
+
+return null;
 }
-  return (
-      <Router>
+
+return (
+  <Router>
+    <AuthProvider>
       <ScrollToTop />
-      <AuthProvider>
-          {/* Admin Routes - No Navbar/Footer */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          
-          {/* Public Routes - With Navbar/Footer */}
-          <Route path="/*" element={<PublicLayout />} />
-        </Routes>
-      </AuthProvider>
-    </Router>
-  );
+
+      <Routes>
+        {/* Admin Routes - No Navbar/Footer */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+
+        {/* Public Routes - With Navbar/Footer */}
+        <Route path="/*" element={<PublicLayout />} />
+      </Routes>
+    </AuthProvider>
+  </Router>
+);
 }
 
 function PublicLayout() {
