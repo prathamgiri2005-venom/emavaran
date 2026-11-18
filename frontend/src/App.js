@@ -2655,10 +2655,18 @@ function GalleryPage() {
 
 // Main App
 function App() {
+  // Scrolls to the top of the page every time you open a new page
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
   return (
-    <Router>
+      <Router>
+      <ScrollToTop />
       <AuthProvider>
-        <Routes>
           {/* Admin Routes - No Navbar/Footer */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />
