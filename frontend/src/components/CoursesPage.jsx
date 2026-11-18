@@ -30,17 +30,16 @@ const CAREER_WHATSAPP = "https://wa.me/917827453162";
 const CAREER_INSTAGRAM = "https://www.instagram.com/emavarantherapy";
 const CAREER_EMAIL = "mailto:emavarantherapy@gmail.com";
 
-// Poster images live in frontend/public/courses/
+// Poster images live in frontend/public/
 const CAREER_POSTERS = [
   "/career-counseling-1.jpg",
   "/career-counseling-2.jpg",
   "/career-counseling-3.jpg",
   "/career-counseling-4.jpg",
 ];
+
 const DIKSHA_PHOTO =
   "https://i.ibb.co/6Q2cwn6/Chat-GPT-Image-Jun-1-2026-08-29-11-PM.png";
-const MANVI_PHOTO =
-  "https://customer-assets.emergentagent.com/job_0ddf470c-530c-4b73-b546-d7dd762933cd/artifacts/9ciapjg1_WhatsApp%20Image%202026-04-10%20at%204.06.18%20PM.jpeg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -357,58 +356,26 @@ export default function CoursesPage() {
             </div>
           </div>
 
-          {/* Facilitator: Manvi Giri */}
-          <div
-            className="mt-16 rounded-3xl bg-white p-6 md:p-10 border-2 shadow-sm"
-            style={{ borderColor: "rgba(45, 92, 84, 0.15)" }}
-            data-testid="career-facilitator"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 md:gap-12 items-center">
-              <div className="mx-auto md:mx-0 w-56 h-72 rounded-[2rem] overflow-hidden shadow-xl border-4 border-white">
-                <img src={MANVI_PHOTO} alt="Manvi Giri" className="w-full h-full object-cover object-top" />
-              </div>
-              <div>
-                <p className="text-sm uppercase tracking-[0.25em] font-semibold mb-2" style={{ color: "#8b7355" }}>
-                  Meet the Facilitator
-                </p>
-                <h3 className="text-4xl md:text-5xl font-serif font-bold mb-2" style={{ color: "#124a3f" }}>
-                  Manvi Giri
-                </h3>
-                <p className="font-medium mb-5" style={{ color: "#2d5c54" }}>
-                  Co-Founder, Emavaran · Certified Career Counsellor · Counselling Psychologist
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
-                  {[
-                    { big: "MSc", small: "Counselling Psychology, CHRIST University" },
-                    { big: "500+", small: "individual counselling sessions" },
-                    { big: "1,000+", small: "workshops facilitated" },
-                  ].map((s) => (
-                    <div
-                      key={s.big}
-                      className="rounded-xl p-3 text-center border-t-4"
-                      style={{ background: "#f6f4ea", borderColor: "#c9a961" }}
-                    >
-                      <p className="text-2xl font-serif font-bold" style={{ color: "#124a3f" }}>
-                        {s.big}
-                      </p>
-                      <p className="text-xs leading-snug" style={{ color: "#3a5a7c" }}>
-                        {s.small}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <p className="leading-relaxed" style={{ color: "#3a5a7c" }}>
-                  Manvi holds an MSc in Counselling Psychology and has conducted 500+ individual counselling
-                  sessions, 60+ group sessions, and 1,000+ workshops. Her experience includes working with the
-                  National Commission for Protection of Child Rights (NCPCR), various schools and rehabilitation
-                  settings. As co-founder of Emavaran, she specialises in career guidance, strengths-based
-                  counselling, and experiential learning, empowering individuals through evidence-based,
-                  person-centred interventions.
-                </p>
-              </div>
-            </div>
-          </div>
+        </div>
+      </section>
 
+      {/* Facilitator: Manvi Giri (poster) */}
+      <section className="py-16 md:py-24 px-6 md:px-12" style={{ background: "#fef9d7" }} data-testid="career-facilitator">
+        <div className="max-w-5xl mx-auto">
+          <div className="max-w-md mx-auto">
+            <img
+              src={CAREER_POSTERS[2]}
+              alt="Meet the facilitator: Manvi Giri, Co-Founder of Emavaran, Certified Career Counsellor and Counselling Psychologist"
+              className="w-full h-auto rounded-3xl shadow-2xl border-4 border-white"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Career Counseling: join + brochure */}
+      <section className="py-16 md:py-24 px-6 md:px-12" style={{ background: "#eef5f0" }}>
+        <div className="max-w-6xl mx-auto">
           {/* Join the course */}
           <div className="mt-12 text-center" data-testid="career-join">
             <h3 className="text-3xl md:text-4xl font-serif mb-3" style={{ color: "#124a3f" }}>
@@ -492,4 +459,3 @@ export default function CoursesPage() {
     </div>
   );
 }
-
