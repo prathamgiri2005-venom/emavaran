@@ -359,16 +359,85 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* Facilitator: Manvi Giri (poster) */}
+      {/* Facilitator: Manvi Giri */}
       <section className="py-16 md:py-24 px-6 md:px-12" style={{ background: "#fef9d7" }} data-testid="career-facilitator">
-        <div className="max-w-5xl mx-auto">
-          <div className="max-w-md mx-auto">
+        <div
+          className="max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white"
+          style={{ background: "#f6f1e4" }}
+        >
+          {/* Green header */}
+          <div
+            className="grid grid-cols-1 md:grid-cols-[minmax(0,300px),1fr] items-end"
+            style={{ background: "#0f5d4f", borderBottom: "4px solid #c9a961" }}
+          >
             <img
-              src={CAREER_POSTERS[2]}
-              alt="Meet the facilitator: Manvi Giri, Co-Founder of Emavaran, Certified Career Counsellor and Counselling Psychologist"
-              className="w-full h-auto rounded-3xl shadow-2xl border-4 border-white"
-              loading="lazy"
+              src="/manvi-career.jpg"
+              alt="Manvi Giri"
+              className="w-full h-72 md:h-full object-cover object-top"
             />
+            <div className="p-8 md:p-10 text-center md:text-left self-center">
+              <p className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] mb-3" style={{ color: "#d9a441" }}>
+                Meet the Facilitator
+              </p>
+              <h2 className="text-5xl md:text-6xl font-serif font-bold mb-4" style={{ color: "#fff7dc" }}>
+                Manvi Giri
+              </h2>
+              <p className="italic leading-relaxed" style={{ color: "#e9efe9" }}>
+                Co-Founder, Emavaran
+                <br />
+                Certified Career Counsellor
+                <br />
+                Counselling Psychologist
+              </p>
+            </div>
+          </div>
+
+          {/* Key numbers */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 md:p-8">
+            {[
+              { big: "MSc", small: "Counselling Psychology", extra: "CHRIST University" },
+              { big: "3+ years", small: "Career counselling, rehabilitation & guidance" },
+              { big: "1,000+", small: "Workshops facilitated", extra: "500+ counselling sessions" },
+            ].map((st) => (
+              <div
+                key={st.big}
+                className="bg-white rounded-lg p-4 text-center"
+                style={{ borderTop: "4px solid #c9a961" }}
+              >
+                <p className="text-2xl md:text-3xl font-serif font-bold mb-1" style={{ color: "#124a3f" }}>
+                  {st.big}
+                </p>
+                <p className="text-sm leading-snug" style={{ color: "#4b5d63" }}>
+                  {st.small}
+                </p>
+                {st.extra && (
+                  <p className="text-sm font-semibold leading-snug" style={{ color: "#124a3f" }}>
+                    {st.extra}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Bio */}
+          <div className="px-6 md:px-8 pb-8">
+            <div
+              className="bg-white rounded-lg p-6 md:p-8 space-y-4 leading-relaxed"
+              style={{ borderLeft: "4px solid #c9a961", color: "#2f4a4f" }}
+            >
+              <p>
+                Manvi holds an MSc in Counselling Psychology and brings <strong>3+ years</strong> of professional
+                experience across diverse settings. She has conducted <strong>500+ individual counselling</strong>{" "}
+                sessions, <strong>60+ group sessions</strong>, and <strong>1,000+ workshops</strong>. Her experience
+                includes working with the National Commission for Protection of Child Rights (NCPCR), various schools
+                and rehabilitation settings.
+              </p>
+              <p>
+                As <strong>co-founder of Emavaran</strong>, she specialises in career guidance, strengths-based
+                counselling, and experiential learning, empowering individuals through evidence-based, person-centred
+                interventions.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -412,31 +481,6 @@ export default function CoursesPage() {
                   <Mail className="mr-2 h-4 w-4" /> Email us
                 </Button>
               </a>
-            </div>
-          </div>
-
-          {/* Brochure */}
-          <div className="mt-14">
-            <p className="text-center text-xs uppercase tracking-[0.3em] font-semibold mb-5" style={{ color: "#8b7355" }}>
-              Course brochure
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {CAREER_POSTERS.map((src, i) => (
-                <a
-                  key={src}
-                  href={src}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
-                >
-                  <img
-                    src={src}
-                    alt={`Career Counseling course brochure, page ${i + 1}`}
-                    className="w-full h-auto"
-                    loading="lazy"
-                  />
-                </a>
-              ))}
             </div>
           </div>
         </div>
